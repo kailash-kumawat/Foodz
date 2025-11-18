@@ -1,0 +1,19 @@
+{
+  "name": "foodz",
+  "version": "1.0.0",
+  "description": "Foodz is a online food delivery platform, In which customer can order their favourite dishes and choose their chef by own and many more...",
+  "license": "ISC",
+  "author": "kailash kumawat",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "prettier": "^3.6.2"
+  }
+}
