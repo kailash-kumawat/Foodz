@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =========================
+// User & Profile Model
+// =========================
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String    @unique
+  contact    Int       @unique
+  password   String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  addresses  Address[]
+  orders     Order[]
+  cart       Cart?
+  payments   Payment[]
+}
+
+// =========================
+// Address Model
+// =========================
+model Address {
+  id           Int      @id @default(autoincrement())
+  user_id      Int
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  state        String
+  city         String
+  address_line String
+  pincode      String
+  latitude     Decimal  @db.Decimal(9, 6)
+  longitude    Decimal  @db.Decimal(9, 6)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  orders       Order[]
+}
+
+// =========================
+// Restaurant Model
+// =========================
+model Restaurant {
+  id           Int      @id @default(autoincrement())
+  name         String
+  city         String
+  address_line String
+  pincode      String
+  contact      String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  orders       Order[]
+  dishes       Dish[]
+}
+
+// =========================
+// Order Model
+// =========================
+enum OrderStatus {
+  accepted
+  preparing
+  ready
+  pending
+  picked_up
+  on_the_way
+  delivered
+  cancelled
+}
+
+model Order {
+  id               Int                @id @default(autoincrement())
+  user_id          Int
+  user             User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  restaurant_id    Int
+  restaurant       Restaurant         @relation(fields: [restaurant_id], references: [id])
+  address_id       Int
+  address          Address            @relation(fields: [address_id], references: [id], onUpdate: Cascade)
+  total_amount     Decimal            @db.Decimal(10, 2)
+  status           OrderStatus        @default(pending)
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  deliveryTracking DeliveryTracking[]
+  payments         Payment[]
+  dishes           Dish[]
+}
+
+// =========================
+// Dish Model
+// =========================
+model Dish {
+  id            Int        @id @default(autoincrement())
+  restaurant_id Int
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  order_id      Int
+  order         Order      @relation(fields: [order_id], references: [id])
+  name          String
+  description   String?
+  price         Decimal    @db.Decimal(10, 2)
+  img           String?
+  isAvailable   Boolean    @default(true)
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  cartItems     CartItem[]
+}
+
+// =========================
+// Cart & CartItem Models
+// =========================
+model Cart {
+  id         Int        @id @default(autoincrement())
+  user_id    Int        @unique
+  user       User       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  cartItems  CartItem[]
+}
+
+model CartItem {
+  id         Int      @id @default(autoincrement())
+  cart_id    Int
+  cart       Cart     @relation(fields: [cart_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  dish_id    Int
+  dish       Dish     @relation(fields: [dish_id], references: [id])
+  quantity   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+// =========================
+// DeliveryTracking Model
+// =========================
+enum DeliveryStatus {
+  pending
+  on_the_way
+  delivered
+  failed
+  cancelled
+}
+
+model DeliveryTracking {
+  id                Int            @id @default(autoincrement())
+  order_id          Int
+  order             Order          @relation(fields: [order_id], references: [id])
+  current_latitude  Decimal        @db.Decimal(9, 6)
+  current_longitude Decimal        @db.Decimal(9, 6)
+  status            DeliveryStatus @default(on_the_way)
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+}
+
+// =========================
+// Payment Model
+// =========================
+enum PaymentType {
+  card
+  cash_on_delivery
+  upi
+  net_banking
+  wallet
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+  refunded
+}
+
+model Payment {
+  id             Int           @id @default(autoincrement())
+  user_id        Int
+  user           User          @relation(fields: [user_id], references: [id])
+  order_id       Int
+  order          Order         @relation(fields: [order_id], references: [id])
+  amount         Decimal       @db.Decimal(10, 2)
+  payment_method PaymentType   @default(card)
+  payment_status PaymentStatus @default(pending)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+}
