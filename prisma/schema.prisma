@@ -18,17 +18,18 @@ datasource db {
 // User & Profile Model
 // =========================
 model User {
-  id         Int       @id @default(autoincrement())
-  name       String
-  email      String    @unique
-  contact    Int       @unique
-  password   String
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  addresses  Address[]
-  orders     Order[]
-  cart       Cart?
-  payments   Payment[]
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  contact      Int       @unique
+  password     String
+  refreshToken String?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  addresses    Address[]
+  orders       Order[]
+  cart         Cart?
+  payments     Payment[]
 }
 
 // =========================

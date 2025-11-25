@@ -14,7 +14,7 @@ export const createUser = asyncHandler(async (req, res) => {
   // check info validity
   if (
     [name, email, contact, password].some(
-      (field) => field?.trim() === "" || !field,
+      (field) => field?.trim === "" || !field,
     )
   ) {
     throw new ApiError(400, "All fields are required");
@@ -45,7 +45,7 @@ export const logInUser = asyncHandler(async (req, res) => {
     tokenService.generateAccessTokenAndRefreshToken(loggedInUser);
 
   await prisma.user.update({
-    where: { id: user.id },
+    where: { id: loggedInUser.id },
     data: { refreshToken },
   });
 
