@@ -7,6 +7,7 @@ import * as userService from "../services/user.service.js";
 import * as tokenService from "../services/token.service.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
 import prisma from "../db/index.js";
 
 export const createUser = asyncHandler(async (req, res) => {
@@ -72,8 +73,8 @@ export const logInUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, loggedInUser, "User logged in successfully"));
 });
 
-export const logOutUser = asyncHandler(async (_, res) => {
-  const userId = prisma.user.id;
+export const logOutUser = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
 
   await userService.logOutUser(userId);
 
@@ -92,15 +93,15 @@ export const logOutUser = asyncHandler(async (_, res) => {
 });
 
 export const updateUser = asyncHandler(async (req, res) => {
-  const userId = prisma.user.id;
-  const { name, email, contact, address } = req.body;
+  const userId = req.user.id;
+  const { name, email, contact } = req.body;
   // check fields are provided
-  if (!name && !email && !contact && !address) {
+  if (!name && !email && !contact) {
     throw new ApiError(400, "At least one field is required to update");
   }
 
   const updatedUser = await userService.updateUser(
-    { name, email, contact, address },
+    { name, email, contact },
     userId,
   );
 
@@ -124,8 +125,8 @@ export const updateUserPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "password updated successfully"));
 });
 
-export const getUserProfile = asyncHandler(async (_, res) => {
-  const userId = prisma.user.id;
+export const getUserProfile = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
 
   const userDetails = await userService.getUserProfile(userId);
 

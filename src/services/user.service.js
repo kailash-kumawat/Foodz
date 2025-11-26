@@ -77,28 +77,12 @@ export const logInUser = async ({ contact, password }) => {
 export const logOutUser = async (userId) => {
   return await prisma.user.update({
     where: { id: userId },
-    data: {
-      refreshToken: null,
-    },
+    data: { refreshToken: null },
     select: { id: true },
   });
-
-  // In controller clear cookies
-  // const options = {
-  //   httpOnly: true,
-  //   secure: process.env.NODE_ENV === "production",
-  //   sameSite: "strict",
-  //   path: "/",
-  // };
-
-  // return res
-  //   .status(200)
-  //   .clearCookie("refreshToken", options)
-  //   .clearCookie("accessToken", options)
-  //   .json(new ApiResponse(200, {}, "User logged out successfully"));
 };
 
-export const updateUser = async ({ name, email, contact, address }, userId) => {
+export const updateUser = async ({ name, email, contact }, userId) => {
   // find user by id and update
   return await prisma.user.update({
     where: { id: userId },
@@ -106,14 +90,12 @@ export const updateUser = async ({ name, email, contact, address }, userId) => {
       name,
       email,
       contact,
-      address,
     },
     select: {
       id: true,
       name: true,
       email: true,
       contact: true,
-      address: true,
       updated_at: true,
     },
   });
