@@ -153,7 +153,7 @@ export const getUserProfile = async (userId) => {
       orders: {
         select: {
           address: true,
-          totalAmount: true,
+          total_amount: true,
           status: true,
           created_at: true,
           dishes: {
@@ -173,11 +173,4 @@ export const getUserProfile = async (userId) => {
       },
     },
   });
-
-  // controller part
-  // return res
-  //   .status(200)
-  //   .json(
-  //     new ApiResponse(200, userDetails, "User profile fetched successfully"),
-  //   );
 };

@@ -111,7 +111,7 @@ export const updateUser = asyncHandler(async (req, res) => {
 });
 
 export const updateUserPassword = asyncHandler(async (req, res) => {
-  const userId = prisma.user.id;
+  const userId = req.user.id;
   const { oldPassword, newPassword } = req.body;
 
   if (!oldPassword || !newPassword) {
