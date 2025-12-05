@@ -1,21 +1,40 @@
 import app from "./app.js";
 import dotenv from "dotenv";
 import prisma from "./db/index.js";
+// change to import
+const http = require("http");
+const { Server } = require("socket.io");
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 dotenv.config({
   path: "./.env",
 });
 
+// 🟦 SOCKET.IO LIVE TRACKING
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+
+  socket.on("send-location", (data) => {
+    io.emit("receive-location", { id: socket.id, ...data });
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("user-disconnected", { id: socket.id });
+  });
+});
+
 prisma
   .$connect()
   .then(() => {
-    app.on("error", (error) => {
+    server.on("error", (error) => {
       console.log("Express app connection failed: ", error);
     });
 
     console.log("Database connected successfully!!");
 
-    app.listen(process.env.PORT || 8000, () => {
+    server.listen(process.env.PORT || 8000, () => {
       console.log(`Server is running at port ${process.env.PORT || 8000}`);
     });
   })

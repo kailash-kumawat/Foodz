@@ -30,3 +30,8 @@ export const verifyJwt = asyncHandler(async (req, res, next) => {
     throw new ApiError(401, "Invalid access token");
   }
 });
+
+// CRUD opt. of address
+// for restaurant
+// for orders
+// for  dishes
