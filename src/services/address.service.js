@@ -1,49 +1,35 @@
-// create/get address detail from the user
-// update
-// delete
-// get from server
-
-// state        String
-//   city         String
-//   address_line String
-//   pincode      String
-
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
 export const addAddress = async (
   // get info from user
-  { state, city, address_line, pincode },
-  { latitude, longitude },
+  data,
   userId,
 ) => {
-  // check address exist
+  //check existing address for user
   const existingAddress = await prisma.address.findFirst({
-    where: { id: prisma.address.id },
-    select: {
-      id: true,
-      user_id: true,
-    },
+    where: { user_id: userId },
   });
 
   if (existingAddress) {
-    throw new ApiError(401, "Address already exist!!");
+    throw new ApiError(409, "Address already exists for this user");
   }
 
   // create address
   return await prisma.address.create({
-    where: { id: userId },
     data: {
-      state,
-      city,
-      address_line,
-      pincode,
-      latitude,
-      longitude,
+      ...data,
+      user_id: userId,
     },
     select: {
       id: true,
       user_id: true,
+      state: true,
+      city: true,
+      address_line: true,
+      pincode: true,
     },
   });
 };
+
+// create update, delete, get functions for address management.

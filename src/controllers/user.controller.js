@@ -15,7 +15,7 @@ export const createUser = asyncHandler(async (req, res) => {
   // check info validity
   if (
     [name, email, contact, password].some(
-      (field) => field?.trim === "" || !field,
+      (field) => !field || field.trim() === "",
     )
   ) {
     throw new ApiError(400, "All fields are required");
