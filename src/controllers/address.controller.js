@@ -80,3 +80,14 @@ export const getAddress = asyncHandler(async (req, res) => {
       ),
     );
 });
+
+export const deleteAddress = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const addressId = req.params;
+
+  await addressServices.deleteAddress(userId, addressId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Address deleted successfully"));
+});

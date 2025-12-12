@@ -1,6 +1,7 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
+//create address
 export const addAddress = async (
   // get info from user
   data,
@@ -74,4 +75,25 @@ export const getAddress = async (userId) => {
   });
 };
 
-// create update, delete, get functions for address management.
+//delete address
+export const deleteAddress = async (userId, addressId) => {
+  const address = await prisma.address.findFirst({
+    where: {
+      id: addressId,
+      user_id: userId,
+    },
+  });
+
+  if (!address) {
+    throw new ApiError(400, "User don't have this address");
+  }
+
+  await prisma.address.delete({
+    where: {
+      id: addressId,
+    },
+  });
+};
+// create, update, delete, get functions for address management.
+
+
