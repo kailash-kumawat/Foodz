@@ -32,4 +32,31 @@ export const addAddress = async (
   });
 };
 
+// update address
+// only when login use middleware
+export const updateAddress = async (data, userId) => {
+  // get info from user
+  const { state, city, address_line, pincode, latitude, longitude } = data;
+  // update address
+  return await prisma.address.update({
+    where: {
+      user_id: userId,
+    },
+    data: {
+      state,
+      city,
+      address_line,
+      pincode,
+      latitude,
+      longitude,
+    },
+    select: {
+      state: true,
+      city: true,
+      address_line: true,
+      pincode: true,
+    },
+  });
+};
+
 // create update, delete, get functions for address management.
