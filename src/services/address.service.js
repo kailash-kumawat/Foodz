@@ -59,4 +59,19 @@ export const updateAddress = async (data, userId) => {
   });
 };
 
+// get address
+export const getAddress = async (userId) => {
+  return await prisma.address.findFirst({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      state: true,
+      city: true,
+      address_line: true,
+      pincode: true,
+    },
+  });
+};
+
 // create update, delete, get functions for address management.

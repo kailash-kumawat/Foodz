@@ -64,3 +64,19 @@ export const updateAddress = asyncHandler(async (req, res) => {
       new ApiResponse(200, updatedAddress, "User address updated successfully"),
     );
 });
+
+export const getAddress = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+
+  const userAddressDetails = await addressServices.getAddress(userId);
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        userAddressDetails,
+        "User address fetched successfully",
+      ),
+    );
+});
