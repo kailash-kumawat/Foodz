@@ -64,6 +64,8 @@ model Restaurant {
   updated_at   DateTime @updatedAt
   orders       Order[]
   dishes       Dish[]
+
+  @@unique([name, city, address_line, pincode, contact])
 }
 
 // =========================
