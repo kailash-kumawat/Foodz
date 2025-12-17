@@ -35,6 +35,23 @@ export const createRestaurant = asyncHandler(async (req, res) => {
     );
 });
 
+export const getRestaurant = asyncHandler(async (req, res) => {
+  const restaurantId = req.restaurant.id;
+
+  const restaurantDetails =
+    await restaurantServices.getRestaurant(restaurantId);
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        restaurantDetails,
+        "Restaurant detail fetched successfully",
+      ),
+    );
+});
+
 export const updateRestaurant = asyncHandler(async (req, res) => {
   // get info from user to update
   const { name, city, address_line, pincode, contact } = req.body;
@@ -68,4 +85,14 @@ export const updateRestaurant = asyncHandler(async (req, res) => {
         "Restaurant updated successfully",
       ),
     );
+});
+
+export const deleteRestaurant = asyncHandler(async (req, res) => {
+  const restaurantId = req.restaurant.id;
+
+  await restaurantServices.deleteRestaurant(restaurantId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Restaurant deleted successfully"));
 });

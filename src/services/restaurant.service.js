@@ -53,6 +53,21 @@ export const createRestaurant = async ({
   }
 };
 
+// get
+export const getRestaurant = async (restaurantId) => {
+  const restaurantDetails = await prisma.restaurant.findUnique({
+    where: {
+      id: restaurantId,
+    },
+  });
+
+  if (!restaurantDetails) {
+    throw new ApiError(404, "Restaurant not found or Invalid restaurant id");
+  }
+
+  return restaurantDetails;
+};
+
 // update
 export const updateRestaurant = async (
   { name, city, address_line, pincode, contact },
@@ -91,5 +106,22 @@ export const updateRestaurant = async (
     },
   });
 };
+
 // delete
-// get
+export const deleteRestaurant = async (restaurantId) => {
+  const isRestaurantExist = await prisma.restaurant.findUnique({
+    where: {
+      id: restaurantId,
+    },
+  });
+
+  if (!isRestaurantExist) {
+    throw new ApiError(404, "Restaurant not found");
+  }
+
+  return await prisma.restaurant.delete({
+    where: {
+      id: restaurantId,
+    },
+  });
+};
