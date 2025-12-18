@@ -10,7 +10,9 @@ import {
 
 const router = Router();
 
-router.route("/address").post(verifyJwt, addAddress);
-router.route("/updateAddress").patch(verifyJwt, updateAddress);
-router.route("/getAddress").get(verifyJwt, getAddress);
-router.route("/deleteAddress").post(verifyJwt, deleteAddress);
+router
+  .route("/addAddress")
+  .post(verifyJwt, addAddress)
+  .patch(verifyJwt, updateAddress)
+  .get(verifyJwt, getAddress)
+  .delete(verifyJwt, deleteAddress);

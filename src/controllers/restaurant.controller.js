@@ -36,7 +36,7 @@ export const createRestaurant = asyncHandler(async (req, res) => {
 });
 
 export const getRestaurant = asyncHandler(async (req, res) => {
-  const restaurantId = req.restaurant.id;
+  const restaurantId = Number(req.params.id);
 
   const restaurantDetails =
     await restaurantServices.getRestaurant(restaurantId);
@@ -55,7 +55,7 @@ export const getRestaurant = asyncHandler(async (req, res) => {
 export const updateRestaurant = asyncHandler(async (req, res) => {
   // get info from user to update
   const { name, city, address_line, pincode, contact } = req.body;
-  const restaurantId = req.restaurant.id;
+  const restaurantId = Number(req.params.id);
   // check atleast have one field
   if (
     [name, city, address_line, pincode, contact].every(
@@ -88,7 +88,7 @@ export const updateRestaurant = asyncHandler(async (req, res) => {
 });
 
 export const deleteRestaurant = asyncHandler(async (req, res) => {
-  const restaurantId = req.restaurant.id;
+  const restaurantId = Number(req.params.id);
 
   await restaurantServices.deleteRestaurant(restaurantId);
 
