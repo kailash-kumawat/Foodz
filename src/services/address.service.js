@@ -52,10 +52,13 @@ export const updateAddress = async (data, userId) => {
       longitude,
     },
     select: {
+      id: true,
       state: true,
       city: true,
       address_line: true,
       pincode: true,
+      latitude: true,
+      longitude: true,
     },
   });
 };
@@ -67,10 +70,14 @@ export const getAddress = async (userId) => {
       user_id: userId,
     },
     select: {
+      id: true,
+      user_id: true,
       state: true,
       city: true,
       address_line: true,
       pincode: true,
+      latitude: true,
+      longitude: true,
     },
   });
 };
@@ -95,5 +102,3 @@ export const deleteAddress = async (userId, addressId) => {
   });
 };
 // create, update, delete, get functions for address management.
-
-

@@ -1,9 +1,6 @@
 import { ApiError, asyncHandler, ApiResponse } from "../utils/ApiError.js";
 import * as restaurantServices from "../services/restaurant.service.js";
 
-// i'll available the option to user register your restra, team contacted ui,
-// give restra info form and call this controller.
-
 export const createRestaurant = asyncHandler(async (req, res) => {
   //get restra info from owner
   const { name, city, address_line, pincode, contact } = req.body;
@@ -96,3 +93,7 @@ export const deleteRestaurant = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, {}, "Restaurant deleted successfully"));
 });
+
+// next
+// testing restra and address
+// create order or dish controller - any one

@@ -33,17 +33,27 @@ export const updateAddress = asyncHandler(async (req, res) => {
   // get info from user
   const userId = req.user.id;
   const { state, city, address_line, pincode, latitude, longitude } = req.body;
-  // check fields are missing or not, have atleast one field to update.
-  if (!state && !city && !address_line && !pincode) {
-    throw new ApiError(400, "At least one field is required to update");
-  }
-
   // If user sends coordinates, both must be present
+  // check fields are missing or not, have atleast one field to update.
+  // if (
+  //   (latitude !== undefined && longitude === undefined) ||
+  //   (longitude !== undefined && latitude === undefined)
+  // ) {
+  //   throw new ApiError(400, "Both latitude and longitude are required");
+  // }
   if (
-    (latitude !== undefined && longitude === undefined) ||
+    (!state &&
+      !city &&
+      !address_line &&
+      !pincode &&
+      latitude !== undefined &&
+      longitude === undefined) ||
     (longitude !== undefined && latitude === undefined)
   ) {
-    throw new ApiError(400, "Both latitude and longitude are required");
+    throw new ApiError(
+      400,
+      "At least one field is required to update or Both latitude and longitude are required",
+    );
   }
   // pass info to service
   const updatedAddress = await addressServices.updateAddress(
@@ -83,7 +93,7 @@ export const getAddress = asyncHandler(async (req, res) => {
 
 export const deleteAddress = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const addressId = req.params;
+  const addressId = Number(req.params.id);
 
   await addressServices.deleteAddress(userId, addressId);
 
