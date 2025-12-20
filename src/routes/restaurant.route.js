@@ -9,9 +9,11 @@ import {
 
 const router = Router();
 
-router.route("/restaurants").post(authUser, createRestaurant);
+router.route("/").post(authUser, createRestaurant);
 router
-  .route("/restaurants/:id")
+  .route("/:id")
   .get(authUser, getRestaurant)
   .patch(authUser, updateRestaurant)
   .delete(authUser, deleteRestaurant);
+
+export default router;

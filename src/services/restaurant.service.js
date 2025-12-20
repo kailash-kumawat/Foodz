@@ -38,6 +38,7 @@ export const createRestaurant = async ({
         contact,
       },
       select: {
+        id: true,
         name: true,
         city: true,
         address_line: true,
@@ -79,7 +80,7 @@ export const updateRestaurant = async (
     },
   });
 
-  if (isRestaurantExist) {
+  if (!isRestaurantExist) {
     throw new ApiError(400, "Restaurant not found");
   }
 

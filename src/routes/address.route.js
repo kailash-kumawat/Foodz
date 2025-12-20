@@ -11,10 +11,10 @@ import {
 const router = Router();
 
 router
-  .route("/address")
+  .route("/")
   .post(verifyJwt, addAddress)
   .patch(verifyJwt, updateAddress)
   .get(verifyJwt, getAddress);
-router.route("/address/:id").delete(verifyJwt, deleteAddress);
+router.route("/:id").delete(verifyJwt, deleteAddress);
 
 export default router;

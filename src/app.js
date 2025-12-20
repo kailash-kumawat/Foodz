@@ -29,8 +29,10 @@ app.use(express.static("public"));
 
 import userRoutes from "./routes/user.route.js";
 import addressRoutes from "./routes/address.route.js";
+import restaurantRoutes from "./routes/restaurant.route.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/address", addressRoutes);
+app.use("/api/v1/restaurant", restaurantRoutes);
 
 export default app;
