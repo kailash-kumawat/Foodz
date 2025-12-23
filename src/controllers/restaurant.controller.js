@@ -95,7 +95,3 @@ export const deleteRestaurant = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, {}, "Restaurant deleted successfully"));
 });
-
-// next
-// testing restra and address
-// create order or dish controller - any one

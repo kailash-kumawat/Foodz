@@ -1,5 +1,5 @@
-import { ApiError } from "../utils/ApiError.js";
 import prisma from "../db/index.js";
+import { ApiError } from "../utils/ApiError.js";
 
 // create restaurant
 export const createRestaurant = async ({
