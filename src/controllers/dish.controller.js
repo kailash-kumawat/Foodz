@@ -113,4 +113,38 @@ export const updateDish = asyncHandler(async (req, res) => {
 });
 
 //UPDATE DISH AVAILABLITY
+export const updateAvailablity = asyncHandler(async (req, res) => {
+  const { isAvailable } = req.body;
+  const dishId = Number(req.params.dishId);
+  const restaurantId = Number(req.params.restaurantId);
+
+  if (
+    !Number.isInteger(restaurantId) ||
+    restaurantId <= 0 ||
+    !Number.isInteger(dishId) ||
+    dishId <= 0
+  ) {
+    throw new ApiError(400, "Invalid dish or restaurant id");
+  }
+
+  if (isAvailable === undefined || typeof isAvailable !== "boolean") {
+    throw new ApiError(400, "isAvailable must be boolean");
+  }
+
+  const updatedAvailable = await dishServices.updateAvailablity({
+    isAvailable,
+    dishId,
+    restaurantId,
+  });
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        updatedAvailable,
+        "Dish Availablity updated successfully",
+      ),
+    );
+});
 //DELETE DISH

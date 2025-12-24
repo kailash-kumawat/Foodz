@@ -93,6 +93,32 @@ export const updateDish = async (
   }
 };
 
-export const updateAvailablity = async () => {};
+export const updateAvailablity = async ({
+  isAvailable,
+  dishId,
+  restaurantId,
+}) => {
+  const dish = await prisma.dish.findFirst({
+    where: {
+      id: dishId,
+      restaurant_id: restaurantId,
+    },
+  });
+
+  if (!dish) {
+    throw new ApiError(404, "Dish not found or not authorized");
+  }
+
+  return await prisma.dish.update({
+    where: {
+      id: dishId,
+    },
+    data: { isAvailable },
+    select: {
+      id: true,
+      isAvailable: true,
+    },
+  });
+};
 
 export const deleteDish = async () => {};
