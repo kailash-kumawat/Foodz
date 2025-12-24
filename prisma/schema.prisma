@@ -72,10 +72,10 @@ model Restaurant {
 // Order Model
 // =========================
 enum OrderStatus {
+  pending
   accepted
   preparing
   ready
-  pending
   picked_up
   on_the_way
   delivered
@@ -83,20 +83,36 @@ enum OrderStatus {
 }
 
 model Order {
-  id               Int                @id @default(autoincrement())
-  user_id          Int
-  user             User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  restaurant_id    Int
-  restaurant       Restaurant         @relation(fields: [restaurant_id], references: [id])
-  address_id       Int
-  address          Address            @relation(fields: [address_id], references: [id], onUpdate: Cascade)
-  total_amount     Decimal            @db.Decimal(10, 2)
-  status           OrderStatus        @default(pending)
-  created_at       DateTime           @default(now())
-  updated_at       DateTime           @updatedAt
-  deliveryTracking DeliveryTracking[]
+  id            Int         @id @default(autoincrement())
+  user_id       Int
+  user          User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  restaurant_id Int
+  restaurant    Restaurant  @relation(fields: [restaurant_id], references: [id])
+  address_id    Int
+  address       Address     @relation(fields: [address_id], references: [id])
+  status        OrderStatus @default(pending)
+  total_amount  Decimal     @db.Decimal(10, 2)
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+
+  items            OrderItem[]
   payments         Payment[]
-  dishes           Dish[]
+  deliveryTracking DeliveryTracking[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  dish_id    Int
+  order      Order    @relation(fields: [order_id], references: [id])
+  dish       Dish     @relation(fields: [dish_id], references: [id], onDelete: Restrict)
+  quantity   Int
+  price      Decimal  @db.Decimal(10, 2)
+  name       String
+  created_at DateTime @default(now())
+
+  @@index([order_id])
+  @@index([dish_id])
 }
 
 // =========================
@@ -106,18 +122,19 @@ model Dish {
   id            Int        @id @default(autoincrement())
   restaurant_id Int
   restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
-  order_id      Int
-  order         Order      @relation(fields: [order_id], references: [id])
   name          String
   description   String?
   price         Decimal    @db.Decimal(10, 2)
   img           String?
   isAvailable   Boolean    @default(true)
+  isDeleted     Boolean    @default(false)
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
-  cartItems     CartItem[]
 
-  @@unique([restaurant_id, name])
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([restaurant_id, name, isDeleted])
 }
 
 // =========================

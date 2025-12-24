@@ -54,6 +54,25 @@ export const createDish = asyncHandler(async (req, res) => {
 });
 
 //GET DISH
+export const getDish = asyncHandler(async (req, res) => {
+  const dishId = Number(req.params.dishId);
+  const restaurantId = Number(req.params.restaurantId);
+  // check
+  if (
+    !Number.isInteger(restaurantId) ||
+    restaurantId <= 0 ||
+    !Number.isInteger(dishId) ||
+    dishId <= 0
+  ) {
+    throw new ApiError(400, "Invalid dish or restaurant id");
+  }
+
+  const dish = await dishServices.getDish(dishId, restaurantId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, dish, "Dish fetched successfully"));
+});
 
 //UPDATE DISH (NAME, DESCRIPTION, IMAGE, PRICE)
 export const updateDish = asyncHandler(async (req, res) => {
@@ -147,4 +166,24 @@ export const updateAvailablity = asyncHandler(async (req, res) => {
       ),
     );
 });
+
 //DELETE DISH
+export const deleteDish = asyncHandler(async (req, res) => {
+  const dishId = Number(req.params.dishId);
+  const restaurantId = Number(req.params.restaurantId);
+  // check
+  if (
+    !Number.isInteger(restaurantId) ||
+    restaurantId <= 0 ||
+    !Number.isInteger(dishId) ||
+    dishId <= 0
+  ) {
+    throw new ApiError(400, "Invalid dish or restaurant id");
+  }
+
+  const deletedDish = await dishServices.deleteDish(dishId, restaurantId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, deletedDish, "Dish deleted successfully"));
+});

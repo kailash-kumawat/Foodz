@@ -47,13 +47,35 @@ export const createDish = async (
   });
 };
 
-export const getDish = async () => {};
+export const getDish = async (dishId, restaurantId) => {
+  const dish = await prisma.dish.findFirst({
+    where: {
+      id: dishId,
+      restaurant_id: restaurantId,
+    },
+    select: {
+      id: true,
+      restaurant_id: true,
+      name: true,
+      description: true,
+      price: true,
+      img: true,
+      isAvailable: true,
+    },
+  });
+
+  if (!dish) {
+    throw new ApiError(404, "Dish not found or not authorized");
+  }
+
+  return dish;
+};
 
 export const updateDish = async (
   { name, description, price, dishId, restaurantId },
   dishImgUrl,
 ) => {
-  const dish = await prisma.dish.findUnique({
+  const dish = await prisma.dish.findFirst({
     where: {
       id: dishId,
       restaurant_id: restaurantId,
@@ -61,7 +83,7 @@ export const updateDish = async (
   });
 
   if (!dish) {
-    throw new ApiError(404, "Dish not found");
+    throw new ApiError(404, "Dish not found or not authorized");
   }
 
   const updateData = {
@@ -121,4 +143,28 @@ export const updateAvailablity = async ({
   });
 };
 
-export const deleteDish = async () => {};
+export const deleteDish = async (dishId, restaurantId) => {
+  const dish = await prisma.dish.findFirst({
+    where: {
+      id: dishId,
+      restaurant_id: restaurantId,
+    },
+  });
+
+  if (!dish) {
+    throw new ApiError(404, "Dish not found or not authorized");
+  }
+
+  return await prisma.dish.update({
+    where: {
+      id: dishId,
+    },
+    data: {
+      isDeleted: true,
+    },
+    select: {
+      id: true,
+      restaurant_id: true,
+    },
+  });
+};
