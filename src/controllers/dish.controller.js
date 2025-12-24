@@ -52,7 +52,65 @@ export const createDish = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, createdDish, "Dish created successfully"));
 });
+
 //GET DISH
+
 //UPDATE DISH (NAME, DESCRIPTION, IMAGE, PRICE)
+export const updateDish = asyncHandler(async (req, res) => {
+  // get info from user
+  // get dish id from params
+  const { name, description, price } = req.body;
+  const dishId = Number(req.params.dishId);
+  const restaurantId = Number(req.params.restaurantId);
+  // check
+  if (
+    !Number.isInteger(restaurantId) ||
+    restaurantId <= 0 ||
+    !Number.isInteger(dishId) ||
+    dishId <= 0
+  ) {
+    throw new ApiError(400, "Invalid dish or restaurant id");
+  }
+
+  if (
+    name === undefined &&
+    description === undefined &&
+    price === undefined &&
+    !req.files?.img?.length
+  ) {
+    throw new ApiError(400, "At least one field is required");
+  }
+
+  if (price !== undefined) {
+    if (typeof price !== "number" || price <= 0) {
+      throw new ApiError(400, "Price must be a number greater than 0");
+    }
+  }
+
+  // for img upload cloud
+  let dishImgUrl;
+  if (req.files?.img?.length) {
+    // get image local path from req.files
+    const dishImgLocalPath = req.files.img[0].path;
+    // get image url from cloudinary util method
+    const uploadedImg = await uploadOnCoudinary(dishImgLocalPath);
+    // check !url
+    if (!uploadedImg) {
+      throw new ApiError(500, "Dish image upload failed");
+    }
+
+    dishImgUrl = uploadedImg;
+  }
+  // send to services
+  const updatedDish = await dishServices.updateDish(
+    { name, description, price, dishId, restaurantId },
+    dishImgUrl,
+  );
+  // return
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updatedDish, "Dish updated successfully"));
+});
+
 //UPDATE DISH AVAILABLITY
 //DELETE DISH

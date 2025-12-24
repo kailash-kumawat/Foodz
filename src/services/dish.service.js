@@ -46,11 +46,52 @@ export const createDish = async (
     },
   });
 };
-//is we need to check restaurantid is not empty??
 
 export const getDish = async () => {};
 
-export const updateDish = async () => {};
+export const updateDish = async (
+  { name, description, price, dishId, restaurantId },
+  dishImgUrl,
+) => {
+  const dish = await prisma.dish.findUnique({
+    where: {
+      id: dishId,
+      restaurant_id: restaurantId,
+    },
+  });
+
+  if (!dish) {
+    throw new ApiError(404, "Dish not found");
+  }
+
+  const updateData = {
+    ...(name !== undefined && { name: name.trim() }),
+    ...(description !== undefined && { description }),
+    ...(price !== undefined && { price }),
+    ...(dishImgUrl && { img: dishImgUrl }),
+  };
+
+  try {
+    return await prisma.dish.update({
+      where: {
+        id: dishId,
+      },
+      data: updateData,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        img: true,
+      },
+    });
+  } catch (error) {
+    if (error.code === "P2002") {
+      throw new ApiError(409, "Dish name already exists for this restaurant");
+    }
+    throw error;
+  }
+};
 
 export const updateAvailablity = async () => {};
 
