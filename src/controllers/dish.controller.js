@@ -8,6 +8,7 @@ import { uploadOnCoudinary } from "../utils/cloudinary.js";
 export const createDish = asyncHandler(async (req, res) => {
   // dish info from owner
   // (name, description, price, isAvailable=true(default))
+  const restaurant_id = Number(req.params.id);
   const { name, description, price } = req.body;
   // check name and price
   if (!name || !name.trim() || price === undefined) {
@@ -16,6 +17,10 @@ export const createDish = asyncHandler(async (req, res) => {
 
   if (price <= 0) {
     throw new ApiError(400, "Price must be greater than 0");
+  }
+
+  if (!restaurant_id || restaurant_id <= 0) {
+    throw new ApiError(400, "RestaurantId is required");
   }
 
   //img handling
@@ -38,6 +43,7 @@ export const createDish = asyncHandler(async (req, res) => {
       name,
       description,
       price,
+      restaurant_id,
     },
     dishImgUrl,
   );

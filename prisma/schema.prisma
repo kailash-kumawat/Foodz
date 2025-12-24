@@ -116,6 +116,8 @@ model Dish {
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
   cartItems     CartItem[]
+
+  @@unique([restaurant_id, name])
 }
 
 // =========================
