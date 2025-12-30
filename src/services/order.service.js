@@ -6,7 +6,7 @@ export const createOrder = async (
   userId,
   { addressId, restaurantId, items },
 ) => {
-  const address = prisma.address.findFirst({
+  const address = await prisma.address.findFirst({
     where: {
       id: addressId,
       user_id: userId,
@@ -17,7 +17,7 @@ export const createOrder = async (
     throw new ApiError(403, "Invalid address selected");
   }
 
-  const restaurant = prisma.restaurant.findUnique({
+  const restaurant = await prisma.restaurant.findUnique({
     where: {
       id: restaurantId,
     },
@@ -39,14 +39,16 @@ export const createOrder = async (
 
   let total = 0;
   const orderItemsData = items.map((item) => {
-    const dish = dishes.map((dish) => dish.price);
+    const dish = dishes.find((dish) => dish.id === item.dish_id);
     const price = dish.price * item.quantity;
     total += price;
 
+    // logic not clear why return this
     return {
       dish_id: dish.id,
       quantity: item.quantity,
       price: dish.price,
+      name: dish.name,
     };
   });
 
@@ -61,9 +63,45 @@ export const createOrder = async (
           create: orderItemsData,
         },
       },
+      // logic not clear
       include: {
         orderItems: true,
       },
     });
   });
 };
+
+export const getOrder = async (userId) => {
+  return await prisma.order.findMany({
+    where: {
+      user_id: userId,
+    },
+    include: {
+      orderItems: {
+        include: {
+          dish: {
+            select: {
+              name: true,
+              img: true,
+            },
+          },
+        },
+      },
+      restaurant: {
+        select: {
+          name: true,
+          address_line: true,
+        },
+      },
+      address: {
+        select: {
+          address_line: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+};
+
