@@ -71,13 +71,13 @@ export const createOrder = async (
   });
 };
 
-export const getOrder = async (userId) => {
+export const getAllOrders = async (userId) => {
   return await prisma.order.findMany({
     where: {
       user_id: userId,
     },
     include: {
-      orderItems: {
+      items: {
         include: {
           dish: {
             select: {
@@ -105,3 +105,36 @@ export const getOrder = async (userId) => {
   });
 };
 
+// orderItems is not a DB column
+
+// It’s a virtual relation field created by Prisma Client..how? i can see this column in my dish model
+
+export const getOrder = async (userId, orderId) => {
+  return await prisma.order.findFirst({
+    where: {
+      id: orderId,
+      user_id: userId,
+    },
+    include: {
+      items: {
+        include: {
+          dish: {
+            select: {
+              name: true,
+              img: true,
+            },
+          },
+        },
+      },
+      restaurant: {
+        select: {
+          name: true,
+          address_line: true,
+        },
+      },
+      address: {
+        select: { address_line: true },
+      },
+    },
+  });
+};

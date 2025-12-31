@@ -25,7 +25,7 @@ export const createOrder = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdOrder, "Order created successfully"));
 });
 
-export const getOrder = asyncHandler(async (req, res) => {
+export const getAllOrders = asyncHandler(async (req, res) => {
   // userid
   const userId = req.user.id;
 
@@ -42,3 +42,23 @@ export const getOrder = asyncHandler(async (req, res) => {
       ),
     );
 });
+
+export const getOrder = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const orderId = Number(req.params.id);
+
+  if (!orderId || isNaN(orderId)) {
+    throw new ApiError(400, "Valid order id required");
+  }
+
+  const order = await orderServices.getOrder(userId, orderId);
+
+  if (!order) {
+    throw new ApiError(404, "Order not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, order, "Order fetched successfully"));
+});
+// next -->cancel order, update order status
