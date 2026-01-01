@@ -1,6 +1,7 @@
 import app from "./app.js";
 import dotenv from "dotenv";
 import prisma from "./db/index.js";
+import { startOrderStatus } from "./cron/orderStatus.cron.js";
 // change to import
 // import http from "http";
 // import { Server } from "socket.io";
@@ -21,6 +22,8 @@ dotenv.config({
 //     io.emit("user-disconnected", { id: socket.id });
 //   });
 // });
+
+startOrderStatus();
 
 prisma
   .$connect()

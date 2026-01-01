@@ -92,8 +92,15 @@ model Order {
   address       Address     @relation(fields: [address_id], references: [id])
   status        OrderStatus @default(pending)
   total_amount  Decimal     @db.Decimal(10, 2)
-  created_at    DateTime    @default(now())
-  updated_at    DateTime    @updatedAt
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  accepted_at   DateTime?
+  prepared_at   DateTime?
+  on_the_way_at DateTime?
+  delivered_at  DateTime?
+  cancelled_at  DateTime?
 
   items            OrderItem[]
   payments         Payment[]

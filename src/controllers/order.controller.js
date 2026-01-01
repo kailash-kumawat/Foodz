@@ -47,8 +47,8 @@ export const getOrder = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const orderId = Number(req.params.id);
 
-  if (!orderId || isNaN(orderId)) {
-    throw new ApiError(400, "Valid order id required");
+  if (!Number.isInteger(orderId) || orderId <= 0) {
+    throw new ApiError(400, "Invalid order id");
   }
 
   const order = await orderServices.getOrder(userId, orderId);
@@ -61,4 +61,20 @@ export const getOrder = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, order, "Order fetched successfully"));
 });
-// next -->cancel order, update order status
+
+export const cancelOrder = asyncHandler(async (req, res) => {
+  // userid and order id
+  const orderId = Number(req.params.id);
+  const userId = req.user.id;
+
+  if (!Number.isInteger(orderId) || orderId <= 0) {
+    throw new ApiError(400, "Invalid order id");
+  }
+  // sent to services
+
+  const cancelledOrder = await orderServices.cancelOrder(userId, orderId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, cancelledOrder, "Order cancel successfully"));
+});

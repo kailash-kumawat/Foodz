@@ -1,4 +1,3 @@
-// next start from here
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
@@ -105,10 +104,6 @@ export const getAllOrders = async (userId) => {
   });
 };
 
-// orderItems is not a DB column
-
-// It’s a virtual relation field created by Prisma Client..how? i can see this column in my dish model
-
 export const getOrder = async (userId, orderId) => {
   return await prisma.order.findFirst({
     where: {
@@ -135,6 +130,43 @@ export const getOrder = async (userId, orderId) => {
       address: {
         select: { address_line: true },
       },
+    },
+  });
+};
+
+export const cancelOrder = async (userId, orderId) => {
+  // get order by id and userid and extract status
+  const order = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+      user_id: userId,
+    },
+    select: {
+      status: true,
+    },
+  });
+
+  if (!order) {
+    throw new ApiError(404, "Order not found");
+  }
+  // check order is in cancel state
+  // throw err if not
+  if (!["pending", "accepted"].includes(order.status)) {
+    throw new ApiError(400, "Order can no longer be cancelled");
+  }
+  // update status to cancel not delete
+  return await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data: {
+      status: "cancelled",
+      cancelled_at: new Date(),
+    },
+    select: {
+      id: true,
+      user_id: true,
+      status: true,
     },
   });
 };
