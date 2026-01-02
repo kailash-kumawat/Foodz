@@ -78,3 +78,9 @@ export const cancelOrder = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, cancelledOrder, "Order cancel successfully"));
 });
+
+// next --> build cart CRUD --> create routes
+// --> delivery tracking (animation of delivery guy instead of map with messages)
+// --> payment gateway
+
+
