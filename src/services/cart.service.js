@@ -38,19 +38,53 @@ export const createCart = async (tx, userId, dishId) => {
 
 export const addItemToCart = async (userId, dishId) => {
   return await prisma.$transaction(async (tx) => {
+    // find restra id from dish model using dishid
+    const dish = await tx.dish.findUnique({
+      where: {
+        id: dishId,
+      },
+      select: {
+        restaurant_id: true,
+      },
+    });
+
+    if (!dish) {
+      throw new ApiError(404, "Dish not found");
+    }
+
     // check cart is not empty and belong to that user
     const existingCart = await tx.cart.findUnique({
       where: {
         user_id: userId,
       },
       include: {
-        cartItems: true,
+        cartItems: {
+          include: {
+            dish: {
+              select: {
+                restaurant_id: true,
+              },
+            },
+          },
+        },
       },
     });
+
     // empty --> create
     if (!existingCart) {
-      return createCart(tx, userId, dishId);
+      return await createCart(tx, userId, dishId);
     }
+
+    if (existingCart.cartItems.length > 0) {
+      const cartRestaurantId = existingCart.cartItems[0].dish.restaurant_id;
+      if (cartRestaurantId !== dish.restaurant_id) {
+        throw new ApiError(
+          400,
+          "You cannot add items from different restaurants in the same cart",
+        );
+      }
+    }
+
     // !empty --> check cart dish  === dishId
     const existingCartItem = existingCart.cartItems.find(
       (item) => item.dish_id === dishId,
@@ -59,22 +93,36 @@ export const addItemToCart = async (userId, dishId) => {
     // update existing cart --> add new dish in cartitems
     // quantity +1
     if (!existingCartItem) {
-      return await tx.cartItem.create({
+      await tx.cartItem.create({
         data: {
           cart_id: existingCart.id,
           dish_id: dishId,
           quantity: 1,
         },
       });
+    } else {
+      // update existing cart --> increment in dish quantity
+      await tx.cartItem.update({
+        where: {
+          id: existingCartItem.id,
+        },
+        data: {
+          quantity: {
+            increment: 1,
+          },
+        },
+      });
     }
-    // update existing cart --> increment in dish quantity
-    return await tx.cartItem.update({
+
+    return await tx.cart.findUnique({
       where: {
-        id: existingCartItem.id,
+        user_id: userId,
       },
-      data: {
-        quantity: {
-          increment: 1,
+      include: {
+        cartItems: {
+          include: {
+            dish: true,
+          },
         },
       },
     });
