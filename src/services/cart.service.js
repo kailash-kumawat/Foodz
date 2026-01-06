@@ -128,3 +128,69 @@ export const addItemToCart = async (userId, dishId) => {
     });
   });
 };
+
+export const getCart = async (userId) => {
+  return await prisma.cart.findUnique({
+    where: {
+      user_id: userId,
+    },
+    include: {
+      cartItems: {
+        include: {
+          dish: true,
+        },
+      },
+    },
+  });
+};
+
+export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
+  return await prisma.$transaction(async (tx) => {
+    // find cartitem
+    const cartItem = await tx.cartItem.findUnique({
+      where: {
+        id: cartItemId,
+      },
+      include: {
+        cart: true,
+      },
+    });
+    // verify cartitem belong to the userId
+    if (!cartItem || cartItem.cart.user_id !== userId) {
+      throw new ApiError(404, "Cart item not found");
+    }
+    // check quant==0 delete item return cart
+    if (quantity === 0) {
+      await tx.cartItem.delete({
+        where: {
+          id: cartItemId,
+        },
+      });
+
+      return await tx.cart.findUnique({
+        where: {
+          user_id: userId,
+        },
+        include: {
+          cartItems: { include: { dish: true } },
+        },
+      });
+    }
+    // update quant return cart
+    await tx.cartItem.update({
+      where: {
+        id: cartItemId,
+      },
+      data: { quantity },
+    });
+
+    return await tx.cart.findUnique({
+      where: {
+        user_id: userId,
+      },
+      include: {
+        cartItems: { include: { dish: true } },
+      },
+    });
+  });
+};
