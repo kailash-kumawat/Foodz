@@ -1,10 +1,7 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
-export const createOrder = async (
-  userId,
-  { addressId, restaurantId, items },
-) => {
+export const createOrder = async (userId, { addressId, restaurantId }) => {
   const address = await prisma.address.findFirst({
     where: {
       id: addressId,
@@ -13,7 +10,7 @@ export const createOrder = async (
   });
 
   if (!address) {
-    throw new ApiError(403, "Invalid address selected");
+    throw new ApiError(404, "Address not found");
   }
 
   const restaurant = await prisma.restaurant.findUnique({
@@ -26,33 +23,52 @@ export const createOrder = async (
     throw new ApiError(404, "Restaurant not found");
   }
 
-  const dishes = prisma.dish.findMany({
-    where: {
-      id: { in: items.map((item) => item.dish_id) },
+  const cart = await prisma.cart.findFirst({
+    where: { user_id: userId },
+    include: {
+      cartItems: {
+        include: {
+          dish: true,
+        },
+      },
     },
   });
 
-  if (dishes.length !== items.length) {
-    throw new ApiError(400, "Invalid dish selected");
+  if (!cart || cart.cartItems.length === 0) {
+    throw new ApiError(400, "Cart is empty");
+  }
+
+  const invalidItem = cart.cartItems.find(
+    (item) => item.dish.restaurant_id !== restaurantId,
+  );
+
+  if (invalidItem) {
+    throw new ApiError(400, "Cart contains items from another restaurant");
   }
 
   let total = 0;
-  const orderItemsData = items.map((item) => {
-    const dish = dishes.find((dish) => dish.id === item.dish_id);
-    const price = dish.price * item.quantity;
-    total += price;
+  const orderItemsData = cart.cartItems.map((item) => {
+    total += item.dish.price * item.quantity;
 
-    // logic not clear why return this
     return {
-      dish_id: dish.id,
+      dish_id: item.dish.id,
       quantity: item.quantity,
-      price: dish.price,
-      name: dish.name,
+      price: item.dish.price, // snapshot
+      name: item.dish.name, // snapshot
     };
   });
 
   return prisma.$transaction(async (tx) => {
-    return tx.order.create({
+    // If two requests try to place an same order after successfully one
+    const cartItemCount = await tx.cartItem.count({
+      where: { cart_id: cart.id },
+    });
+
+    if (cartItemCount === 0) {
+      throw new ApiError(400, "Cart is empty");
+    }
+
+    const order = await tx.order.create({
       data: {
         user_id: userId,
         restaurant_id: restaurantId,
@@ -62,71 +78,93 @@ export const createOrder = async (
           create: orderItemsData,
         },
       },
-      // logic not clear
       include: {
         orderItems: true,
       },
     });
+
+    await tx.cartItem.deleteMany({
+      where: { cart_id: cart.id },
+    });
+
+    return order;
   });
 };
 
-export const getAllOrders = async (userId) => {
-  return await prisma.order.findMany({
-    where: {
-      user_id: userId,
-    },
-    include: {
-      items: {
-        include: {
-          dish: {
-            select: {
-              name: true,
-              img: true,
-            },
+export const getAllOrders = async (userId, page = 1, limit = 10) => {
+  const [orders, total] = await prisma.$transaction([
+    prisma.order.findMany({
+      where: {
+        user_id: userId,
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {
+        created_at: "desc",
+      },
+      include: {
+        orderItems: {
+          select: {
+            name: true,
+            price: true,
+            quantity: true,
+          },
+        },
+        restaurant: {
+          select: {
+            name: true,
+            address_line: true,
+          },
+        },
+        address: {
+          select: {
+            address_line: true,
           },
         },
       },
-      restaurant: {
-        select: {
-          name: true,
-          address_line: true,
-        },
-      },
-      address: {
-        select: {
-          address_line: true,
-        },
-      },
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-  });
+    }),
+    prisma.order.count({
+      where: { user_id: userId },
+    }),
+  ]);
+
+  return {
+    orders,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+    hasNext: page * limit < total,
+  };
 };
 
 export const getOrder = async (userId, orderId) => {
-  return await prisma.order.findFirst({
+  return prisma.order.findFirst({
     where: {
       id: orderId,
       user_id: userId,
     },
-    include: {
-      items: {
-        include: {
-          dish: {
-            select: {
-              name: true,
-              img: true,
-            },
-          },
+    select: {
+      id: true,
+      user_id: true,
+      status: true,
+      total_amount: true,
+      created_at: true,
+
+      orderItems: {
+        select: {
+          name: true,
+          price: true,
+          quantity: true,
         },
       },
+
       restaurant: {
         select: {
           name: true,
           address_line: true,
         },
       },
+
       address: {
         select: { address_line: true },
       },
@@ -135,38 +173,26 @@ export const getOrder = async (userId, orderId) => {
 };
 
 export const cancelOrder = async (userId, orderId) => {
-  // get order by id and userid and extract status
-  const order = await prisma.order.findFirst({
+  // update status to cancel not delete
+  // If the user taps the Cancel button two times, it handles it safely.
+  const updated = await prisma.order.updateMany({
     where: {
       id: orderId,
       user_id: userId,
-    },
-    select: {
-      status: true,
-    },
-  });
-
-  if (!order) {
-    throw new ApiError(404, "Order not found");
-  }
-  // check order is in cancel state
-  // throw err if not
-  if (!["pending", "accepted"].includes(order.status)) {
-    throw new ApiError(400, "Order can no longer be cancelled");
-  }
-  // update status to cancel not delete
-  return await prisma.order.update({
-    where: {
-      id: orderId,
+      status: { in: ["pending", "accepted"] },
     },
     data: {
       status: "cancelled",
       cancelled_at: new Date(),
     },
-    select: {
-      id: true,
-      user_id: true,
-      status: true,
-    },
   });
+
+  if (updated.count === 0) {
+    throw new ApiError(400, "Order can no longer be cancelled");
+  }
+
+  return {
+    id: orderId,
+    status: "cancelled",
+  };
 };
