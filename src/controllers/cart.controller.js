@@ -46,8 +46,8 @@ export const getCart = asyncHandler(async (req, res) => {
   const cart = await cartServices.getCart(userId);
 
   return res
-    .status(201)
-    .json(new ApiResponse(201, cart, "Cart fetched successfully"));
+    .status(200)
+    .json(new ApiResponse(200, cart, "Cart fetched successfully"));
 });
 
 //UPDATE cart item qunatity
@@ -61,12 +61,12 @@ export const updateCartItemQuantity = asyncHandler(async (req, res) => {
     !Number.isInteger(cartItemId) ||
     cartItemId <= 0 ||
     !Number.isInteger(quantity) ||
-    quantity <= 0
+    quantity < 0
   ) {
     throw new ApiError(400, "Invalid cart item id or quantity");
   }
   // send to service
-  const updatedCartItem = cartServices.updateCartItemQuantity(
+  const updatedCart = await cartServices.updateCartItemQuantity(
     userId,
     cartItemId,
     quantity,
@@ -74,7 +74,34 @@ export const updateCartItemQuantity = asyncHandler(async (req, res) => {
   // res
   return res
     .status(200)
-    .json(
-      new ApiResponse(201, updatedCartItem, "Cart item updated successfully"),
-    );
+    .json(new ApiResponse(200, updatedCart, "Cart item updated successfully"));
+});
+
+//DELETE cart item manual
+export const deleteCartItem = asyncHandler(async (req, res) => {
+  // cartitem id, userid verify cart
+  const userId = req.user.id;
+  const cartItemId = Number(req.params.cartItemId);
+  // check cartitem id
+  if (!Number.isInteger(cartItemId) || cartItemId <= 0) {
+    throw new ApiError(400, "Invalid cart item id");
+  }
+  // send to service
+  const updatedCart = await cartServices.deleteCartItem(userId, cartItemId);
+  // res
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updatedCart, "Cart item deleted successfully"));
+});
+
+//CLEAR cart auto after order
+export const clearCart = asyncHandler(async (req, res) => {
+  // userid to find cart
+  const userId = req.user.id;
+  // send to services
+  const clearedCart = await cartServices.clearCart(userId);
+  // res
+  return res
+    .status(200)
+    .json(new ApiResponse(200, clearedCart, "Cart clear successfully"));
 });

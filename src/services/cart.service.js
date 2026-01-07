@@ -130,7 +130,7 @@ export const addItemToCart = async (userId, dishId) => {
 };
 
 export const getCart = async (userId) => {
-  return await prisma.cart.findUnique({
+  const cart = await prisma.cart.findUnique({
     where: {
       user_id: userId,
     },
@@ -142,6 +142,13 @@ export const getCart = async (userId) => {
       },
     },
   });
+
+  // If no cart, return empty cart structure
+  if (!cart) {
+    return { cartItems: [] };
+  } else {
+    return cart;
+  }
 };
 
 export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
@@ -190,6 +197,77 @@ export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
       },
       include: {
         cartItems: { include: { dish: true } },
+      },
+    });
+  });
+};
+
+export const deleteCartItem = async (userId, cartItemId) => {
+  return await prisma.$transaction(async (tx) => {
+    const cartItem = await tx.cartItem.findUnique({
+      where: {
+        id: cartItemId,
+      },
+      include: {
+        cart: true,
+      },
+    });
+    // verify cartitem belong to the userId
+    if (!cartItem || cartItem.cart.user_id !== userId) {
+      throw new ApiError(404, "Cart item not found");
+    }
+    // delete
+    await tx.cartItem.delete({
+      where: {
+        id: cartItemId,
+      },
+    });
+
+    return await tx.cart.findUnique({
+      where: {
+        user_id: userId,
+      },
+      include: {
+        cartItems: {
+          include: {
+            dish: true,
+          },
+        },
+      },
+    });
+  });
+};
+
+export const clearCart = async (userId) => {
+  return await prisma.$transaction(async (tx) => {
+    //find cart
+    const cart = await tx.cart.findUnique({
+      where: {
+        user_id: userId,
+      },
+    });
+    //check empty
+    if (!cart) {
+      return { cartItems: [] };
+    }
+    //delete cartitems
+    await tx.cartItem.deleteMany({
+      where: {
+        cart_id: cart.id,
+      },
+    });
+
+    //empty cart
+    return await tx.cart.findUnique({
+      where: {
+        user_id: userId,
+      },
+      include: {
+        cartItems: {
+          include: {
+            dish: true,
+          },
+        },
       },
     });
   });
