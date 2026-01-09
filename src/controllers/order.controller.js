@@ -8,15 +8,20 @@ export const createOrder = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   // addressId and restraId from body
   // items from body
-  const { addressId, restaurantId } = req.body;
+  const { addressId, restaurantId, payment_method } = req.body;
   // validate addressId, restraId and items length
   if (!addressId || !restaurantId) {
     throw new ApiError(400, "Missing fields required");
+  }
+  // validate payment method
+  if (!Object.values(PaymentType).includes(payment_method)) {
+    return res.status(400).json({ message: "Invalid payment method" });
   }
   // sent to service
   const createdOrder = await orderServices.createOrder(userId, {
     addressId,
     restaurantId,
+    payment_method
   });
   // return res
   return res
@@ -81,6 +86,5 @@ export const cancelOrder = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, cancelledOrder, "Order cancel successfully"));
 });
 
-// next --> build cart CRUD --> create routes
-// --> delivery tracking (animation of delivery guy instead of map with messages)
-// --> payment gateway
+// next --> build payment functionality see gpt
+// use razorpay test mode --> see gpt

@@ -58,7 +58,7 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
     };
   });
 
-  return prisma.$transaction(async (tx) => {
+  const order = prisma.$transaction(async (tx) => {
     // If two requests try to place an same order after successfully one
     const cartItemCount = await tx.cartItem.count({
       where: { cart_id: cart.id },
@@ -68,7 +68,7 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
       throw new ApiError(400, "Cart is empty");
     }
 
-    const order = await tx.order.create({
+    const createdOrder = await tx.order.create({
       data: {
         user_id: userId,
         restaurant_id: restaurantId,
@@ -83,12 +83,22 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
       },
     });
 
+    await tx.payment.create({
+      data: {
+        user_id: userId,
+        order_id: createdOrder.id,
+        amount: totalAmount,
+        payment_method,
+      },
+    });
+
     await tx.cartItem.deleteMany({
       where: { cart_id: cart.id },
     });
 
-    return order;
+    return createdOrder;
   });
+  res.json(order);
 };
 
 export const getAllOrders = async (userId, page = 1, limit = 10) => {

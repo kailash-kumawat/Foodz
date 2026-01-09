@@ -83,25 +83,22 @@ enum OrderStatus {
 }
 
 model Order {
-  id            Int         @id @default(autoincrement())
-  user_id       Int
-  user          User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  restaurant_id Int
-  restaurant    Restaurant  @relation(fields: [restaurant_id], references: [id])
-  address_id    Int
-  address       Address     @relation(fields: [address_id], references: [id])
-  status        OrderStatus @default(pending)
-  total_amount  Decimal     @db.Decimal(10, 2)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  accepted_at   DateTime?
-  prepared_at   DateTime?
-  on_the_way_at DateTime?
-  delivered_at  DateTime?
-  cancelled_at  DateTime?
-
+  id               Int                @id @default(autoincrement())
+  user_id          Int
+  user             User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  restaurant_id    Int
+  restaurant       Restaurant         @relation(fields: [restaurant_id], references: [id])
+  address_id       Int
+  address          Address            @relation(fields: [address_id], references: [id])
+  status           OrderStatus        @default(pending)
+  total_amount     Decimal            @db.Decimal(10, 2)
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  accepted_at      DateTime?
+  prepared_at      DateTime?
+  on_the_way_at    DateTime?
+  delivered_at     DateTime?
+  cancelled_at     DateTime?
   items            OrderItem[]
   payments         Payment[]
   deliveryTracking DeliveryTracking[]
@@ -208,14 +205,18 @@ enum PaymentStatus {
 }
 
 model Payment {
-  id             Int           @id @default(autoincrement())
-  user_id        Int
-  user           User          @relation(fields: [user_id], references: [id])
-  order_id       Int
-  order          Order         @relation(fields: [order_id], references: [id])
-  amount         Decimal       @db.Decimal(10, 2)
-  payment_method PaymentType   @default(card)
-  payment_status PaymentStatus @default(pending)
-  created_at     DateTime      @default(now())
-  updated_at     DateTime      @updatedAt
+  id                 Int           @id @default(autoincrement())
+  user_id            Int
+  user               User          @relation(fields: [user_id], references: [id])
+  order_id           Int
+  order              Order         @relation(fields: [order_id], references: [id])
+  amount             Decimal       @db.Decimal(10, 2)
+  gateway            String? // "razorpay"
+  gateway_order_id   String?
+  gateway_payment_id String?
+  gateway_signature  String?
+  payment_method     PaymentType   @default(card)
+  payment_status     PaymentStatus @default(pending)
+  created_at         DateTime      @default(now())
+  updated_at         DateTime      @updatedAt
 }
