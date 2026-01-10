@@ -47,11 +47,61 @@ export const createOnlinePayment = async (userId, orderId) => {
   });
 };
 
-export const verifyOnlinePayment = async (
+export const finalizeOnlinePayment = async ({
+  gateway_order_id,
+  gateway_payment_id,
+  gateway_signature = null,
+}) => {
+  // payment find
+  const payment = await prisma.payment.findFirst({
+    where: {
+      gateway_order_id,
+    },
+  });
+  // check completed and cod
+  if (!payment) {
+    return;
+  }
+
+  if (
+    payment.payment_status === "completed" ||
+    payment.payment_method === "cash_on_delivery"
+  ) {
+    return;
+  }
+  // order find of that payment
+  const order = await prisma.order.findFirst({
+    where: {
+      gateway_payment_id,
+    },
+    select: { status: true },
+  });
+  // check cancell
+  if (!order || order.status === "cancelled") {
+    return;
+  }
+  // update
+  await prisma.$transaction([
+    prisma.payment.update({
+      where: { id: payment.id },
+      data: {
+        gateway_payment_id,
+        gateway_signature,
+        payment_status: "completed",
+      },
+    }),
+    prisma.order.update({
+      where: { id: payment.order_id },
+      data: { status: "accepted" },
+    }),
+  ]);
+};
+
+export const verifyOnlinePayment = async ({
   razorpay_order_id,
   razorpay_payment_id,
   razorpay_signature,
-) => {
+}) => {
   const payment = await prisma.payment.findFirst({
     where: { gateway_order_id: razorpay_order_id },
   });
@@ -92,20 +142,39 @@ export const verifyOnlinePayment = async (
     throw new ApiError(400, "Order is cancelled");
   }
 
-  await prisma.$transaction([
-    prisma.payment.update({
-      where: { id: payment.id },
-      data: {
-        gateway_payment_id: razorpay_payment_id,
-        gateway_signature: razorpay_signature,
-        payment_status: "completed",
-      },
-    }),
-    prisma.order.update({
-      where: { id: payment.order_id },
-      data: { status: "accepted" },
-    }),
-  ]);
+  // send back to finalize the payment
+  await finalizeOnlinePayment({
+    gateway_order_id: razorpay_order_id,
+    gateway_payment_id: razorpay_payment_id,
+    gateway_signature: razorpay_signature,
+  });
+
+  return true;
+};
+
+export const razorpayWebhook = async ({ signature, rawBody }) => {
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET)
+    .update(rawBody)
+    .digest("hex");
+
+  if (signature !== expectedSignature) {
+    throw new ApiError(400, "Invalid webhook signature");
+  }
+
+  const event = JSON.parse(rawBody);
+
+  // Ignore irrelevant events
+  if (event.event !== "payment.captured") {
+    return true;
+  }
+
+  const paymentEntity = event.payload.payment.entity;
+
+  await finalizeOnlinePayment({
+    gateway_order_id: paymentEntity.order_id,
+    gateway_payment_id: paymentEntity.id,
+  });
 
   return true;
 };

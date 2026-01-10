@@ -23,13 +23,30 @@ export const verifyOnlinePayment = asyncHandler(async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
 
-  const verifiedOnlinePayment = await paymentSerivces.verifyOnlinePayment(
+  const verifiedOnlinePayment = await paymentSerivces.verifyOnlinePayment({
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
-  );
+  });
 
   return res
-  .status(200)
-  .json(new ApiResponse(200, verifiedOnlinePayment, "Verification successful"))
+    .status(200)
+    .json(
+      new ApiResponse(200, verifiedOnlinePayment, "Verification successful"),
+    );
 });
+
+export const razorpayWebhook = asyncHandler(async (req, res) => {
+  const signature = req.headers["x-razorpay-signature"];
+
+  await paymentSerivces.razorpayWebhook({
+    signature,
+    rawBody: req.rawBody,
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, true, "Webhook processed successfully"));
+});
+
+// next --> webhook
