@@ -86,5 +86,3 @@ export const cancelOrder = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, cancelledOrder, "Order cancel successfully"));
 });
 
-// next --> build payment functionality see gpt
-// use razorpay test mode --> see gpt
