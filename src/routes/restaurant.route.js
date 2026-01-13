@@ -6,12 +6,12 @@ import {
   updateRestaurant,
   deleteRestaurant,
 } from "../controllers/restaurant.controller.js";
-
 import {
   createDish,
   updateDish,
-  updateAvailablity,
+  updateAvailability,
   deleteDish,
+  getDish,
 } from "../controllers/dish.controller.js";
 
 const router = Router();
@@ -23,7 +23,7 @@ router.post("/", authUser, createRestaurant);
 
 router
   .route("/:restaurantId")
-  .get(authUser, getRestaurant)
+  .get(getRestaurant)
   .patch(authUser, updateRestaurant)
   .delete(authUser, deleteRestaurant);
 
@@ -32,14 +32,16 @@ router
  */
 router.post("/:restaurantId/dishes", authUser, createDish);
 
-router.patch("/:restaurantId/dishes/:dishId", authUser, updateDish);
-
 router.patch(
   "/:restaurantId/dishes/:dishId/availability",
   authUser,
-  updateAvailablity,
+  updateAvailability,
 );
 
-router.delete("/:restaurantId/dishes/:dishId", authUser, deleteDish);
+router
+  .route("/:restaurantId/dishes/:dishId")
+  .get(getDish) // public
+  .patch(authUser, updateDish)
+  .delete(authUser, deleteDish);
 
 export default router;

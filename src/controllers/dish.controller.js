@@ -132,7 +132,7 @@ export const updateDish = asyncHandler(async (req, res) => {
 });
 
 //UPDATE DISH AVAILABLITY
-export const updateAvailablity = asyncHandler(async (req, res) => {
+export const updateAvailability = asyncHandler(async (req, res) => {
   const { isAvailable } = req.body;
   const dishId = Number(req.params.dishId);
   const restaurantId = Number(req.params.restaurantId);
@@ -150,7 +150,7 @@ export const updateAvailablity = asyncHandler(async (req, res) => {
     throw new ApiError(400, "isAvailable must be boolean");
   }
 
-  const updatedAvailable = await dishServices.updateAvailablity({
+  const updatedAvailable = await dishServices.updateAvailability({
     isAvailable,
     dishId,
     restaurantId,

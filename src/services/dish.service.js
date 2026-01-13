@@ -115,7 +115,7 @@ export const updateDish = async (
   }
 };
 
-export const updateAvailablity = async ({
+export const updateAvailability = async ({
   isAvailable,
   dishId,
   restaurantId,
