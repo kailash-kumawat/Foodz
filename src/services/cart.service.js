@@ -2,7 +2,7 @@ import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 import { createCart } from "../controllers/cart.controller.js";
 
-export const createCart = async (tx, userId, dishId) => {
+export const createCartWithItem  = async (tx, userId, dishId) => {
   // create cart for userId
   // return await prisma.$transaction(async (tx) => {
   const dishExists = await tx.dish.findUnique({
@@ -72,7 +72,7 @@ export const addItemToCart = async (userId, dishId) => {
 
     // empty --> create
     if (!existingCart) {
-      return await createCart(tx, userId, dishId);
+      return await createCartWithItem (tx, userId, dishId);
     }
 
     if (existingCart.cartItems.length > 0) {

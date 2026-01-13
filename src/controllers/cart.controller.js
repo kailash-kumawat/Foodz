@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import * as cartServices from "../services/cart.service.js";
 import prisma from "../db/index.js";
 
-export const createCart = asyncHandler(async (req, res) => {
+export const createCartWithItem  = asyncHandler(async (req, res) => {
   // userId, dishId from the frontend
   const userId = req.user.id;
   const dishId = Number(req.body.dishId);
@@ -16,7 +16,7 @@ export const createCart = asyncHandler(async (req, res) => {
   // check cartEmpty or not(assume cart empty)
   // send userId, dishid and quantity to cart service from controller
   const cart = await prisma.$transaction(async (tx) => {
-    return await cartServices.createCart(tx, userId, dishId);
+    return await cartServices.createCartWithItem (tx, userId, dishId);
   });
 
   return res

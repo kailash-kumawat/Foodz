@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { verifyJwt } from "../middlewares/user.middleware.js";
 import {
   createUser,
   logInUser,
@@ -7,7 +8,6 @@ import {
   updateUserPassword,
   getUserProfile,
 } from "../controllers/user.controller.js";
-import { verifyJwt } from "../middlewares/user.middleware.js";
 
 const router = Router();
 
