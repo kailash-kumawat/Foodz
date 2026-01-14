@@ -2,6 +2,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import * as orderServices from "../services/order.service.js";
+import { PaymentType } from "@prisma/client";
 
 export const createOrder = asyncHandler(async (req, res) => {
   // userId from req.user.id
@@ -15,13 +16,13 @@ export const createOrder = asyncHandler(async (req, res) => {
   }
   // validate payment method
   if (!Object.values(PaymentType).includes(payment_method)) {
-    return res.status(400).json({ message: "Invalid payment method" });
+    throw new ApiError(400, "Invalid payment method");
   }
   // sent to service
   const createdOrder = await orderServices.createOrder(userId, {
     addressId,
     restaurantId,
-    payment_method
+    payment_method,
   });
   // return res
   return res
@@ -52,7 +53,7 @@ export const getAllOrders = asyncHandler(async (req, res) => {
 
 export const getOrder = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const orderId = Number(req.params.id);
+  const orderId = Number(req.params.orderId);
 
   if (!Number.isInteger(orderId) || orderId <= 0) {
     throw new ApiError(400, "Invalid order id");
@@ -71,8 +72,8 @@ export const getOrder = asyncHandler(async (req, res) => {
 
 export const cancelOrder = asyncHandler(async (req, res) => {
   // userid and order id
-  const orderId = Number(req.params.id);
   const userId = req.user.id;
+  const orderId = Number(req.params.orderId);
 
   if (!Number.isInteger(orderId) || orderId <= 0) {
     throw new ApiError(400, "Invalid order id");
@@ -85,4 +86,3 @@ export const cancelOrder = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, cancelledOrder, "Order cancel successfully"));
 });
-

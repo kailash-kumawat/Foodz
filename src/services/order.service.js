@@ -1,7 +1,10 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
-export const createOrder = async (userId, { addressId, restaurantId }) => {
+export const createOrder = async (
+  userId,
+  { addressId, restaurantId, payment_method },
+) => {
   const address = await prisma.address.findFirst({
     where: {
       id: addressId,
@@ -58,7 +61,7 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
     };
   });
 
-  const order = prisma.$transaction(async (tx) => {
+  const order = await prisma.$transaction(async (tx) => {
     // If two requests try to place an same order after successfully one
     const cartItemCount = await tx.cartItem.count({
       where: { cart_id: cart.id },
@@ -87,7 +90,7 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
       data: {
         user_id: userId,
         order_id: createdOrder.id,
-        amount: totalAmount,
+        amount: total,
         payment_method,
       },
     });
@@ -98,7 +101,7 @@ export const createOrder = async (userId, { addressId, restaurantId }) => {
 
     return createdOrder;
   });
-  res.json(order);
+  return order;
 };
 
 export const getAllOrders = async (userId, page = 1, limit = 10) => {
