@@ -6,7 +6,7 @@ import * as paymentSerivces from "../services/payment.service.js";
 export const createOnlinePayment = asyncHandler(async (req, res) => {
   // userid and orderid
   const userId = req.user.id;
-  const orderId = Number(req.params.id);
+  const orderId = Number(req.params.orderId);
 
   if (!Number.isInteger(orderId) || orderId <= 0) {
     throw new ApiError(400, "Invalid order id");

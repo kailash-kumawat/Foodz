@@ -33,6 +33,7 @@ import restaurantRoutes from "./routes/restaurant.route.js";
 // import dishRoutes from "./routes/dish.route.js";
 import cartRoutes from "./routes/cart.route.js";
 import orderRoutes from "./routes/order.route.js";
+import paymentRoutes from "./routes/payment.route.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/address", addressRoutes);
@@ -40,5 +41,7 @@ app.use("/api/v1/restaurants", restaurantRoutes);
 // app.use("/api/v1/dishes", dishRoutes);
 app.use("/api/v1/carts", cartRoutes);
 app.use("/api/v1/orders", orderRoutes);
+app.use("/payments", paymentRoutes);
+
 
 export default app;
