@@ -1,7 +1,7 @@
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { PaymentType } from "../../constants/payment.constant.js";
+import { PaymentType } from "../constants/payment.constant.js";
 import * as orderServices from "../services/order.service.js";
 
 export const createOrder = asyncHandler(async (req, res) => {
