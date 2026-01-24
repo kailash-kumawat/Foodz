@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Home, Heart, User, Clock } from "lucide-react";
 
-function BottomNav() {
+function Footer() {
   const linkClass = ({ isActive }) =>
     `
       flex items-center justify-center
@@ -52,9 +52,9 @@ function BottomNav() {
   );
 }
 
-export default BottomNav;
+export default Footer;
 
-/* “We use NavLink’s className callback instead of onClick because the active state 
+/* We use NavLink’s className callback instead of onClick because the active state 
 should be derived from the current route. NavLink automatically syncs UI state 
 with the URL, which avoids desynchronization issues when navigating programmatically 
-or using browser navigation.” */
+or using browser navigation. */
