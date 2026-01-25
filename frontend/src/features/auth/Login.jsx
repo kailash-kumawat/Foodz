@@ -14,9 +14,9 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="w-full max-w-sm px-6">
+      <h1 className="text-2xl font-semibold mb-6">Login</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <Input
           type="tel"
           label="Phone no"
