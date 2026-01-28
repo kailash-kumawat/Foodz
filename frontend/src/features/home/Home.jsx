@@ -1,5 +1,5 @@
 import React from "react";
-import HomeHeader from "../../components/HomeHeader";
+import { HomeHeader, CategoryTab } from "../../components";
 
 function Home() {
   return (
@@ -18,10 +18,7 @@ function Home() {
 
       {/* Categories */}
       <div className="flex gap-4 mb-6 overflow-x-auto">
-        <div className="h-[32px] w-[80px] rounded-full bg-gray-200" />
-        <div className="h-[32px] w-[80px] rounded-full bg-gray-200" />
-        <div className="h-[32px] w-[80px] rounded-full bg-gray-200" />
-        <div className="h-[32px] w-[80px] rounded-full bg-gray-200" />
+        <CategoryTab />
       </div>
 
       {/* Food list skeleton */}
@@ -36,3 +33,6 @@ function Home() {
 }
 
 export default Home;
+
+// done - home page skelton, topbar homepage, styling homepage heading, searchbar, routing homepage,
+// next - foodcard, foodcategories(horizontal scroll see gpt)
