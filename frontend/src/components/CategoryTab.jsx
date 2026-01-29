@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// TODO: Make it functional
 function CategoryTab() {
   const categories = ["Foods", "Drinks", "Snacks", "Sauce"];
   const [activeCategory, setActiveCategory] = useState("Foods");

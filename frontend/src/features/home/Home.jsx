@@ -1,7 +1,24 @@
 import React from "react";
-import { HomeHeader, CategoryTab } from "../../components";
+import { HomeHeader, CategoryTab, FoodCard } from "../../components";
 
 function Home() {
+  const foods = [
+    {
+      id: 1,
+      name: "Veg Burger",
+      price: 120,
+      image: "https://source.unsplash.com/300x300/?burger",
+      category: "Foods",
+    },
+    {
+      id: 2,
+      name: "French Fries",
+      price: 90,
+      image: "https://source.unsplash.com/300x300/?fries",
+      category: "Snacks",
+    },
+  ];
+
   return (
     <div className="px-6 pt-6">
       <HomeHeader />
@@ -16,17 +33,16 @@ function Home() {
         <span className="text-sm text-black/30">Search</span>
       </div>
 
-      {/* Categories */}
+      {/* Categories  improve styling here*/}
       <div className="flex gap-4 mb-6 overflow-x-auto">
         <CategoryTab />
       </div>
 
       {/* Food list skeleton */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="h-[160px] rounded-xl bg-gray-200" />
-        <div className="h-[160px] rounded-xl bg-gray-200" />
-        <div className="h-[160px] rounded-xl bg-gray-200" />
-        <div className="h-[160px] rounded-xl bg-gray-200" />
+        {foods.map((food) => (
+          <FoodCard name={food.name} img={food.img} price={food.price} />
+        ))}
       </div>
     </div>
   );
@@ -34,5 +50,6 @@ function Home() {
 
 export default Home;
 
-// done - home page skelton, topbar homepage, styling homepage heading, searchbar, routing homepage,
-// next - foodcard, foodcategories(horizontal scroll see gpt)
+// done - home page skelton, topbar homepage,
+// styling homepage heading, searchbar, routing homepage, foodcategories(horizontal scroll see gpt)
+// next - foodcard,
