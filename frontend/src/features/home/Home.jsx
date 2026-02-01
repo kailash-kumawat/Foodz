@@ -49,7 +49,3 @@ function Home() {
 }
 
 export default Home;
-
-// done - home page skelton, topbar homepage,
-// styling homepage heading, searchbar, routing homepage, foodcategories(horizontal scroll see gpt)
-// next - foodcard,
