@@ -1,18 +1,13 @@
-// next - build store using zustand
 // cartItems      → items user added
 // restaurantId   → cart belongs to one restaurant
 // totalQuantity  → number for badge
 // totalAmount    → price for checkout
 
-// total amount calculate helper function
-// add item --> same restra check, dish already exist(inc quant), additem
-// incrse and decrse quant logic
-// clear cart logic
-
+import toast from "react-hot-toast";
 import { create } from "zustand";
 
 // calculate total amount
-const calculateTotalAmount = (cartItems) => {
+const calculateTotals = (cartItems) => {
   let totalAmount = 0;
   let totalQuantity = 0;
 
@@ -34,18 +29,22 @@ export const useCartStore = create((set, get) => ({
     const { cartItems, restaurantId } = get();
     // check same restra
     if (restaurantId && dish.restaurantId !== restaurantId) {
-      return; // toast message
+      toast.dismiss();
+      toast.error("You can order items from only one restaurant at a time", {
+        duration: 3000,
+      });
+      return;
     }
     // check item already exist or not
     const existingItem = cartItems.find((item) => item.dishId === dish.id);
 
     let updatedCartItems;
     if (existingItem) {
-      updatedCartItems = cartItems.map((item) => {
+      updatedCartItems = cartItems.map((item) =>
         item.dishId === dish.id
           ? { ...item, quantity: item.quantity + 1 }
-          : item;
-      });
+          : item,
+      );
     } else {
       updatedCartItems = [
         ...cartItems,
@@ -59,7 +58,7 @@ export const useCartStore = create((set, get) => ({
       ];
     }
 
-    const totals = calculateTotalAmount(updatedCartItems);
+    const totals = calculateTotals(updatedCartItems);
     // set store
     set({
       cartItems: updatedCartItems,
@@ -76,7 +75,7 @@ export const useCartStore = create((set, get) => ({
 
     set({
       cartItems: updatedCartItems,
-      ...calculateTotalAmount(updatedCartItems),
+      ...calculateTotals(updatedCartItems),
     });
   },
 
@@ -92,7 +91,7 @@ export const useCartStore = create((set, get) => ({
     set({
       cartItems: updatedCartItems,
       restaurantId: updatedCartItems.length ? get().restaurantId : null,
-      ...calculateTotalAmount(updatedCartItems),
+      ...calculateTotals(updatedCartItems),
     });
   },
 
@@ -105,7 +104,7 @@ export const useCartStore = create((set, get) => ({
     set({
       cartItems: updatedCartItems,
       restaurantId: updatedCartItems.length ? get().restaurantId : null,
-      ...calculateTotalAmount(updatedCartItems),
+      ...calculateTotals(updatedCartItems),
     });
   },
 
@@ -132,7 +131,7 @@ export const useCartStore = create((set, get) => ({
     set({
       cartItems: items,
       restaurantId: items.length ? serverCart.restaurantId : null,
-      ...calculateTotalAmount(items),
+      ...calculateTotals(items),
     });
   },
 }));
