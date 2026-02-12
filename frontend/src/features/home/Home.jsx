@@ -41,7 +41,12 @@ function Home() {
       {/* Food list skeleton */}
       <div className="grid grid-cols-2 gap-4">
         {foods.map((food) => (
-          <FoodCard name={food.name} img={food.img} price={food.price} />
+          <FoodCard
+            key={food.id}
+            name={food.name}
+            img={food.img}
+            price={food.price}
+          />
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@
 // totalQuantity  → number for badge
 // totalAmount    → price for checkout
 
-//TODO: Connect to FoodCard through addToCart
+//TODO: Wire all stores to their pages
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
