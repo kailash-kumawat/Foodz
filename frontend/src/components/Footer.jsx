@@ -17,17 +17,20 @@ function Footer() {
   return (
     <div
       className="
-        fixed bottom-0 left-0 right-0
-        h-[80px]
-        bg-white
-        border-t
-        flex items-center
-      "
+    fixed bottom-4 left-1/2 -translate-x-1/2
+    h-[60px]
+    w-[90%]
+    bg-white/20 backdrop-blur-lg
+    rounded-2xl
+    flex items-center justify-center
+    shadow-lg
+    z-50
+    "
     >
       <div
         className="
           mx-[50px]
-          w-[252px]
+          
           flex items-center
           gap-[68px]
         "
