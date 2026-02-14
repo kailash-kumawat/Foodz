@@ -50,7 +50,7 @@ function Home() {
       </div>
 
       {/* Food list skeleton */}
-      <div className="grid grid-cols-2 gap-45">
+      <div className="grid grid-cols-2 gap-65">
         {foods.map((food) => (
           <FoodCard
             key={food.id}
