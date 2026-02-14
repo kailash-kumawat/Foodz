@@ -4,7 +4,7 @@ function FoodCard({ name, img, price }) {
   return (
     <div
       className="
-        w-[220px] h-[270px]
+       w-full aspect-[4/5]
         bg-white
         rounded-[30px]
         shadow-md
@@ -16,7 +16,7 @@ function FoodCard({ name, img, price }) {
         src={img}
         alt={name}
         className="
-          w-[164.16px] h-[164.16px]
+          w-24 h-24
           rounded-full
           object-cover
           mb-4

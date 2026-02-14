@@ -28,29 +28,65 @@ function Home() {
         "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       category: "Snacks",
     },
+    {
+      id: 4,
+      name: "Pizza",
+      price: 150,
+      image:
+        "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      category: "Snacks",
+    },
+    {
+      id: 5,
+      name: "Pizza",
+      price: 150,
+      image:
+        "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      category: "Snacks",
+    },
+    {
+      id: 6,
+      name: "Pizza",
+      price: 150,
+      image:
+        "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      category: "Snacks",
+    },
+    {
+      id: 7,
+      name: "Pizza",
+      price: 150,
+      image:
+        "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      category: "Snacks",
+    },
   ];
 
   return (
-    <div className="px-6 pt-6">
-      <HomeHeader />
-
-      {/* Heading- x:50 y:132 w:185 h:82 color: black*/}
-      <h1 className="w-[185px] text-3xl font-semibold leading-tight text-black mb-4">
-        Delicious food for you
-      </h1>
-
-      {/* Search placeholder - x: 50 y:242 x: 314 h: 60 radius: 30 color: EFEEEE*/}
-      <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
-        <span className="text-sm text-black/30">Search</span>
+    <div className="min-h-screen bg-white">
+      <div className="px-6 py-4">
+        <HomeHeader />
       </div>
 
-      {/* Categories  improve styling here*/}
-      <div className="flex gap-4 mb-6 overflow-x-auto">
-        <CategoryTab />
+      <div className="px-6">
+        {/* Heading- x:50 y:132 w:185 h:82 color: black*/}
+        <h1 className="w-[185px] text-3xl font-semibold leading-tight text-black mb-4">
+          Delicious food for you
+        </h1>
+
+        {/* Search placeholder - x: 50 y:242 x: 314 h: 60 radius: 30 color: EFEEEE*/}
+        <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
+          <span className="text-sm text-black/30">Search</span>
+        </div>
+
+        {/* Categories  improve styling here*/}
+        <div className="flex gap-4 mb-6 overflow-x-auto">
+          <CategoryTab />
+        </div>
       </div>
 
       {/* Food list skeleton */}
-      <div className="grid grid-cols-2 gap-65">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-6">
         {foods.map((food) => (
           <FoodCard
             key={food.id}
