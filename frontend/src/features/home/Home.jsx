@@ -80,7 +80,7 @@ function Home() {
         <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
           <Search className="w-5 h-5 text-black/40" />
           <input
-            className="bg-transparent outline-none w-full text-lg placeholder:text-black/30"
+            className="ml-2 caret-black/30 bg-transparent outline-none w-full text-lg placeholder:text-black/30"
             type="text"
             placeholder="search"
           ></input>
