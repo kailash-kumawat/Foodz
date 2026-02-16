@@ -1,10 +1,11 @@
 import React from "react";
+import { IndianRupee } from "lucide-react";
 
 function FoodCard({ name, img, price }) {
   return (
     <div
       className="
-       w-full aspect-[4/5]
+       w-full 
         bg-white
         rounded-[30px]
         shadow-md
@@ -25,10 +26,10 @@ function FoodCard({ name, img, price }) {
 
       <h6
         className="
-          text-[22px]
+          text-xl
           font-semibold
           text-center
-          w-[125px]
+          w-32
           leading-tight
           mb-2
         "
@@ -38,11 +39,14 @@ function FoodCard({ name, img, price }) {
 
       <span
         className="
-          text-[17px]
+          text-lg
           font-bold
           text-[#FA4A0C]
+          flex
+          items-center
         "
       >
+        <IndianRupee className="w-4" />
         {price}
       </span>
     </div>
