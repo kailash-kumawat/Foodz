@@ -1,5 +1,6 @@
 import React from "react";
 import { HomeHeader, CategoryTab, FoodCard } from "../../components";
+import { Search } from "lucide-react";
 
 function Home() {
   const foods = [
@@ -75,8 +76,14 @@ function Home() {
         </h1>
 
         {/* Search placeholder - x: 50 y:242 x: 314 h: 60 radius: 30 color: EFEEEE*/}
+       
         <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
-          <span className="text-sm text-black/30">Search</span>
+          <Search className="w-5 h-5 text-black/40" />
+          <input
+            className="bg-transparent outline-none w-full text-lg placeholder:text-black/30"
+            type="text"
+            placeholder="search"
+          ></input>
         </div>
 
         {/* Categories  improve styling here*/}
