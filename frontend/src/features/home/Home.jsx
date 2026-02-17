@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { HomeHeader, CategoryTab, FoodCard } from "../../components";
 import { Search } from "lucide-react";
 
 function Home() {
+  const [search, setSearch] = useState("");
   const foods = [
     {
       id: 1,
@@ -63,6 +64,12 @@ function Home() {
     },
   ];
 
+  const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
+
+  const filteredFoods = foods.filter((food) =>
+    removeWhiteSpace(food.name).includes(removeWhiteSpace(search)),
+  );
+
   return (
     <div className="min-h-screen bg-white">
       <div className="px-6 py-4">
@@ -76,14 +83,15 @@ function Home() {
         </h1>
 
         {/* Search placeholder - x: 50 y:242 x: 314 h: 60 radius: 30 color: EFEEEE*/}
-       
         <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
           <Search className="w-5 h-5 text-black/40" />
           <input
             className="ml-2 caret-black/30 bg-transparent outline-none w-full text-lg placeholder:text-black/30"
             type="text"
-            placeholder="search"
-          ></input>
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
         {/* Categories  improve styling here*/}
@@ -94,14 +102,18 @@ function Home() {
 
       {/* Food list skeleton */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-6">
-        {foods.map((food) => (
-          <FoodCard
-            key={food.id}
-            name={food.name}
-            img={food.image}
-            price={food.price}
-          />
-        ))}
+        {filteredFoods.length > 0 ? (
+          filteredFoods.map((food) => (
+            <FoodCard
+              key={food.id}
+              name={food.name}
+              img={food.image}
+              price={food.price}
+            />
+          ))
+        ) : (
+          <p className="col-span-2 text-center text-gray-400">No food found</p>
+        )}
       </div>
     </div>
   );
