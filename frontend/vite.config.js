@@ -15,6 +15,8 @@ export default defineConfig({
         description: "Food delivery app",
         theme_color: "#FA4A0C",
         background_color: "#ffffff",
+        start_url: "/",
+        scope: "/",
         display: "standalone",
         icons: [
           {
