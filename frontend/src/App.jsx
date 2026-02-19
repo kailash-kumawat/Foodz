@@ -4,6 +4,7 @@ import Home from "./features/home/Home";
 import { Login, Signup } from "./features/auth";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import AuthPage from "./features/auth/AuthPage";
 
 function App() {
   return (
@@ -13,8 +14,7 @@ function App() {
       </Route>
 
       <Route element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Route>
     </Routes>
   );
