@@ -14,8 +14,8 @@ function Login() {
   };
 
   return (
-    <div className="w-full max-w-sm px-6 fixed">
-      <h1 className="text-2xl font-semibold mb-6">Login</h1>
+    <div className="w-full max-w-sm p-6 fixed">
+      {/* <h1 className="text-2xl font-semibold mb-6">Login</h1> */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <Input
           type="tel"
