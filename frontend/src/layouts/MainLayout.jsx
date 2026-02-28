@@ -4,7 +4,7 @@ import { Footer } from "../components";
 
 function MainLayout() {
   return (
-    <div className="min-h-screen pb-[90px] bg-white">
+    <div className="pb-[90px] bg-white">
       <Outlet />
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Login, Signup } from "./index";
-// next : fix scroll issue of authpage
+
 function AuthPage() {
   const [activeTab, setactiveTab] = useState("login");
   return (
