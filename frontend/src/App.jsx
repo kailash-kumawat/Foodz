@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/add" element={<SingleDish />} />
+        <Route path="/dish/:id" element={<SingleDish />} />
       </Route>
 
       <Route element={<AuthLayout />}>

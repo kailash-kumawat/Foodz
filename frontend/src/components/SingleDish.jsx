@@ -1,16 +1,21 @@
 import React from "react";
 import { Button } from "./index.js";
 import { IndianRupee } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { foods } from "../data/foods.data.js";
 
 function SingleDish() {
+  const { id } = useParams();
+  const filteredFood = foods.find((food) => food.id === Number(id));
+
   return (
     <div className="p-6 flex  flex-col items-center justify-items-center">
       {/* Dish Image */}
       <img
-        src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="img"
+        src={filteredFood.image}
+        alt={filteredFood.name}
         className="
-        w-[241px] h-[241px]
+        w-[240px] h-[240px]
           rounded-full
           object-cover
           mb-4
@@ -30,7 +35,7 @@ function SingleDish() {
           mt-3
         "
       >
-        Veg Burger
+        {filteredFood.name}
       </h6>
 
       {/* Dish Price */}
@@ -45,7 +50,7 @@ function SingleDish() {
         "
       >
         <IndianRupee className="w-4" />
-        240
+        {filteredFood.price}
       </span>
 
       {/* Description */}
@@ -68,3 +73,6 @@ function SingleDish() {
 }
 
 export default SingleDish;
+
+// next: here make it fully functional and check width of description when screen is expending it expend too.
+// get name, img, price, description
