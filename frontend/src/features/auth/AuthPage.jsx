@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Login, Signup } from "./index";
+import Login from "./Login";
+import Signup from "./Signup";
 
 function AuthPage() {
   const [activeTab, setactiveTab] = useState("login");

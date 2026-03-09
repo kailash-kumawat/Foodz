@@ -6,6 +6,7 @@ import HomeHeader from "./HomeHeader";
 import FoodCard from "./FoodCard";
 import BackButton from "./BackButton";
 import SingleDish from "./SingleDish";
+import FavouriteButton from "./FavouriteButton";
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   FoodCard,
   BackButton,
   SingleDish,
+  FavouriteButton,
 };

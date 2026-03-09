@@ -3,7 +3,7 @@ import { Button } from "./index.js";
 import { IndianRupee } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { foods } from "../data/foods.data.js";
-import BackButton from "./BackButton.jsx";
+import { BackButton, FavouriteButton } from "./index.js";
 
 function SingleDish() {
   const { id } = useParams();
@@ -12,10 +12,12 @@ function SingleDish() {
   return (
     <>
       <div className="p-6 flex flex-col items-center justify-items-center">
-        {/* Back button */}
-        <div className="mr-auto">
+        {/* Back and Fvrt button */}
+        <div className="w-full flex justify-between text-center p-3">
           <BackButton />
+          <FavouriteButton />
         </div>
+        
         {/* Dish Image */}
         <img
           src={filteredFood.image}
