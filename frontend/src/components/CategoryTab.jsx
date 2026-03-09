@@ -7,10 +7,10 @@ function CategoryTab() {
     "Drinks",
     "Snacks",
     "Sauce",
-    "Drinks",
-    "Drinks",
-    "Snacks",
-    "Sauce",
+    "Chinese",
+    "North Indian",
+    "South Indian",
+    "Fast Food",
   ];
   const [activeCategory, setActiveCategory] = useState("Foods");
 
