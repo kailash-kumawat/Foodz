@@ -17,7 +17,7 @@ function SingleDish() {
           <BackButton />
           <FavouriteButton />
         </div>
-        
+
         {/* Dish Image */}
         <img
           src={filteredFood.image}
@@ -82,3 +82,12 @@ function SingleDish() {
 }
 
 export default SingleDish;
+
+/* Next building order
+1. Add to Cart logic - then write add to cart logic(2)
+2. Cart Page - start from here(1)
+3. Checkout Page
+4. Payment Page
+5. Orders Page
+6. Profile Page
+*/

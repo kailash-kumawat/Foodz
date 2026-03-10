@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
+    "db:setup": "prisma generate && prisma migrate deploy",
+    "db:studio": "prisma studio"
   },
   "keywords": [],
   "author": "kailash kumawat",
