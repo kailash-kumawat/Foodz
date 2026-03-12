@@ -73,9 +73,7 @@ function SingleDish() {
         </div>
 
         {/* Add to cart button component */}
-        <Button type="submit" className="text-[#F6F6F9]">
-          Add to cart
-        </Button>
+        <Button className="text-[#F6F6F9]">Add to cart</Button>
       </div>
     </>
   );
