@@ -7,6 +7,8 @@ import FoodCard from "./FoodCard";
 import BackButton from "./BackButton";
 import SingleDish from "./SingleDish";
 import FavouriteButton from "./FavouriteButton";
+import IncDecBtn from "./IncDecBtn";
+import CartItem from "./CartItem";
 
 export {
   Button,
@@ -18,4 +20,6 @@ export {
   BackButton,
   SingleDish,
   FavouriteButton,
+  IncDecBtn,
+  CartItem,
 };
