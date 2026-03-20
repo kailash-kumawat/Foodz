@@ -1,10 +1,10 @@
 import React from "react";
 import { ChevronLeft } from "lucide-react";
 
-function BackButton() {
+function BackButton({ className = "" }) {
   return (
     <button>
-      <ChevronLeft className="text-black" />
+      <ChevronLeft className={`text-black ${className}`} />
     </button>
   );
 }
