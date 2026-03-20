@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { useCartStore } from "../store/cart.store.js";
 
-function IncDecBtn() {
+function IncDecBtn({ className = "" }) {
   const [quantity, setQuantity] = useState(0);
 
   const increaseQuant = useCartStore((state) => state.increaseItem);
   const decreaseQuant = useCartStore((state) => state.decreaseItem);
   return (
-    <div className="flex w-[80px] h-[30px] p-4 rounded-2xl justify-between items-center bg-[#FA4A0C]">
+    <div
+      className={`flex w-[80px] h-[30px] p-4 rounded-2xl justify-between items-center bg-[#FA4A0C] ${className}`}
+    >
       <button
         className=""
         onClick={() => setQuantity((quantity) => quantity - 1)}
       >
         -
       </button>
-      <input
+      {/* <input
         className="w-full"
         type="number"
         value={quantity}
         onChange={(e) => setQuantity(Number(e.target.value))}
-      ></input>
+      ></input> */}
+      <p>{quantity}</p>
       <button
         className=""
         onClick={() => setQuantity((quantity) => quantity + 1)}
