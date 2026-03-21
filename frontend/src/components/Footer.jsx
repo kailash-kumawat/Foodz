@@ -25,6 +25,7 @@ function Footer() {
     flex items-center justify-center
     shadow-lg
     z-50
+    lg:w-fit
     "
     >
       <div
