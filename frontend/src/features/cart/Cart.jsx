@@ -9,9 +9,10 @@ function Cart() {
         <p className="text-2xl font-semibold mx-auto mr-auto">Cart</p>
       </div>
       <div className="flex flex-col justify-between items-center h-[90vh]">
-        {/* <div className="container"> */}
-        <CartItem />
-        {/* </div> */}
+        <div className="container flex flex-col gap-5">
+          <CartItem />
+          <CartItem />
+        </div>
         <div className="pb-6 pt-8">
           <Button className="w-full">Place Order</Button>
         </div>
