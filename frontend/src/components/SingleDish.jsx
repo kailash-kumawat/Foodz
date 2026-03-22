@@ -1,13 +1,16 @@
 import React from "react";
 import { Button } from "./index.js";
 import { IndianRupee } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { foods } from "../data/foods.data.js";
 import { BackButton, FavouriteButton } from "./index.js";
+import { useCartStore } from "../store/cart.store.js";
 
 function SingleDish() {
   const { id } = useParams();
   const filteredFood = foods.find((food) => food.id === Number(id));
+  const addItem = useCartStore((state) => state.addItem);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -83,7 +86,16 @@ function SingleDish() {
         </div>
 
         {/* Add to cart button component */}
-        <Button className="text-[#F6F6F9]">Add to cart</Button>
+
+        <Button
+          onClick={() => {
+            addItem(filteredFood);
+            navigate("/cart");
+          }}
+          className="text-[#F6F6F9]"
+        >
+          Add to cart
+        </Button>
       </div>
     </>
   );

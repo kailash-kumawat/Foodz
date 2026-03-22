@@ -1,6 +1,7 @@
 export const foods = [
   {
     id: 1,
+    restaurantId: 1,
     name: "Veg Burger",
     price: 120,
     image:
@@ -9,6 +10,7 @@ export const foods = [
   },
   {
     id: 2,
+    restaurantId: 2,
     name: "French Fries",
     price: 90,
     image:
@@ -18,6 +20,7 @@ export const foods = [
 
   {
     id: 3,
+    restaurantId: 3,
     name: "Pizza",
     price: 150,
     image:
@@ -26,6 +29,7 @@ export const foods = [
   },
   {
     id: 4,
+    restaurantId: 4,
     name: "Pizza",
     price: 150,
     image:
@@ -34,6 +38,7 @@ export const foods = [
   },
   {
     id: 5,
+    restaurantId: 5,
     name: "Pizza",
     price: 150,
     image:
@@ -42,6 +47,7 @@ export const foods = [
   },
   {
     id: 6,
+    restaurantId: 6,
     name: "Pizza",
     price: 150,
     image:
@@ -50,6 +56,7 @@ export const foods = [
   },
   {
     id: 7,
+    restaurantId: 7,
     name: "Pizza",
     price: 150,
     image:

@@ -53,7 +53,7 @@ export const useCartStore = create((set, get) => ({
           dishId: dish.id,
           name: dish.name,
           price: dish.price,
-          img: dish.img,
+          image: dish.image,
           quantity: 1,
         },
       ];
@@ -125,7 +125,7 @@ export const useCartStore = create((set, get) => ({
       dishId: item.dish.id,
       name: item.dish.name,
       price: item.dish.price,
-      img: item.dish.img,
+      image: item.dish.image,
       quantity: item.quantity,
     }));
 

@@ -1,9 +1,14 @@
 import React from "react";
 import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-function BackButton() {
+function BackButton({ className = "" }) {
+  const navigate = useNavigate();
   return (
-    <button>
+    <button
+      onClick={() => navigate(-1)}
+      className={`cursor-pointer${className}`}
+    >
       <ChevronLeft />
     </button>
   );

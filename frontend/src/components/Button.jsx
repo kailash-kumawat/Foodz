@@ -19,6 +19,7 @@ function Button({
       bg-[#FA4A0C]
       text-white font-medium
         flex items-center justify-center
+        cursor-pointer
         transition 
         ${isDisabled ? "opacity-60 cursor-not-allowed" : "active:scale-[0.98]"}`}
       {...props}
