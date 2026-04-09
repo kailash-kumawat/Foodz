@@ -92,6 +92,7 @@ function SingleDish() {
             addItem(filteredFood);
             navigate("/cart");
           }}
+          dishId={filteredFood.id}
           className="text-[#F6F6F9]"
         >
           Add to cart

@@ -2,7 +2,7 @@ import React from "react";
 import { IndianRupee } from "lucide-react";
 import { IncDecBtn } from "./index.js";
 
-function CartItem({name, image, price}) {
+function CartItem({ name, image, price, dishId }) {
   return (
     <>
       <div className="flex items-center h-[100px] w-5/6 p-6 rounded-3xl justify-around bg-white mx-auto lg:w-1/3">
@@ -33,7 +33,7 @@ function CartItem({name, image, price}) {
           </span>
         </div>
         {/* Increment/Decrement button */}
-        <IncDecBtn className="mt-6 text-white my-auto" />
+        <IncDecBtn dishId={dishId} className="mt-6 text-white my-auto" />
       </div>
     </>
   );
