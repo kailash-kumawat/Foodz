@@ -4,6 +4,7 @@ import { useCartStore } from "../../store/cart.store.js";
 
 function Cart() {
   const cartItems = useCartStore((state) => state.cartItems);
+  
 
   return (
     <>
@@ -19,6 +20,8 @@ function Cart() {
                   name={item.name}
                   image={item.image}
                   price={item.price}
+                  dishId={item.dishId}
+                  quantity={item.quantity}
                 />
               ))
             : ""}

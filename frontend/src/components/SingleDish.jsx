@@ -92,7 +92,6 @@ function SingleDish() {
             addItem(filteredFood);
             navigate("/cart");
           }}
-          dishId={filteredFood.id}
           className="text-[#F6F6F9]"
         >
           Add to cart
@@ -103,3 +102,23 @@ function SingleDish() {
 }
 
 export default SingleDish;
+
+/* Next building order
+1. Add to Cart logic - then write add to cart logic(2)
+2. Cart Page - start from here(1)
+3. Checkout Page
+4. Payment Page
+5. Orders Page
+6. Profile Page
+*/
+
+/*
+what we have done-
+single dish page
+add to cart
+cart page
+cart items
+inc dec quant fully functional
+
+next - place order -> Checkout Page -> redirect to payment page
+*/

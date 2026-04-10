@@ -1,8 +1,11 @@
 import React from "react";
 import { IndianRupee } from "lucide-react";
-import { IncDecBtn } from "./index.js";
+import { useCartStore } from "../store/cart.store.js";
 
-function CartItem({ name, image, price, dishId }) {
+function CartItem({ name, image, price, dishId, quantity }) {
+  const increaseQuant = useCartStore((state) => state.increaseItem);
+  const decreaseQuant = useCartStore((state) => state.decreaseItem);
+
   return (
     <>
       <div className="flex items-center h-[100px] w-5/6 p-6 rounded-3xl justify-around bg-white mx-auto lg:w-1/3">
@@ -33,7 +36,24 @@ function CartItem({ name, image, price, dishId }) {
           </span>
         </div>
         {/* Increment/Decrement button */}
-        <IncDecBtn dishId={dishId} className="mt-6 text-white my-auto" />
+        <div
+          className={`flex w-[80px] h-[30px] p-4 rounded-2xl justify-center 
+            items-center border-1 border-[#ffd4c7]`}
+        >
+          <button
+            className="text-[#FA4A0C] mr-auto cursor-pointer"
+            onClick={() => decreaseQuant(dishId)}
+          >
+            -
+          </button>
+          <p className="text-[#FA4A0C]">{quantity}</p>
+          <button
+            className="text-[#FA4A0C] ml-auto cursor-pointer"
+            onClick={() => increaseQuant(dishId)}
+          >
+            +
+          </button>
+        </div>
       </div>
     </>
   );
