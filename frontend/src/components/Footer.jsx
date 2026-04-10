@@ -9,7 +9,7 @@ function Footer() {
       transition-all duration-200
       ${
         isActive
-          ? "text-[#FA4A0C] scale-110 -translate-y-1"
+          ? " text-[#FA4A0C] scale-110 -translate-y-1"
           : "text-[#ADADAF] scale-100 translate-y-0"
       }
     `;
@@ -49,7 +49,7 @@ function Footer() {
         </NavLink>
 
         <NavLink to="/orders" className={linkClass}>
-          <Clock className="w-[29px] h-[29px]" />
+          <Clock className="w-[24px] h-[24px]" />
         </NavLink>
       </div>
     </div>
