@@ -8,16 +8,16 @@ function CartItem({ name, image, price, dishId, quantity }) {
 
   return (
     <>
-      <div className="flex items-center h-[100px] w-5/6 p-6 rounded-3xl justify-around bg-white mx-auto lg:w-1/3">
+      <div className="flex items-center h-[80px] w-5/6 p-6 rounded-[20px] justify-around bg-white mx-auto lg:w-1/3">
         {/* Dish Img */}
         <img
-          className="rounded-full w-[70px] h-[70px] mr-auto lg:mr-0 shadow-black/15 shadow-xl object-cover"
+          className="rounded-full w-[50px] h-[50px] mr-auto lg:mr-0 shadow-black/15 shadow-xl object-cover"
           src={image}
           alt={name}
         />
 
         {/* Dish name */}
-        <div className="mr-auto lg:mr-35">
+        <div className="w-[120px] mr-auto lg:mr-35">
           <p className="font-semibold text-xl">{name}</p>
 
           {/* Dish price */}
@@ -38,17 +38,17 @@ function CartItem({ name, image, price, dishId, quantity }) {
         {/* Increment/Decrement button */}
         <div
           className={`flex w-[80px] h-[30px] p-4 rounded-2xl justify-center 
-            items-center border-1 border-[#ffd4c7]`}
+            items-center bg-[#FA4A0C]`}
         >
           <button
-            className="text-[#FA4A0C] mr-auto cursor-pointer"
+            className="text-white mr-auto cursor-pointer"
             onClick={() => decreaseQuant(dishId)}
           >
             -
           </button>
-          <p className="text-[#FA4A0C]">{quantity}</p>
+          <p className="text-white">{quantity}</p>
           <button
-            className="text-[#FA4A0C] ml-auto cursor-pointer"
+            className="text-white ml-auto cursor-pointer"
             onClick={() => increaseQuant(dishId)}
           >
             +
