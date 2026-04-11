@@ -6,6 +6,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import AuthPage from "./features/auth/AuthPage";
 import { SingleDish } from "./components/index.js";
 import Cart from "./features/cart/Cart";
+import Checkout from "./features/checkout/Checkout.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/dish/:id" element={<SingleDish />} />
       </Route>
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
 
       <Route element={<AuthLayout />}>
         <Route path="/auth" element={<AuthPage />} />

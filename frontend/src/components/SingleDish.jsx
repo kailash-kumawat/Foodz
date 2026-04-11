@@ -102,3 +102,24 @@ function SingleDish() {
 }
 
 export default SingleDish;
+
+/* Next building order
+1. Add to Cart logic - then write add to cart logic(2)
+2. Cart Page - start from here(1)
+3. Checkout Page
+4. Payment Page
+5. Orders Page
+6. Profile Page
+*/
+
+/*
+what we have done-
+single dish page
+add to cart
+cart page
+cart items
+inc dec quant fully functional
+
+next - complete order(done) -> Checkout Page(next) -> redirect to payment page
+workflow - complete order -> confirm order(total price, quantity etc) -> complete payment(razorpay)
+*/
