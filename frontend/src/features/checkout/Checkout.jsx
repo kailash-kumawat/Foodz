@@ -3,6 +3,7 @@ import { BackButton, Button } from "../../components/index.js";
 import { useCartStore } from "../../store/cart.store.js";
 import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PriceRow from "./PriceRow";
 
 function Checkout() {
   const cartItems = useCartStore((state) => state.cartItems);
@@ -53,22 +54,53 @@ function Checkout() {
           </div>
 
           <div className="bg-white rounded-[20px] p-6 mt-3 flex flex-col gap-2">
-            {cartItems.map((item) => (
-              <>
-                <div key={item.id} className="flex items-center gap-2 text-lg">
-                  <UtensilsCrossed size={15} />
-                  <p>{`${item.name}`}</p>
-                  <span>{`x${item.quantity}`}</span>
-                  <span className="ml-auto flex items-center">
-                    <IndianRupee size={10} />
-                    <p>{`${item.price * item.quantity}`}</p>
-                  </span>
-                </div>
-                <hr className="border-t border-black/20" />
-              </>
-            ))}
+            {cartItems.length > 0
+              ? cartItems.map((item) => (
+                  <>
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-2 text-lg"
+                    >
+                      <UtensilsCrossed size={15} />
+                      <p>{item.name}</p>
+                      <p>{`x${item.quantity}`}</p>
+                      <span className="ml-auto flex items-center">
+                        <IndianRupee size={10} />
+                        <p>{`${item.price * item.quantity}`}</p>
+                      </span>
+                    </div>
+                    <hr className="border-t border-black/20" />
+                  </>
+                ))
+              : "Add Items to cart"}
 
-            <div className="flex items-center justify-between text-lg font-extralight italic">
+            <PriceRow
+              name={"Subtotal"}
+              amount={totalAmount}
+              className="flex items-center justify-between text-lg font-extralight italic"
+            />
+
+            <PriceRow
+              name={"Delivery Fee"}
+              amount={deliveryFee}
+              className="flex items-center justify-between text-lg font-extralight italic"
+            />
+
+            <PriceRow
+              name={"GST 18%"}
+              amount={Gst}
+              className="flex items-center justify-between text-lg font-extralight italic"
+            />
+
+            <hr className="border-t border-dashed border-black/30 " />
+
+            <PriceRow
+              name={"Total"}
+              amount={total}
+              className="flex items-center justify-between text-lg"
+            />
+
+            {/* <div className="flex items-center justify-between text-lg font-extralight italic">
               <p>Subtotal</p>
               <span className="ml-auto flex items-center">
                 <IndianRupee size={10} />
@@ -100,7 +132,7 @@ function Checkout() {
                 <IndianRupee size={10} />
                 <p>{total}</p>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 
