@@ -119,7 +119,8 @@ add to cart
 cart page
 cart items
 inc dec quant fully functional
+checkout page
 
-next - complete order(done) -> Checkout Page(next) -> redirect to payment page
+next - complete order(done) -> Checkout Page(done) -> redirect to payment page(next)
 workflow - complete order -> confirm order(total price, quantity etc) -> complete payment(razorpay)
 */
