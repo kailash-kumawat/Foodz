@@ -15,17 +15,11 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="px-6 py-4">
-        <HomeHeader />
-      </div>
-
       <div className="px-6">
-        {/* Heading- x:50 y:132 w:185 h:82 color: black*/}
         <h1 className="w-[185px] text-3xl font-semibold leading-tight text-black mb-4">
           Delicious food for you
         </h1>
 
-        {/* Search placeholder - x: 50 y:242 x: 314 h: 60 radius: 30 color: EFEEEE*/}
         <div className="w-[314px] h-[60px] rounded-[30px] bg-[#EFEEEE] mb-6 flex items-center px-5">
           <Search className="w-5 h-5 text-black/40" />
           <input
@@ -42,8 +36,6 @@ function Home() {
           <CategoryTab />
         </div>
       </div>
-
-      {/* Food list skeleton */}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-6">
         {filteredFoods.length > 0 ? (

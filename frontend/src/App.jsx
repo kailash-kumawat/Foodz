@@ -13,8 +13,8 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/dish/:id" element={<SingleDish />} />
       </Route>
+      <Route path="/dish/:id" element={<SingleDish />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
 

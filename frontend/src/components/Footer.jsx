@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Home, Heart, User, Clock } from "lucide-react";
 
-function Footer() {
+function Footer({ isOpen }) {
   const linkClass = ({ isActive }) =>
     `
       flex items-center justify-center
@@ -16,17 +16,10 @@ function Footer() {
 
   return (
     <div
-      className="
-    fixed bottom-4 left-1/2 -translate-x-1/2
-    h-[60px]
-    w-[90%]
-    bg-white/20 backdrop-blur-lg
-    rounded-2xl
-    flex items-center justify-center
-    shadow-lg
-    z-50
-    lg:w-fit
-    "
+      className={`
+        fixed bottom-4 left-1/2 -translate-x-1/2 h-[60px] w-[90%] bg-white/20 backdrop-blur-lg
+        rounded-2xl flex items-center justify-center shadow-lg z-50 lg:w-fit
+         ${isOpen ? "hidden" : "visible"}`}
     >
       <div
         className="

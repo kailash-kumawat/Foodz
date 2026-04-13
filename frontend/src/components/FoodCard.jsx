@@ -6,7 +6,7 @@ function FoodCard({ name, img, price }) {
     <div
       className="
        w-full 
-        bg-white
+       bg-white
         rounded-[30px]
         shadow-md
         flex flex-col items-center
