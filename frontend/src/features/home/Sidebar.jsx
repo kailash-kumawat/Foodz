@@ -8,12 +8,22 @@ import {
   ArrowLeft,
   ShoppingBag,
 } from "lucide-react";
+import SidebarItem from "./SidebarItem";
 
-// TODO: Optimise code and start building profile page
+// TODO: reduce code redundency and start building profile page
+// BUG: horizontal scroll not working in sidebar
 
 function Sidebar({ isOpen, onClose }) {
   return (
     <>
+      {/* <div
+        className={`
+    fixed top-0 left-0 h-full w-full lg:w-1/2
+    bg-[#FA4A0C] z-40 flex flex-col
+    transform transition-transform duration-300 ease-in-out
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  `}
+      > */}
       {isOpen && (
         <div
           className={`fixed inset-0 bg-[#FA4A0C] z-40 lg:w-1/2 flex flex-col transform transition-transform duration-300 `}
@@ -28,37 +38,25 @@ function Sidebar({ isOpen, onClose }) {
           <div
             className={`flex flex-col gap-8 text-white font-semibold w-1/2 h-auto ml-10 z-50 my-auto`}
           >
-            <div className="flex gap-4 items-center">
-              <UserCircle2 size={25} />
-              <Link to={"/profile"} className="text-xl">
-                Profile
-              </Link>
-            </div>
-            <hr className="w-5/6 ml-auto border-t border-white/30"></hr>
+            <SidebarItem
+              path={"/profile"}
+              name={"Profile"}
+              icon={UserCircle2}
+            />
 
-            <div className="flex gap-4 items-center">
-              <ShoppingBag size={25} />
-              <Link to={"/order"} className="text-xl">
-                Orders
-              </Link>
-            </div>
-            <hr className="w-5/6 ml-auto border-t border-white/30"></hr>
+            <SidebarItem path={"/orders"} name={"Orders"} icon={ShoppingBag} />
 
-            <div className="flex gap-4 items-center">
-              <MapPinHouse size={25} />
-              <Link to={"/address"} className="text-xl">
-                Saved Address
-              </Link>
-            </div>
-            <hr className="w-5/6 ml-auto border-t border-white/30"></hr>
+            <SidebarItem
+              path={"/adress"}
+              name={"Saved Address"}
+              icon={MapPinHouse}
+            />
 
-            <div className="flex gap-4 items-center">
-              <Wallet2 size={25} />
-              <Link to={"/payment"} className="text-xl">
-                Payment Modes
-              </Link>
-            </div>
-            <hr className="w-5/6 ml-auto border-t border-white/30"></hr>
+            <SidebarItem
+              path={"/payment"}
+              name={"Payment Modes"}
+              icon={Wallet2}
+            />
           </div>
 
           <div className="text-xl text-white font-semibold ml-10 my-auto">
