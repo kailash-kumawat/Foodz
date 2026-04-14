@@ -7,36 +7,33 @@ import {
   ArrowRight,
   ArrowLeft,
   ShoppingBag,
+  ArrowDown,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
-
-// TODO: reduce code redundency and start building profile page
-// BUG: horizontal scroll not working in sidebar
 
 function Sidebar({ isOpen, onClose }) {
   return (
     <>
-      {/* <div
-        className={`
-    fixed top-0 left-0 h-full w-full lg:w-1/2
-    bg-[#FA4A0C] z-40 flex flex-col
-    transform transition-transform duration-300 ease-in-out
-    ${isOpen ? "translate-x-0" : "-translate-x-full"}
-  `}
-      > */}
-      {isOpen && (
+      {
         <div
-          className={`fixed inset-0 bg-[#FA4A0C] z-40 lg:w-1/2 flex flex-col transform transition-transform duration-300 `}
+          className={`fixed inset-0 bg-white/20 backdrop-blur-lg z-40 w-full justify-center 
+            flex flex-col items-center transform transition-transform duration-300 ease-in-out 
+            ${isOpen ? "translate-y-0" : "translate-y-full"}`}
           // onClick={onClose}
         >
           <div className="ml-auto p-6 ">
             <button className="cursor-pointer" onClick={() => onClose()}>
-              <ArrowLeft size={25} strokeWidth={2.5} className="text-white" />
+              <ArrowDown
+                size={25}
+                strokeWidth={2.5}
+                className="text-[#FA4A0C]"
+              />
             </button>
           </div>
 
           <div
-            className={`flex flex-col gap-8 text-white font-semibold w-1/2 h-auto ml-10 z-50 my-auto`}
+            className={`grid grid-cols-2 gap-4 items-center text-[#FA4A0C] 
+              font-semibold z-50 my-auto h-1/2 w-5/6 lg:w-3/5`}
           >
             <SidebarItem
               path={"/profile"}
@@ -54,12 +51,12 @@ function Sidebar({ isOpen, onClose }) {
 
             <SidebarItem
               path={"/payment"}
-              name={"Payment Modes"}
+              name={"Payment Mode"}
               icon={Wallet2}
             />
           </div>
 
-          <div className="text-xl text-white font-semibold ml-10 my-auto">
+          <div className="text-xl text-[#FA4A0C] font-semibold ml-10 my-auto">
             <button
               className="flex items-center gap-2 cursor-pointer"
               onClick={() => {
@@ -72,7 +69,8 @@ function Sidebar({ isOpen, onClose }) {
             </button>
           </div>
         </div>
-      )}
+        // )
+      }
     </>
   );
 }

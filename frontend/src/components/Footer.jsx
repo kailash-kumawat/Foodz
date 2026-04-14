@@ -24,7 +24,6 @@ function Footer({ isOpen }) {
       <div
         className="
           mx-[50px]
-          
           flex items-center
           gap-[68px]
         "
