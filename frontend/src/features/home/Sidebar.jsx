@@ -1,15 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   UserCircle2,
   MapPinHouse,
   Wallet2,
   ArrowRight,
-  ArrowLeft,
   ShoppingBag,
   ArrowDown,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
+
+// TODO: start building profile page
+// BUG: horizontal scroll not working in sidebar
 
 function Sidebar({ isOpen, onClose }) {
   return (
@@ -69,7 +70,6 @@ function Sidebar({ isOpen, onClose }) {
             </button>
           </div>
         </div>
-        // )
       }
     </>
   );
