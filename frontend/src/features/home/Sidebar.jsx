@@ -8,11 +8,13 @@ import {
   ArrowDown,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
+import { useNavigate } from "react-router-dom";
 
 // TODO: start building profile page
 // BUG: horizontal scroll not working in sidebar
 
 function Sidebar({ isOpen, onClose }) {
+  const navigate = useNavigate();
   return (
     <>
       {
@@ -61,8 +63,8 @@ function Sidebar({ isOpen, onClose }) {
             <button
               className="flex items-center gap-2 cursor-pointer"
               onClick={() => {
-                console.log("Logout");
                 // onClose();
+                navigate("/auth");
               }}
             >
               Sign-out

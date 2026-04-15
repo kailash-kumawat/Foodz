@@ -14,9 +14,12 @@ function Signup() {
   };
 
   return (
-    <div className="w-full max-w-sm p-6">
+    <div className="w-full flex flex-col items-center lg:w-1/3 lg:h-full lg:mx-auto">
       {/* <h1 className="text-2xl font-semibold mb-6">Signup</h1> */}
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-fit mx-auto"
+      >
         <Input
           type="text"
           label="Name"
@@ -41,10 +44,12 @@ function Signup() {
           {...register("password", { required: "Password is required" })}
           error={errors.password?.message}
         />
+      </form>
+      <div className="w-fit mt-10">
         <Button type="submit" loading={isSubmitting} disabled={!isValid}>
           Signup
         </Button>
-      </form>
+      </div>
     </div>
   );
 }
