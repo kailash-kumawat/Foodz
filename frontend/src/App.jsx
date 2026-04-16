@@ -8,12 +8,14 @@ import { SingleDish } from "./components/index.js";
 import Cart from "./features/cart/Cart";
 import Checkout from "./features/checkout/Checkout";
 import Profile from "./features/profile/Profile";
+import Start from "./features/start/Start";
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Start />} />
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
       </Route>
       <Route path="/profile" element={<Profile />} />
       <Route path="/dish/:id" element={<SingleDish />} />
