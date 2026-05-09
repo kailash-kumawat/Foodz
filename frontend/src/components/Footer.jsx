@@ -9,7 +9,7 @@ function Footer({ isOpen }) {
       transition-all duration-200
       ${
         isActive
-          ? " text-[#FA4A0C] scale-110 -translate-y-1"
+          ? "text-[#FA4A0C] scale-110 -translate-y-1"
           : "text-[#ADADAF] scale-100 translate-y-0"
       }
     `;
