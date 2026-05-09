@@ -12,7 +12,7 @@ function AuthPage() {
           <div className="flex justify-around w-full">
             <button
               onClick={() => setactiveTab("login")}
-              className={`px-6 p-4 text-center ${
+              className={`px-6 p-4 text-center cursor-pointer ${
                 activeTab === "login"
                   ? "border-orange-500 font-semibold border-b-2"
                   : "text-gray-400"
@@ -23,7 +23,7 @@ function AuthPage() {
 
             <button
               onClick={() => setactiveTab("signup")}
-              className={`px-6 p-4 text-center ${
+              className={`px-6 p-4 text-center cursor-pointer ${
                 activeTab === "signup"
                   ? "border-orange-500 border-b-2 font-semibold"
                   : "text-gray-400"

@@ -88,7 +88,7 @@ function Checkout() {
 
                 <PriceRow
                   name={"GST 18%"}
-                  amount={Gst}
+                  amount={Number(Gst.toFixed(2))}
                   className="flex items-center justify-between text-lg font-extralight italic"
                 />
 
@@ -96,7 +96,7 @@ function Checkout() {
 
                 <PriceRow
                   name={"Total"}
-                  amount={total}
+                  amount={Number(total.toFixed(2))}
                   className="flex items-center justify-between text-lg"
                 />
               </>

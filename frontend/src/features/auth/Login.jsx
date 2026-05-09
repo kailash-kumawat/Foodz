@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../../components/index.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,6 +12,7 @@ function Login() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
+    navigate("/home");
     console.log("Login Data: ", data);
   };
 
@@ -38,7 +40,12 @@ function Login() {
         </Link>
       </form>
       <div className="w-fit mt-10">
-        <Button type="submit" loading={isSubmitting} disabled={!isValid}>
+        <Button
+          onClick={() => navigate("/home")}
+          type="submit"
+          loading={isSubmitting}
+          disabled={!isValid}
+        >
           Login
         </Button>
       </div>

@@ -40,7 +40,10 @@ function Start() {
         {/* Bottom Button */}
         <Button
           onClick={() => navigate("/auth")}
-          className="bg-white text-[#FF460A] mx-auto lg:mb-12  lg:my-auto mb-12 z-20"
+          className="bg-[#fff] mx-auto lg:mb-12  lg:my-auto mb-12 z-20"
+          style={{
+            color: "#FA4A0C",
+          }}
         >
           Get Started
         </Button>
