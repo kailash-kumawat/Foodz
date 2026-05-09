@@ -22,36 +22,37 @@ function Start() {
         </div>
 
         {/* Characters Section */}
-        <div className="flex w-full items-end mt-auto z-10">
+        <div className="flex w-full items-end  lg:hidden mt-auto z-10">
           <img src={femaleFace} className="w-[358px] h-[434px] z-50" />
 
           <img
             src={maleFace}
-            className="w-[225px] h-[348px] -translate-x-25 mb-4 z-0"
+            className="w-[225px] h-[348px] -translate-x-24 mb-4 z-0"
           />
+        </div>
+
+        <div className="lg:w-1/2 lg:mx-auto lg:my-auto">
+          <p className="lg:w-fit lg:mx-auto lg:text-5xl lg:text-white lg:font-nunito lg:font-[900]">
+            Welcome to Foodz!
+          </p>
         </div>
 
         {/* Bottom Button */}
         <Button
           onClick={() => navigate("/auth")}
-          className="bg-white text-[#FF460A] mx-auto mb-12 z-20"
+          className="bg-white text-[#FF460A] mx-auto lg:mb-12  lg:my-auto mb-12 z-20"
         >
           Get Started
         </Button>
 
         {/* Bottom Blur Gradient (Method 1) */}
         <div
-          className="
-      absolute bottom-0 left-0 
-      w-full h-40
-      bg-gradient-to-t
-      from-[#FF4B3A]
-      via-[#FF4B3A]/50
-      to-transparent
-      backdrop-blur-md
-      z-10
-      pointer-events-none
-    "
+          className="absolute bottom-0 left-0 w-full h-60 backdrop-blur-md z-10 pointer-events-none"
+          style={{
+            maskImage: "linear-gradient(to top, black 90%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to top, black 90%, transparent 100%)",
+          }}
         />
       </div>
     </>
