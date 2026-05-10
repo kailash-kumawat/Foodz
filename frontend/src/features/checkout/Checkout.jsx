@@ -52,7 +52,7 @@ function Checkout() {
         <div className="w-5/6 mx-auto mt-12 lg:w-1/2">
           <div className="flex justify-between w-full">
             <p className="text-lg font-semibold">Order details</p>
-            <Link to={"/"} className="text-lg text-[#F47B0A] cursor-pointer">
+            <Link to={"/home"} className="text-lg text-[#F47B0A] cursor-pointer">
               Add items +
             </Link>
           </div>
@@ -115,7 +115,7 @@ function Checkout() {
         ) : (
           <div className="max-w-lg mx-auto my-6">
             <Button
-              onClick={() => navigate("/home")}
+              onClick={() => navigate("/")}
               className="cursor-pointer"
             >
               Add Items

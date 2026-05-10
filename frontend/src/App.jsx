@@ -14,9 +14,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Start />} />
+
       <Route element={<MainLayout />}>
         <Route path="/home" element={<Home />} />
       </Route>
+
       <Route path="/profile" element={<Profile />} />
       <Route path="/dish/:id" element={<SingleDish />} />
       <Route path="/cart" element={<Cart />} />

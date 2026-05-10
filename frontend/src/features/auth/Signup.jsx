@@ -44,12 +44,13 @@ function Signup() {
           {...register("password", { required: "Password is required" })}
           error={errors.password?.message}
         />
+
+        <div className="w-fit mt-10">
+          <Button type="submit" loading={isSubmitting} disabled={!isValid}>
+            Signup
+          </Button>
+        </div>
       </form>
-      <div className="w-fit mt-10">
-        <Button type="submit" loading={isSubmitting} disabled={!isValid}>
-          Signup
-        </Button>
-      </div>
     </div>
   );
 }

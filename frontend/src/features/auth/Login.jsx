@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../../components/index.js";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -11,14 +13,24 @@ function Login() {
     formState: { errors, isSubmitting, isValid },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (data) => {
-    navigate("/home");
+  const onSubmit = async (data) => {
     console.log("Login Data: ", data);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5173/auth/api/v1/users/login",
+        data,
+      );
+      console.log("Axios Response", response);
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+      toast.error(`${error.message}`);
+    }
   };
 
   return (
     <div className="w-full h-full flex flex-col items-center lg:w-1/3 lg:mx-auto">
-      {/* <h1 className="text-2xl font-semibold mb-6">Login</h1> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 w-fit mx-auto "
@@ -38,17 +50,13 @@ function Login() {
         <Link to={"/auth"} className="font-semibold text-[#FA4A0C]">
           Forgot password?
         </Link>
+
+        <div className="w-fit mt-10">
+          <Button type="submit" loading={isSubmitting} disabled={!isValid}>
+            Login
+          </Button>
+        </div>
       </form>
-      <div className="w-fit mt-10">
-        <Button
-          onClick={() => navigate("/home")}
-          type="submit"
-          loading={isSubmitting}
-          disabled={!isValid}
-        >
-          Login
-        </Button>
-      </div>
     </div>
   );
 }

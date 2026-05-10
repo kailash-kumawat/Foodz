@@ -15,7 +15,7 @@ function CategoryTab() {
   const [activeCategory, setActiveCategory] = useState("Foods");
 
   return (
-    <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth snap-mandatory">
+    <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth snap-mandatory w-1/2 scrollbar-none lg:mx-auto">
       {categories.map((category) => (
         <button
           key={category}
