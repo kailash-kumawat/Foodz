@@ -114,7 +114,10 @@ function Checkout() {
           </div>
         ) : (
           <div className="max-w-lg mx-auto my-6">
-            <Button onClick={() => navigate("/")} className="cursor-pointer">
+            <Button
+              onClick={() => navigate("/home")}
+              className="cursor-pointer"
+            >
               Add Items
             </Button>
           </div>

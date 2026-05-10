@@ -53,7 +53,7 @@ function Cart() {
         ) : (
           <div className="w-78.5 h-17.5 mb-5">
             <Button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               className="w-full cursor-pointer"
             >
               Back to home

@@ -5,8 +5,7 @@ import { Home, Heart, User, Clock } from "lucide-react";
 function Footer({ isOpen }) {
   const linkClass = ({ isActive }) =>
     `
-      flex items-center justify-center
-      transition-all duration-200
+      flex items-center justify-center transition-all duration-200
       ${
         isActive
           ? "text-[#FA4A0C] scale-110 -translate-y-1"
@@ -28,7 +27,7 @@ function Footer({ isOpen }) {
           gap-[68px]
         "
       >
-        <NavLink to="/" className={linkClass}>
+        <NavLink to="/home" className={linkClass}>
           <Home className="w-[31px] h-[31px]" />
         </NavLink>
 
