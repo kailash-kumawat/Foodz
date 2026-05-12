@@ -11,7 +11,9 @@ import { ApiError } from "../utils/ApiError.js";
 import prisma from "../db/index.js";
 
 export const createUser = asyncHandler(async (req, res) => {
+  console.log("Req body from backend", req.body);
   const { name, email, contact, password } = req.body;
+
   // check info validity
   if (
     [name, email, contact, password].some(
@@ -30,7 +32,7 @@ export const createUser = asyncHandler(async (req, res) => {
 
   return res
     .status(201)
-    .json(new ApiResponse(201, createdUser, "User created successfully"));
+    .json(new ApiResponse(201, createdUser, "Signed-up successfully"));
 });
 
 export const logInUser = asyncHandler(async (req, res) => {
@@ -70,7 +72,7 @@ export const logInUser = asyncHandler(async (req, res) => {
     .status(200)
     .cookie("accessToken", accessToken, accessTokenOptions)
     .cookie("refreshToken", refreshToken, refreshTokenOptions)
-    .json(new ApiResponse(200, loggedInUser, "User logged in successfully"));
+    .json(new ApiResponse(200, loggedInUser, "logged in successfully"));
 });
 
 export const logOutUser = asyncHandler(async (req, res) => {

@@ -1,6 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../../components/index.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Signup() {
   const {
@@ -9,8 +12,18 @@ function Signup() {
     formState: { errors, isSubmitting, isValid },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (data) => {
-    console.log("Signup data: ", data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/users/register",
+        data,
+      );
+      navigate("/home");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -35,7 +48,10 @@ function Signup() {
         <Input
           type="tel"
           label="Phone no"
-          {...register("contact", { required: "Contact is required" })}
+          {...register("contact", {
+            required: "Contact is required",
+            valueAsNumber: true,
+          })}
           error={errors.contact?.message}
         />
         <Input

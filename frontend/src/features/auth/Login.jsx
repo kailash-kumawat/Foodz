@@ -14,18 +14,15 @@ function Login() {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = async (data) => {
-    console.log("Login Data: ", data);
-
     try {
       const response = await axios.post(
-        "http://localhost:5173/auth/api/v1/users/login",
+        "http://localhost:5000/api/v1/users/login",
         data,
       );
-      console.log("Axios Response", response);
+      toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
-      console.log(error);
-      toast.error(`${error.message}`);
+      toast.error("User not found or Something went wrong");
     }
   };
 
@@ -38,7 +35,10 @@ function Login() {
         <Input
           type="tel"
           label="Phone no"
-          {...register("contact", { required: "Contact is required" })}
+          {...register("contact", {
+            required: "Contact is required",
+            valueAsNumber: true,
+          })}
           error={errors.contact?.message}
         />
         <Input
