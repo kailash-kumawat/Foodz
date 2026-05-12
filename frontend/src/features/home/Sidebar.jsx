@@ -9,12 +9,32 @@ import {
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 // TODO: start building profile page
 // BUG: horizontal scroll not working in sidebar
 
 function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
+  const logOut = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/users/logout",
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+      toast.success(response?.data?.message);
+      navigate("/auth");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Error in logout");
+    }
+  };
+
   return (
     <>
       {
@@ -22,7 +42,6 @@ function Sidebar({ isOpen, onClose }) {
           className={`fixed inset-0 bg-white/20 backdrop-blur-lg z-40 w-full justify-center 
             flex flex-col items-center transform transition-transform duration-300 ease-in-out 
             ${isOpen ? "translate-y-0" : "translate-y-full"}`}
-          // onClick={onClose}
         >
           <div className="ml-auto p-6 ">
             <button className="cursor-pointer" onClick={() => onClose()}>
@@ -62,10 +81,7 @@ function Sidebar({ isOpen, onClose }) {
           <div className="text-xl text-[#FA4A0C] font-semibold ml-10 my-auto">
             <button
               className="flex items-center gap-2 cursor-pointer"
-              onClick={() => {
-                // onClose();
-                navigate("/auth");
-              }}
+              onClick={() => logOut()}
             >
               Sign-out
               <ArrowRight size={25} strokeWidth={2.5} />

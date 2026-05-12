@@ -4,8 +4,8 @@ export const generateAccessTokenAndRefreshToken = (user) => {
   const accessToken = jwt.sign(
     {
       id: user.id,
-      contact: user.contact,
       email: user.email,
+      contact: user.contact,
     },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY },

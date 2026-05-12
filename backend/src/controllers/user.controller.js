@@ -55,7 +55,7 @@ export const logInUser = asyncHandler(async (req, res) => {
   const accessTokenOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
     maxAge: 1000 * 60 * 15, // 15 minutes
   };
@@ -63,7 +63,7 @@ export const logInUser = asyncHandler(async (req, res) => {
   const refreshTokenOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   };
@@ -83,7 +83,7 @@ export const logOutUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
   };
 

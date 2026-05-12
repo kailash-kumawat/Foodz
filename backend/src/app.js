@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -42,6 +42,5 @@ app.use("/api/v1/restaurants", restaurantRoutes);
 app.use("/api/v1/carts", cartRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/payments", paymentRoutes);
-
 
 export default app;

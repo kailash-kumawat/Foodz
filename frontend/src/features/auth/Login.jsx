@@ -18,7 +18,11 @@ function Login() {
       const response = await axios.post(
         "http://localhost:5000/api/v1/users/login",
         data,
+        {
+          withCredentials: true,
+        },
       );
+
       toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
