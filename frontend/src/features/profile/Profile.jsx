@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BackButton } from "../../components/index.js";
 import ProfileItem from "./ProfileItem";
 import { Button } from "../../components/index.js";
+import axios from "axios";
+import toast from "react-hot-toast";
 
+TODO: "shows error without login fix it";
 function Profile() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/users/profile",
+          {
+            withCredentials: true,
+          },
+        );
+        setUser(response.data.data);
+      } catch (error) {
+        toast.error("Error while fetching profile");
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="flex justify-between p-6">
@@ -27,10 +49,10 @@ function Profile() {
           </div>
 
           <div className="flex flex-col gap-2 w-3/5">
-            <p className="text-xl font-semibold">Marvis Kparobo</p>
-            <p className="text-black/50">Dosamarvis@gmail.com</p>
+            <p className="text-xl font-semibold">{user?.name}</p>
+            <p className="text-black/50">{user?.email}</p>
             <hr className="border-t border-black/30" />
-            <p className="text-black/50">+234 9011039271</p>
+            <p className="text-black/50">{user?.contact}</p>
             <hr className="border-t border-black/30" />
             <p className="text-black/50">
               Km 5 refinery road oppsite re public road, effurun, delta state

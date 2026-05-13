@@ -11,7 +11,6 @@ import { ApiError } from "../utils/ApiError.js";
 import prisma from "../db/index.js";
 
 export const createUser = asyncHandler(async (req, res) => {
-  console.log("Req body from backend", req.body);
   const { name, email, contact, password } = req.body;
 
   // check info validity

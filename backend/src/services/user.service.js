@@ -150,23 +150,24 @@ export const getUserProfile = async (userId) => {
     select: {
       name: true,
       email: true,
+      contact: true,
       orders: {
         select: {
           address: true,
           total_amount: true,
           status: true,
           created_at: true,
-          dishes: {
+          items: {
             select: {
               name: true,
               price: true,
               created_at: true,
-              restaurant: {
-                select: {
-                  name: true,
-                  address_line: true,
-                },
-              },
+            },
+          },
+          restaurant: {
+            select: {
+              name: true,
+              address_line: true,
             },
           },
         },
