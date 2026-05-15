@@ -4,10 +4,12 @@ import ProfileItem from "./ProfileItem";
 import { Button } from "../../components/index.js";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 TODO: "shows error without login fix it";
 function Profile() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +27,22 @@ function Profile() {
     }
     fetchData();
   }, []);
+
+  const logOut = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/users/logout",
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+      toast.success(response?.data?.message);
+      navigate("/auth");
+    } catch (error) {
+      toast.error("Error while logout");
+    }
+  };
 
   return (
     <>
@@ -67,7 +85,9 @@ function Profile() {
       <ProfileItem title={"Help"} path={"/help"} />
 
       <div className="w-fit mx-auto my-6">
-        <Button className="cursor-pointer">Logout</Button>
+        <Button onClick={() => logOut()} className="cursor-pointer">
+          Logout
+        </Button>
       </div>
     </>
   );

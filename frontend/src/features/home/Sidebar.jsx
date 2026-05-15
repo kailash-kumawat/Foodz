@@ -29,8 +29,6 @@ function Sidebar({ isOpen, onClose }) {
       toast.success(response?.data?.message);
       navigate("/auth");
     } catch (error) {
-      console.log(error);
-
       toast.error("Error in logout");
     }
   };
