@@ -74,6 +74,31 @@ export const getDish = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, dish, "Dish fetched successfully"));
 });
 
+// GET ALL DISHES
+export const getAllDishes = asyncHandler(async (_, res) => {
+  // send req to services
+  const allDishes = await dishServices.getAllDishes();
+  // send res
+  return res
+    .status(200)
+    .json(new ApiResponse(200, allDishes, "Dish fetched successfully"));
+});
+
+// SEARCH DISHES
+export const searchDish = asyncHandler(async (req, res) => {
+  const { q } = req.query;
+
+  if (typeof q !== "string" || !q) {
+    throw new ApiError(400, "Invalid search query");
+  }
+
+  const searchedDish = await dishServices.searchDish(q);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, searchedDish, "Dish search completed"));
+});
+
 //UPDATE DISH (NAME, DESCRIPTION, IMAGE, PRICE)
 export const updateDish = asyncHandler(async (req, res) => {
   // get info from user

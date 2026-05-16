@@ -71,6 +71,36 @@ export const getDish = async (dishId, restaurantId) => {
   return dish;
 };
 
+export const getAllDishes = async () => {
+  // fetch data from backend
+  return await prisma.dish.findMany({
+    where: {
+      isDeleted: false,
+      isAvailable: true,
+    },
+    include: {
+      restaurant: true,
+    },
+  });
+};
+
+export const searchDish = async (q) => {
+  // find many dishes by q
+  return await prisma.dish.findMany({
+    where: {
+      isDeleted: false,
+      isAvailable: true,
+      name: {
+        contains: q,
+        mode: "insensitive",
+      },
+    },
+    include: {
+      restaurant: true,
+    },
+  });
+};
+
 export const updateDish = async (
   { name, description, price, dishId, restaurantId },
   dishImgUrl,
