@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HomeHeader, CategoryTab, FoodCard } from "../../components";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { foods } from "../../data/foods.data.js";
+import axios from "axios";
+import toast from "react-hot-toast";
 
+// TODO: next integrate frontend and backend to show dishes
 function Home() {
   const [search, setSearch] = useState("");
+  const [dishes, setDishes] = useState([]);
 
   const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
 
   const filteredFoods = foods.filter((food) =>
     removeWhiteSpace(food.name).includes(removeWhiteSpace(search)),
   );
+
+  useEffect(() => {
+    async function fetchDishes() {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/dishes/",
+        );
+        console.log(response);
+
+        setDishes(response.data.data);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    }
+    fetchDishes();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -38,11 +58,11 @@ function Home() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-6">
-        {filteredFoods.length > 0 ? (
-          filteredFoods.map((food) => (
-            <Link key={food.id} to={`/dish/${food.id}`}>
-              <FoodCard name={food.name} img={food.image} price={food.price} />
-            </Link>
+        {dishes.length > 0 ? (
+          dishes.map((dish) => (
+            <Link key={dish.id} to={`/dish/${dish.id}`}>
+              <FoodCard name={dish.name} img={dish.img} price={dish.price} />
+            </Link> 
           ))
         ) : (
           <p className="col-span-2 text-center text-gray-400">No food found</p>

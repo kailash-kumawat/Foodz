@@ -12,6 +12,7 @@ import {
   updateAvailability,
   deleteDish,
   getDish,
+  getAllDishes,
 } from "../controllers/dish.controller.js";
 
 const router = Router();

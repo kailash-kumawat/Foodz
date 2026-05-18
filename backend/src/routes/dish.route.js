@@ -1,7 +1,12 @@
-// import { Router } from "express";
-// import { getDish } from "../controllers/dish.controller.js";
+import { Router } from "express";
+import { getAllDishes, searchDish } from "../controllers/dish.controller.js";
 
-// export const router = Router();
+export const router = Router();
+
+router.route("/").get(getAllDishes);
+router.route("/search").get(searchDish);
+
+export default router;
 
 // TODO: After MVP is done add here
 // 1. List Dishes of a Restaurant (USER UX)
