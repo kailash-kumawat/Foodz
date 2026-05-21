@@ -88,7 +88,7 @@ export const getAllDishes = asyncHandler(async (_, res) => {
 export const searchDish = asyncHandler(async (req, res) => {
   const { q } = req.query;
 
-  if (typeof q !== "string" || !q) {
+  if (typeof q !== "string") {
     throw new ApiError(400, "Invalid search query");
   }
 

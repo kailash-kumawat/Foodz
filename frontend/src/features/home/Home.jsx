@@ -10,10 +10,10 @@ function Home() {
   const [search, setSearch] = useState("");
   const [dishes, setDishes] = useState([]);
 
-  const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
+  // const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
 
-  // const filteredFoods = foods.filter((food) =>
-  //   removeWhiteSpace(food.name).includes(removeWhiteSpace(search)),
+  // const filteredFoods = dishes.filter((dish) =>
+  //   removeWhiteSpace(dish.name).includes(removeWhiteSpace(search)),
   // );
 
   useEffect(() => {
@@ -27,6 +27,21 @@ function Home() {
     }
     fetchDishes();
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      try {
+        const response = await api.get("/dishes/search", {
+          params: { q: search },
+        });
+        setDishes(response.data.data);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
     <div className="min-h-screen bg-white">
