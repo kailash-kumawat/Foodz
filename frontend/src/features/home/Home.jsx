@@ -13,9 +13,9 @@ function Home() {
 
   const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
 
-  const filteredFoods = foods.filter((food) =>
-    removeWhiteSpace(food.name).includes(removeWhiteSpace(search)),
-  );
+  // const filteredFoods = foods.filter((food) =>
+  //   removeWhiteSpace(food.name).includes(removeWhiteSpace(search)),
+  // );
 
   useEffect(() => {
     async function fetchDishes() {

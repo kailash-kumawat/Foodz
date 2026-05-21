@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./index.js";
 import { IndianRupee } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { foods } from "../data/foods.data.js";
 import { BackButton, FavouriteButton } from "./index.js";
 import { useCartStore } from "../store/cart.store.js";
+import toast from "react-hot-toast";
+import api from "../utils/axiosInstance.js";
 
 function SingleDish() {
   const { id } = useParams();
-  const filteredFood = foods.find((food) => food.id === Number(id));
+  const [dishes, setDishes] = useState({});
+
+  useEffect(() => {
+    async function fetchDishes() {
+      try {
+        const response = await api.get("/dishes/");
+        const data = response.data.data;
+        const item = data.filter((dish) => dish.id === Number(id));
+        setDishes(item[0]);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    }
+    fetchDishes();
+  }, []);
+
+  console.log(dishes);
+
   const addItem = useCartStore((state) => state.addItem);
   const navigate = useNavigate();
 
@@ -23,8 +42,8 @@ function SingleDish() {
 
         {/* Dish Image */}
         <img
-          src={filteredFood.image}
-          alt={filteredFood.name}
+          src={dishes.img}
+          alt="Food Image"
           className="
         w-[240px] h-[240px]
         rounded-full
@@ -46,7 +65,7 @@ function SingleDish() {
         mt-3
         "
         >
-          {filteredFood.name}
+          {dishes.name}
         </h6>
 
         {/* Dish Price */}
@@ -61,42 +80,28 @@ function SingleDish() {
         "
         >
           <IndianRupee className="w-4" />
-          {filteredFood.price}
+          {dishes.price}
         </span>
 
         {/* Description */}
         <div className="p-6 lg:w-1/2 lg:mx-auto md:w-1/2 md:mx-auto">
           <h4 className="font-bold">Description</h4>
           <p className="text-black opacity-50 text-pretty">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur et
-            maiores laboriosam ut dicta quos non repudiandae iure, nemo adipisci
-            eaque est commodi, veniam obcaecati vitae incidunt dolorem
-            voluptatibus quod. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Tenetur et maiores laboriosam ut dicta quos non
-            repudiandae iure, nemo adipisci eaque est commodi, veniam obcaecati
-            vitae incidunt dolorem voluptatibus quod. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Tenetur et maiores laboriosam ut dicta
-            quos non repudiandae iure, nemo adipisci eaque est commodi, veniam
-            obcaecati vitae incidunt dolorem voluptatibus quod. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Tenetur et maiores
-            laboriosam ut dicta quos non repudiandae iure, nemo adipisci eaque
-            est commodi, veniam obcaecati vitae incidunt dolorem voluptatibus
-            quod.
+            {dishes.description}
           </p>
         </div>
 
         {/* Add to cart button component */}
-
-        <Button
-          onClick={() => {
-            addItem(filteredFood);
-            navigate("/cart");
-          }}
-          className="text-[#F6F6F9]"
-        >
-          Add to cart
-        </Button>
       </div>
+      <Button
+        onClick={() => {
+          addItem(dishes);
+          navigate("/cart");
+        }}
+        className="text-[#F6F6F9] mx-auto mb-10"
+      >
+        Add to cart
+      </Button>
     </>
   );
 }
