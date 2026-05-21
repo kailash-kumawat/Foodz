@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { HomeHeader, CategoryTab, FoodCard } from "../../components";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
-import { foods } from "../../data/foods.data.js";
-import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../../utils/axiosInstance.js";
 
 // TODO: next integrate frontend and backend to show dishes
 function Home() {
@@ -20,11 +19,7 @@ function Home() {
   useEffect(() => {
     async function fetchDishes() {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/v1/dishes/",
-        );
-        console.log(response);
-
+        const response = await api.get("/dishes/");
         setDishes(response.data.data);
       } catch (error) {
         toast.error("Something went wrong");
@@ -52,7 +47,7 @@ function Home() {
         </div>
 
         {/* Categories  improve styling here*/}
-        <div className="flex gap-4 mb-6 overflow-x-auto">
+        <div className="flex gap-4 mb-6 lg:overflow-x-auto">
           <CategoryTab />
         </div>
       </div>
@@ -62,7 +57,7 @@ function Home() {
           dishes.map((dish) => (
             <Link key={dish.id} to={`/dish/${dish.id}`}>
               <FoodCard name={dish.name} img={dish.img} price={dish.price} />
-            </Link> 
+            </Link>
           ))
         ) : (
           <p className="col-span-2 text-center text-gray-400">No food found</p>

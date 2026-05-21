@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../../components/index.js";
-import axios from "axios";
+import api from "../../utils/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -16,10 +16,8 @@ function Signup() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/register",
-        data,
-      );
+      const response = await api.post("/users/register", data);
+      toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
       toast.error("Something went wrong");

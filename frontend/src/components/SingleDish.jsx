@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button } from "./index.js";
 import { IndianRupee } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
-import { foods } from "../data/foods.data.js";
 import { BackButton, FavouriteButton } from "./index.js";
 import { useCartStore } from "../store/cart.store.js";
 import toast from "react-hot-toast";
@@ -25,8 +24,6 @@ function SingleDish() {
     }
     fetchDishes();
   }, []);
-
-  console.log(dishes);
 
   const addItem = useCartStore((state) => state.addItem);
   const navigate = useNavigate();
@@ -98,7 +95,7 @@ function SingleDish() {
           addItem(dishes);
           navigate("/cart");
         }}
-        className="text-[#F6F6F9] mx-auto mb-10"
+        className="text-[#F6F6F9] mx-auto"
       >
         Add to cart
       </Button>

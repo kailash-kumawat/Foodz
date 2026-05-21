@@ -1,6 +1,4 @@
 import React from "react";
-import femaleFace from "../../assets/startPageAssets/ToyFaces_Tansparent_BG_49.png";
-import maleFace from "../../assets/startPageAssets/ToyFaces_Tansparent_BG_29.png";
 import { Button } from "../../components/index.js";
 import { useNavigate } from "react-router-dom";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";

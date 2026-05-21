@@ -11,6 +11,7 @@ import SidebarItem from "./SidebarItem";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../../utils/axiosInstance";
 
 // TODO: start building profile page
 // BUG: horizontal scroll not working in sidebar
@@ -19,8 +20,8 @@ function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const logOut = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/logout",
+      const response = await api.post(
+        "/users/logout",
         {},
         {
           withCredentials: true,

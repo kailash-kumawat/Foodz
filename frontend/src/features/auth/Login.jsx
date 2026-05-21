@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../../components/index.js";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
 
 function Login() {
@@ -15,13 +15,9 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/login",
-        data,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await api.post("/users/login", data, {
+        withCredentials: true,
+      });
 
       toast.success(response?.data?.message);
       navigate("/home");

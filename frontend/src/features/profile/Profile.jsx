@@ -5,6 +5,7 @@ import { Button } from "../../components/index.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../../utils/axiosInstance.js";
 
 TODO: "shows error without login fix it";
 function Profile() {
@@ -14,12 +15,9 @@ function Profile() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/v1/users/profile",
-          {
-            withCredentials: true,
-          },
-        );
+        const response = await api.get("/users/profile", {
+          withCredentials: true,
+        });
         setUser(response.data.data);
       } catch (error) {
         toast.error("Error while fetching profile");
@@ -30,8 +28,8 @@ function Profile() {
 
   const logOut = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/logout",
+      const response = await api.post(
+        "/users/logout",
         {},
         {
           withCredentials: true,
