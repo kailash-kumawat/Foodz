@@ -16,7 +16,10 @@ function SingleDish() {
       try {
         const response = await api.get("/dishes/");
         const data = response.data.data;
+
         const item = data.filter((dish) => dish.id === Number(id));
+        // console.log(item[0]);
+
         setDishes(item[0]);
       } catch (error) {
         toast.error("Something went wrong");
@@ -27,6 +30,8 @@ function SingleDish() {
 
   const addItem = useCartStore((state) => state.addItem);
   const navigate = useNavigate();
+
+  // console.log(dishes.restaurant?.id);
 
   return (
     <>

@@ -22,14 +22,15 @@ const calculateTotals = (cartItems) => {
 
 export const useCartStore = create((set, get) => ({
   cartItems: [],
-  restaurantId: null,
+  restaurant_id: null,
   totalAmount: 0,
   totalQuantity: 0,
 
   addItem: (dish) => {
-    const { cartItems, restaurantId } = get();
+    const { cartItems, restaurant_id } = get();
     // check same restra
-    if (restaurantId && dish.restaurantId !== restaurantId) {
+
+    if (restaurant_id && dish.restaurant?.id !== restaurant_id) {
       toast.dismiss();
       toast.error("You can order items from only one restaurant at a time", {
         duration: 3000,
@@ -53,7 +54,7 @@ export const useCartStore = create((set, get) => ({
           dishId: dish.id,
           name: dish.name,
           price: dish.price,
-          image: dish.image,
+          image: dish.img,
           quantity: 1,
         },
       ];
@@ -63,7 +64,7 @@ export const useCartStore = create((set, get) => ({
     // set store
     set({
       cartItems: updatedCartItems,
-      restaurantId: dish.restaurantId,
+      restaurant_id: dish.restaurant_id,
       ...totals,
     });
   },
@@ -91,7 +92,7 @@ export const useCartStore = create((set, get) => ({
 
     set({
       cartItems: updatedCartItems,
-      restaurantId: updatedCartItems.length ? get().restaurantId : null,
+      restaurant_id: updatedCartItems.length ? get().restaurant_id : null,
       ...calculateTotals(updatedCartItems),
     });
   },
@@ -104,7 +105,7 @@ export const useCartStore = create((set, get) => ({
 
     set({
       cartItems: updatedCartItems,
-      restaurantId: updatedCartItems.length ? get().restaurantId : null,
+      restaurant_id: updatedCartItems.length ? get().restaurant_id : null,
       ...calculateTotals(updatedCartItems),
     });
   },
@@ -113,7 +114,7 @@ export const useCartStore = create((set, get) => ({
   clearCart: () => {
     set({
       cartItems: [],
-      restaurantId: null,
+      restaurant_id: null,
       totalAmount: 0,
       totalQuantity: 0,
     });
@@ -125,13 +126,13 @@ export const useCartStore = create((set, get) => ({
       dishId: item.dish.id,
       name: item.dish.name,
       price: item.dish.price,
-      image: item.dish.image,
+      image: item.dish.img,
       quantity: item.quantity,
     }));
 
     set({
       cartItems: items,
-      restaurantId: items.length ? serverCart.restaurantId : null,
+      restaurant_id: items.length ? serverCart.restaurant_id : null,
       ...calculateTotals(items),
     });
   },

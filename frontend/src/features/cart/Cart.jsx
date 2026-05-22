@@ -22,6 +22,7 @@ function Cart() {
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
               <CartItem
+                key={item?.id}
                 name={item.name}
                 image={item.image}
                 price={item.price}
