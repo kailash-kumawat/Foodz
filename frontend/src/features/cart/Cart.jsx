@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, CartItem, BackButton } from "../../components/index.js";
 import { useCartStore } from "../../store/cart.store.js";
 import { ShoppingCart } from "lucide-react";
@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cartItems = useCartStore((state) => state.cartItems);
+  const clearCart = useCartStore((state) => state.clearCart);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   clearCart();
+  // }, []);
 
   return (
     <>
@@ -20,16 +25,21 @@ function Cart() {
       <div className="flex flex-col justify-between items-center h-[90vh]">
         <div className="container flex flex-col gap-5">
           {cartItems.length > 0 ? (
-            cartItems.map((item) => (
-              <CartItem
-                key={item?.id}
-                name={item.name}
-                image={item.image}
-                price={item.price}
-                dishId={item.dishId}
-                quantity={item.quantity}
-              />
-            ))
+            cartItems.map(
+              (item) => (
+                console.log(item),
+                (
+                  <CartItem
+                    key={item.dishId}
+                    name={item.name}
+                    image={item.image}
+                    price={item.price}
+                    dishId={item.dishId}
+                    quantity={item.quantity}
+                  />
+                )
+              ),
+            )
           ) : (
             <div className="flex flex-col items-center p-4">
               <ShoppingCart className="w-1/4 h-1/4 text-black/30 mb-6" />

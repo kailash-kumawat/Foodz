@@ -3,9 +3,10 @@
 // totalQuantity  → number for badge
 // totalAmount    → price for checkout
 
-//TODO: Wire all stores to their pages
 import toast from "react-hot-toast";
 import { create } from "zustand";
+import api from "../utils/axiosInstance.js";
+import { useEffect } from "react";
 
 // calculate total amount
 const calculateTotals = (cartItems) => {
@@ -13,8 +14,10 @@ const calculateTotals = (cartItems) => {
   let totalQuantity = 0;
 
   cartItems.forEach((item) => {
+    // console.log(item.price);
+
     totalQuantity += item.quantity;
-    totalAmount += item.quantity * item.price;
+    totalAmount += item.quantity * Number(item?.price);
   });
 
   return { totalAmount, totalQuantity };
@@ -26,17 +29,51 @@ export const useCartStore = create((set, get) => ({
   totalAmount: 0,
   totalQuantity: 0,
 
-  addItem: (dish) => {
-    const { cartItems, restaurant_id } = get();
-    // check same restra
+  //TODO: complete fetchcart(data persistance) functionality.
+  /* BUG: 1. After fetching the existing cart, if we add same item from menu/home 
+             it create as same new cartitem rather then increase in quantity. 
+          2. Due to the difference in data we get from get and post request.
+             e.g. get - item.dish.id and post - item.dishID
+  */
 
-    if (restaurant_id && dish.restaurant?.id !== restaurant_id) {
+  // fetchCart: async () => {
+  //   try {
+  //     const response = await api.get("/carts/", { withCredentials: true });
+  //     set({ cartItems: response.data.data.cartItems });
+  //   } catch (error) {
+  //     toast.error(error?.message);
+  //   }
+  // },
+
+  addItem: async (dish) => {
+    const { cartItems, restaurant_id } = get();
+
+    // check same restra
+    if (restaurant_id && dish.restaurant_id !== restaurant_id) {
       toast.dismiss();
       toast.error("You can order items from only one restaurant at a time", {
         duration: 3000,
       });
       return;
     }
+
+    try {
+      const response = await api.post(
+        "/carts/",
+        {
+          dishId: dish?.id,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      // console.log(response.data.data.cartItems);
+      set({ cartItems: response.data.data.cartItems });
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
+
     // check item already exist or not
     const existingItem = cartItems.find((item) => item.dishId === dish.id);
 
@@ -123,10 +160,10 @@ export const useCartStore = create((set, get) => ({
   //setCart after login
   setCart: (serverCart) => {
     const items = serverCart.cartItems.map((item) => ({
-      dishId: item.dish.id,
-      name: item.dish.name,
-      price: item.dish.price,
-      image: item.dish.img,
+      dishId: item.dishId,
+      name: item.name,
+      price: item.price,
+      image: item.image,
       quantity: item.quantity,
     }));
 
