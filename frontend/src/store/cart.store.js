@@ -46,68 +46,45 @@ export const useCartStore = create((set, get) => ({
   // },
 
   addItem: async (dish) => {
-    const { cartItems, restaurant_id } = get();
+    const response = await api.post(
+      "/carts/",
+      {
+        dishId: dish?.id,
+      },
+      {
+        withCredentials: true,
+      },
+    );
 
-    // check same restra
-    if (restaurant_id && dish.restaurant_id !== restaurant_id) {
-      toast.dismiss();
-      toast.error("You can order items from only one restaurant at a time", {
-        duration: 3000,
-      });
-      return;
-    }
+    const cartItems = response.data.data.cartItems;
 
-    try {
-      const response = await api.post(
-        "/carts/",
-        {
-          dishId: dish?.id,
-        },
-        {
-          withCredentials: true,
-        },
-      );
-      // console.log(response.data.data.cartItems);
-      set({ cartItems: response.data.data.cartItems });
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.message);
-    }
+    const totals = calculateTotals(cartItems);
 
-    // check item already exist or not
-    const existingItem = cartItems.find((item) => item.dishId === dish.id);
-
-    let updatedCartItems;
-    if (existingItem) {
-      updatedCartItems = cartItems.map((item) =>
-        item.dishId === dish.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item,
-      );
-    } else {
-      updatedCartItems = [
-        ...cartItems,
-        {
-          dishId: dish.id,
-          name: dish.name,
-          price: dish.price,
-          image: dish.img,
-          quantity: 1,
-        },
-      ];
-    }
-
-    const totals = calculateTotals(updatedCartItems);
-    // set store
     set({
-      cartItems: updatedCartItems,
+      cartItems,
       restaurant_id: dish.restaurant_id,
       ...totals,
     });
   },
 
+  
   // incr or decr quant
-  increaseItem: (dishId) => {
+  increaseItem: async (dishId) => {
+    // try {
+    //   const response = await api.patch(
+    //     `/items/:${cartItemId}`,
+    //     {
+    //       quantity,
+    //     },
+    //     {
+    //       withCredentials: true,
+    //     },
+    //   );
+
+    // } catch (error) {
+    //   console.log(error);
+    //   toast.error("Something wrong");
+    // }
     const updatedCartItems = get().cartItems.map((item) =>
       item.dishId === dishId ? { ...item, quantity: item.quantity + 1 } : item,
     );

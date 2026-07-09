@@ -27,14 +27,14 @@ function Cart() {
           {cartItems.length > 0 ? (
             cartItems.map(
               (item) => (
-                console.log(item),
+                console.log(cartItems),
                 (
                   <CartItem
-                    key={item.dishId}
-                    name={item.name}
-                    image={item.image}
-                    price={item.price}
-                    dishId={item.dishId}
+                    key={item.dish.id}
+                    name={item.dish.name}
+                    image={item.dish.img}
+                    price={item.dish.price}
+                    dishId={item.dish.id}
                     quantity={item.quantity}
                   />
                 )

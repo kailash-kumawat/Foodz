@@ -15,10 +15,12 @@ function SingleDish() {
     async function fetchDishes() {
       try {
         const response = await api.get("/dishes/");
+        // console.log(response);
+
         const data = response.data.data;
 
         const item = data.filter((dish) => dish.id === Number(id));
-        // console.log(item[0]);
+        // console.log(item);
 
         setDishes(item[0]);
       } catch (error) {
@@ -110,24 +112,4 @@ function SingleDish() {
 
 export default SingleDish;
 
-/* Next building order
-1. Add to Cart logic - then write add to cart logic(2)
-2. Cart Page - start from here(1)
-3. Checkout Page
-4. Payment Page
-5. Orders Page
-6. Profile Page
-*/
 
-/*
-what we have done-
-single dish page
-add to cart
-cart page
-cart items
-inc dec quant fully functional
-checkout page
-
-next - complete order(done) -> Checkout Page(done) -> redirect to payment page(next)
-workflow - complete order -> confirm order(total price, quantity etc) -> complete payment(razorpay)
-*/
