@@ -2,7 +2,7 @@ import React from "react";
 import { IndianRupee } from "lucide-react";
 import { useCartStore } from "../store/cart.store.js";
 
-function CartItem({ name, image, price, dishId, quantity }) {
+function CartItem({ name, image, price, dishId, quantity, cartItemId }) {
   const increaseQuant = useCartStore((state) => state.increaseItem);
   const decreaseQuant = useCartStore((state) => state.decreaseItem);
 
@@ -42,14 +42,14 @@ function CartItem({ name, image, price, dishId, quantity }) {
         >
           <button
             className="text-white mr-auto cursor-pointer"
-            onClick={() => decreaseQuant(dishId)}
+            onClick={() => decreaseQuant(cartItemId, quantity)}
           >
             -
           </button>
           <p className="text-white">{quantity}</p>
           <button
             className="text-white ml-auto cursor-pointer"
-            onClick={() => increaseQuant(dishId)}
+            onClick={() => increaseQuant(cartItemId, quantity)}
           >
             +
           </button>

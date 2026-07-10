@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { errorHandler } from "./middlewares/error.middleware.js";
 
 const app = express();
 
@@ -42,5 +43,7 @@ app.use("/api/v1/dishes", dishRoutes);
 app.use("/api/v1/carts", cartRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/payments", paymentRoutes);
+
+app.use(errorHandler);
 
 export default app;

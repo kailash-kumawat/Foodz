@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cartItems = useCartStore((state) => state.cartItems);
-  const clearCart = useCartStore((state) => state.clearCart);
+  const fetchCart = useCartStore((state) => state.fetchCart);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   clearCart();
-  // }, []);
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   return (
     <>
@@ -25,21 +25,18 @@ function Cart() {
       <div className="flex flex-col justify-between items-center h-[90vh]">
         <div className="container flex flex-col gap-5">
           {cartItems.length > 0 ? (
-            cartItems.map(
-              (item) => (
-                console.log(cartItems),
-                (
-                  <CartItem
-                    key={item.dish.id}
-                    name={item.dish.name}
-                    image={item.dish.img}
-                    price={item.dish.price}
-                    dishId={item.dish.id}
-                    quantity={item.quantity}
-                  />
-                )
-              ),
-            )
+            cartItems.map((item) => (
+              // console.log(item.id),
+              <CartItem
+                key={item.dish.id}
+                name={item.dish.name}
+                image={item.dish.img}
+                price={item.dish.price}
+                dishId={item.dish.id}
+                quantity={item.quantity}
+                cartItemId={item.id}
+              />
+            ))
           ) : (
             <div className="flex flex-col items-center p-4">
               <ShoppingCart className="w-1/4 h-1/4 text-black/30 mb-6" />

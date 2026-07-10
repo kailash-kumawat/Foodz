@@ -6,7 +6,6 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import api from "../utils/axiosInstance.js";
-import { useEffect } from "react";
 
 // calculate total amount
 const calculateTotals = (cartItems) => {
@@ -29,32 +28,64 @@ export const useCartStore = create((set, get) => ({
   totalAmount: 0,
   totalQuantity: 0,
 
-  //TODO: complete fetchcart(data persistance) functionality.
-  /* BUG: 1. After fetching the existing cart, if we add same item from menu/home 
-             it create as same new cartitem rather then increase in quantity. 
-          2. Due to the difference in data we get from get and post request.
-             e.g. get - item.dish.id and post - item.dishID
-  */
+  fetchCart: async () => {
+    try {
+      const response = await api.get("/carts/", { withCredentials: true });
 
-  // fetchCart: async () => {
-  //   try {
-  //     const response = await api.get("/carts/", { withCredentials: true });
-  //     set({ cartItems: response.data.data.cartItems });
-  //   } catch (error) {
-  //     toast.error(error?.message);
-  //   }
-  // },
+      const cartItems = response.data.data.cartItems;
+
+      const totals = calculateTotals(cartItems);
+
+      set({
+        cartItems,
+        restaurant_id:
+          cartItems.length > 0 ? cartItems[0].dish.restaurant_id : null,
+        ...totals,
+      });
+    } catch (error) {
+      console.log(error?.message);
+    }
+  },
 
   addItem: async (dish) => {
-    const response = await api.post(
-      "/carts/",
+    try {
+      const response = await api.post(
+        "/carts/",
+        {
+          dishId: dish?.id,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      // console.log(response);
+      const cartItems = response.data.data.cartItems;
+
+      const totals = calculateTotals(cartItems);
+
+      set({
+        cartItems,
+        restaurant_id: dish.restaurant_id,
+        ...totals,
+      });
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  },
+
+  // incr or decr quant
+  increaseItem: async (cartItemId, quantity) => {
+    const response = await api.patch(
+      `/carts/items/${cartItemId}`,
       {
-        dishId: dish?.id,
+        quantity: quantity + 1,
       },
       {
         withCredentials: true,
       },
     );
+
+    // console.log(response.data.data.cartItems);
 
     const cartItems = response.data.data.cartItems;
 
@@ -62,52 +93,30 @@ export const useCartStore = create((set, get) => ({
 
     set({
       cartItems,
-      restaurant_id: dish.restaurant_id,
       ...totals,
     });
   },
 
-  
-  // incr or decr quant
-  increaseItem: async (dishId) => {
-    // try {
-    //   const response = await api.patch(
-    //     `/items/:${cartItemId}`,
-    //     {
-    //       quantity,
-    //     },
-    //     {
-    //       withCredentials: true,
-    //     },
-    //   );
-
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("Something wrong");
-    // }
-    const updatedCartItems = get().cartItems.map((item) =>
-      item.dishId === dishId ? { ...item, quantity: item.quantity + 1 } : item,
+  decreaseItem: async (cartItemId, quantity) => {
+    const response = await api.patch(
+      `/carts/items/${cartItemId}`,
+      {
+        quantity: quantity - 1,
+      },
+      {
+        withCredentials: true,
+      },
     );
 
-    set({
-      cartItems: updatedCartItems,
-      ...calculateTotals(updatedCartItems),
-    });
-  },
+    // console.log(response.data.data.cartItems);
 
-  decreaseItem: (dishId) => {
-    const updatedCartItems = get()
-      .cartItems.map((item) =>
-        item.dishId === dishId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item,
-      )
-      .filter((item) => item.quantity > 0);
+    const cartItems = response.data.data.cartItems;
+
+    const totals = calculateTotals(cartItems);
 
     set({
-      cartItems: updatedCartItems,
-      restaurant_id: updatedCartItems.length ? get().restaurant_id : null,
-      ...calculateTotals(updatedCartItems),
+      cartItems,
+      ...totals,
     });
   },
 
