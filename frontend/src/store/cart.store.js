@@ -13,10 +13,8 @@ const calculateTotals = (cartItems) => {
   let totalQuantity = 0;
 
   cartItems.forEach((item) => {
-    // console.log(item.price);
-
     totalQuantity += item.quantity;
-    totalAmount += item.quantity * Number(item?.price);
+    totalAmount += item.quantity * Number(item?.dish.price);
   });
 
   return { totalAmount, totalQuantity };
@@ -85,7 +83,7 @@ export const useCartStore = create((set, get) => ({
       },
     );
 
-    // console.log(response.data.data.cartItems);
+    console.log(response.data.data.cartItems);
 
     const cartItems = response.data.data.cartItems;
 

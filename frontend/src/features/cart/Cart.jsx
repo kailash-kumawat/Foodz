@@ -26,7 +26,6 @@ function Cart() {
         <div className="container flex flex-col gap-5">
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
-              // console.log(item.id),
               <CartItem
                 key={item.dish.id}
                 name={item.dish.name}

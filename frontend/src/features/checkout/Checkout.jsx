@@ -63,20 +63,25 @@ function Checkout() {
           <div className="bg-white rounded-[20px] p-6 mt-3 flex flex-col gap-2">
             {cartItems.length > 0 ? (
               <>
-                {cartItems.map((item) => (
-                  <div key={item.dishId}>
-                    <div className="flex items-center gap-2 text-lg">
-                      <UtensilsCrossed size={15} />
-                      <p>{item.name}</p>
-                      <p className="text-gray-500">{`x${item.quantity}`}</p>
-                      <span className="ml-auto flex items-center">
-                        <IndianRupee size={10} />
-                        <p>{`${item.price * item.quantity}`}</p>
-                      </span>
-                    </div>
-                    <hr className="border-t border-black/20" />
-                  </div>
-                ))}
+                {cartItems.map(
+                  (item) => (
+                    console.log(item),
+                    (
+                      <div key={item.dish.id}>
+                        <div className="flex items-center gap-2 text-lg">
+                          <UtensilsCrossed size={15} />
+                          <p>{item.dish.name}</p>
+                          <p className="text-gray-500">{`x${item.quantity}`}</p>
+                          <span className="ml-auto flex items-center">
+                            <IndianRupee size={10} />
+                            <p>{`${item.dish.price * item.quantity}`}</p>
+                          </span>
+                        </div>
+                        <hr className="border-t border-black/20" />
+                      </div>
+                    )
+                  ),
+                )}
                 <PriceRow
                   name={"Subtotal"}
                   amount={totalAmount}

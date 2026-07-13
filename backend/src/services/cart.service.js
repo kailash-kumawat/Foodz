@@ -14,8 +14,6 @@ export const createCartWithItem = async (tx, userId, dishId) => {
   }
 
   return await tx.cart.create({
-    // quantity +1
-    // create cart for user where userId, set data --> cartitems --> quantity and dishId
     data: {
       user_id: userId,
       cartItems: {
@@ -27,6 +25,9 @@ export const createCartWithItem = async (tx, userId, dishId) => {
     },
     include: {
       cartItems: {
+        orderBy: {
+          created_at: "asc",
+        },
         include: {
           dish: true,
         },
@@ -59,6 +60,9 @@ export const addItemToCart = async (userId, dishId) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            created_at: "asc",
+          },
           include: {
             dish: {
               select: {
@@ -120,6 +124,9 @@ export const addItemToCart = async (userId, dishId) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            created_at: "asc",
+          },
           include: {
             dish: true,
           },
@@ -136,6 +143,9 @@ export const getCart = async (userId) => {
     },
     include: {
       cartItems: {
+        orderBy: {
+          created_at: "asc",
+        },
         include: {
           dish: true,
         },
@@ -196,7 +206,12 @@ export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
         user_id: userId,
       },
       include: {
-        cartItems: { include: { dish: true } },
+        cartItems: {
+          orderBy: {
+            created_at: "asc",
+          },
+          include: { dish: true },
+        },
       },
     });
   });
@@ -229,6 +244,9 @@ export const deleteCartItem = async (userId, cartItemId) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            created_at: "asc",
+          },
           include: {
             dish: true,
           },
@@ -264,6 +282,9 @@ export const clearCart = async (userId) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            created_at: "asc",
+          },
           include: {
             dish: true,
           },
