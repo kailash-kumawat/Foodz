@@ -22,7 +22,7 @@ function Login() {
       toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
-      toast.error("User not found or Something went wrong");
+      toast.error(error.response.data.message);
     }
   };
 

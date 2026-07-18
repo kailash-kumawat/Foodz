@@ -43,8 +43,8 @@ model Address {
   city         String
   address_line String
   pincode      String
-  latitude     Decimal  @db.Decimal(9, 6)
-  longitude    Decimal  @db.Decimal(9, 6)
+  latitude     Decimal?  @db.Decimal(9, 6)
+  longitude    Decimal?  @db.Decimal(9, 6)
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
   orders       Order[]

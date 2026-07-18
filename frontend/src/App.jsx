@@ -9,6 +9,7 @@ import Cart from "./features/cart/Cart";
 import Checkout from "./features/checkout/Checkout";
 import Profile from "./features/profile/Profile";
 import Start from "./features/start/Start";
+import Address from "./features/address/Address";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
       <Route element={<AuthLayout />}>
         <Route path="/auth" element={<AuthPage />} />
       </Route>
+
+      <Route path="/address" element={<Address />} />
     </Routes>
   );
 }

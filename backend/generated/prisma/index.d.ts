@@ -3426,8 +3426,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal
-    longitude: Decimal
+    latitude: Decimal | null
+    longitude: Decimal | null
     created_at: Date
     updated_at: Date
     _count: AddressCountAggregateOutputType | null
@@ -3534,8 +3534,8 @@ export namespace Prisma {
       city: string
       address_line: string
       pincode: string
-      latitude: Prisma.Decimal
-      longitude: Prisma.Decimal
+      latitude: Prisma.Decimal | null
+      longitude: Prisma.Decimal | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["address"]>
@@ -14247,8 +14247,8 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     address_line?: StringFilter<"Address"> | string
     pincode?: StringFilter<"Address"> | string
-    latitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
+    latitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"Address"> | Date | string
     updated_at?: DateTimeFilter<"Address"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -14262,8 +14262,8 @@ export namespace Prisma {
     city?: SortOrder
     address_line?: SortOrder
     pincode?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -14280,8 +14280,8 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     address_line?: StringFilter<"Address"> | string
     pincode?: StringFilter<"Address"> | string
-    latitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
+    latitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"Address"> | Date | string
     updated_at?: DateTimeFilter<"Address"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -14295,8 +14295,8 @@ export namespace Prisma {
     city?: SortOrder
     address_line?: SortOrder
     pincode?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: AddressCountOrderByAggregateInput
@@ -14316,8 +14316,8 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Address"> | string
     address_line?: StringWithAggregatesFilter<"Address"> | string
     pincode?: StringWithAggregatesFilter<"Address"> | string
-    latitude?: DecimalWithAggregatesFilter<"Address"> | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalWithAggregatesFilter<"Address"> | Decimal | DecimalJsLike | number | string
+    latitude?: DecimalNullableWithAggregatesFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableWithAggregatesFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeWithAggregatesFilter<"Address"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Address"> | Date | string
   }
@@ -15046,8 +15046,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutAddressesInput
@@ -15061,8 +15061,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutAddressInput
@@ -15073,8 +15073,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAddressesNestedInput
@@ -15088,8 +15088,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutAddressNestedInput
@@ -15102,8 +15102,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -15113,8 +15113,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15126,8 +15126,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15966,15 +15966,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type UserScalarRelationFilter = {
@@ -16035,20 +16035,20 @@ export namespace Prisma {
     longitude?: SortOrder
   }
 
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type DishListRelationFilter = {
@@ -16115,6 +16115,17 @@ export namespace Prisma {
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -16230,6 +16241,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumOrderStatusFilter<$PrismaModel>
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16811,8 +16838,8 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
@@ -17001,6 +17028,14 @@ export namespace Prisma {
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -17519,6 +17554,40 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -17528,29 +17597,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -17572,6 +17618,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumOrderStatusFilter<$PrismaModel>
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17657,8 +17719,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
     orders?: OrderCreateNestedManyWithoutAddressInput
@@ -17670,8 +17732,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutAddressInput
@@ -17813,8 +17875,8 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     address_line?: StringFilter<"Address"> | string
     pincode?: StringFilter<"Address"> | string
-    latitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFilter<"Address"> | Decimal | DecimalJsLike | number | string
+    latitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Address"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"Address"> | Date | string
     updated_at?: DateTimeFilter<"Address"> | Date | string
   }
@@ -18238,8 +18300,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutAddressesInput
@@ -18252,8 +18314,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -18442,8 +18504,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAddressesNestedInput
@@ -18456,8 +18518,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19321,8 +19383,8 @@ export namespace Prisma {
     city: string
     address_line: string
     pincode: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19361,8 +19423,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutAddressNestedInput
@@ -19374,8 +19436,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutAddressNestedInput
@@ -19387,8 +19449,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     address_line?: StringFieldUpdateOperationsInput | string
     pincode?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

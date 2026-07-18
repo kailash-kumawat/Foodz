@@ -7,6 +7,13 @@ export const addAddress = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const { state, city, address_line, pincode, latitude, longitude } = req.body;
 
+  if (!userId || userId == undefined) {
+    throw new ApiError(
+      401,
+      "Unauthorized Please log in or sign up to continue.",
+    );
+  }
+
   if (
     [state, city, address_line, pincode].some(
       (field) => !field || field.trim() === "",
@@ -15,7 +22,10 @@ export const addAddress = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-  if (latitude === undefined || longitude === undefined) {
+  if (
+    (latitude !== undefined && typeof latitude !== "number") ||
+    (longitude !== undefined && typeof longitude !== "number")
+  ) {
     throw new ApiError(400, "Invalid coordinates");
   }
 

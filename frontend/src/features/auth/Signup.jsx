@@ -20,7 +20,7 @@ function Signup() {
       toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(error.response.data.message);
     }
   };
 

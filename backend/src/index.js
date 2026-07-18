@@ -1,27 +1,7 @@
+import "./config/env.config.js";
 import app from "./app.js";
-import dotenv from "dotenv";
 import prisma from "./db/index.js";
 import { startOrderStatus } from "./cron/orderStatus.cron.js";
-// change to import
-// import http from "http";
-// import { Server } from "socket.io";
-
-dotenv.config({
-  path: "./.env",
-});
-
-// // 🟦 SOCKET.IO LIVE TRACKING
-// io.on("connection", (socket) => {
-//   console.log("A user connected:", socket.id);
-
-//   socket.on("send-location", (data) => {
-//     io.emit("receive-location", { id: socket.id, ...data });
-//   });
-
-//   socket.on("disconnect", () => {
-//     io.emit("user-disconnected", { id: socket.id });
-//   });
-// });
 
 startOrderStatus();
 

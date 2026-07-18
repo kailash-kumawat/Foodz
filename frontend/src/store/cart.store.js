@@ -83,8 +83,6 @@ export const useCartStore = create((set, get) => ({
       },
     );
 
-    console.log(response.data.data.cartItems);
-
     const cartItems = response.data.data.cartItems;
 
     const totals = calculateTotals(cartItems);
