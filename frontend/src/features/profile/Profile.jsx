@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import api from "../../utils/axiosInstance.js";
 import { BackButton } from "../../components/index.js";
 import ProfileItem from "./ProfileItem";
 import { Button } from "../../components/index.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/axiosInstance.js";
 
-TODO: "shows error without login fix it";
+// TODO: "shows error without login fix it"
 function Profile() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ function Profile() {
         const response = await api.get("/users/profile", {
           withCredentials: true,
         });
+        toast.success(response?.data?.message);
         setUser(response.data.data);
       } catch (error) {
-        toast.error("Error while fetching profile");
+        toast.error(error.response.data.message);
       }
     }
     fetchData();
@@ -38,7 +39,7 @@ function Profile() {
       toast.success(response?.data?.message);
       navigate("/auth");
     } catch (error) {
-      toast.error("Error while logout");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -52,7 +53,7 @@ function Profile() {
       <div className="w-5/6 mx-auto lg:w-1/3 mt-5">
         <div className="flex justify-between w-full">
           <p className="text-lg font-semibold">Personal details</p>
-          <p className="text-lg text-[#F47B0A] cursor-pointer">change</p>
+          <p className="text-lg text-[#F47B0A] cursor-pointer">Change</p>
         </div>
 
         <div className="flex gap-4 lg:justify-around bg-white rounded-[20px] mt-2 p-4">
@@ -70,9 +71,7 @@ function Profile() {
             <hr className="border-t border-black/30" />
             <p className="text-black/50">{user?.contact}</p>
             <hr className="border-t border-black/30" />
-            <p className="text-black/50">
-              Km 5 refinery road oppsite re public road, effurun, delta state
-            </p>
+            <p className="text-black/50">{user?.addresses[0].address_line}</p>
           </div>
         </div>
       </div>

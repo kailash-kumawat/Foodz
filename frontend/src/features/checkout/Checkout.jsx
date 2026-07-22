@@ -1,15 +1,30 @@
-// TODO: RAZORPAY BACKEND INTEGRATE
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../utils/axiosInstance.js";
 import { BackButton, Button } from "../../components/index.js";
 import { useCartStore } from "../../store/cart.store.js";
 import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PriceRow from "./PriceRow";
+import toast from "react-hot-toast";
 
 function Checkout() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await api.get("/users/profile", {
+          withCredentials: true,
+        });
+        setUser(response.data.data);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    }
+    fetchData();
+  }, []);
+
   const cartItems = useCartStore((state) => state.cartItems);
-  const totalQuantity = useCartStore((state) => state.totalQuantity);
   const totalAmount = useCartStore((state) => state.totalAmount);
 
   const deliveryFee = 40;
@@ -34,17 +49,20 @@ function Checkout() {
         <div className="w-5/6 mx-auto lg:w-1/2">
           <div className="flex justify-between w-full">
             <p className="text-lg font-semibold">Address details</p>
-            <p className="text-lg text-[#F47B0A]">change</p>
+            <Link
+              to={"/address"}
+              className="text-lg text-[#F47B0A] cursor-pointer"
+            >
+              Change Address
+            </Link>
           </div>
 
           <div className="bg-white rounded-[20px] p-6 mt-3 flex flex-col gap-2">
-            <p className="text-xl font-semibold">Marvis Kparobo</p>
+            <p className="text-xl font-semibold">{user?.name}</p>
             <hr className="border-t border-black/30" />
-            <p>
-              Km 5 refinery road oppsite re public road, effurun, delta state
-            </p>
+            <p>{user?.addresses[0].address_line}</p>
             <hr className="border-t border-black/30" />
-            <p>+234 9011039271</p>
+            <p>{user?.contact}</p>
           </div>
         </div>
 
@@ -63,25 +81,20 @@ function Checkout() {
           <div className="bg-white rounded-[20px] p-6 mt-3 flex flex-col gap-2">
             {cartItems.length > 0 ? (
               <>
-                {cartItems.map(
-                  (item) => (
-                    console.log(item),
-                    (
-                      <div key={item.dish.id}>
-                        <div className="flex items-center gap-2 text-lg">
-                          <UtensilsCrossed size={15} />
-                          <p>{item.dish.name}</p>
-                          <p className="text-gray-500">{`x${item.quantity}`}</p>
-                          <span className="ml-auto flex items-center">
-                            <IndianRupee size={10} />
-                            <p>{`${item.dish.price * item.quantity}`}</p>
-                          </span>
-                        </div>
-                        <hr className="border-t border-black/20" />
-                      </div>
-                    )
-                  ),
-                )}
+                {cartItems.map((item) => (
+                  <div key={item.dish.id}>
+                    <div className="flex items-center gap-2 text-lg">
+                      <UtensilsCrossed size={15} />
+                      <p>{item.dish.name}</p>
+                      <p className="text-gray-500">{`x${item.quantity}`}</p>
+                      <span className="ml-auto flex items-center">
+                        <IndianRupee size={10} />
+                        <p>{`${item.dish.price * item.quantity}`}</p>
+                      </span>
+                    </div>
+                    <hr className="border-t border-black/20" />
+                  </div>
+                ))}
                 <PriceRow
                   name={"Subtotal"}
                   amount={totalAmount}

@@ -21,15 +21,13 @@ function Address() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       const response = await api.post("/address/", data, {
         withCredentials: true,
       });
       toast.success(response?.data?.message);
       navigate("/home");
     } catch (error) {
-      console.log("error", error.response);
-      toast.error("Something went wrong");
+      toast.error(error.response.data.message);
     }
   };
 

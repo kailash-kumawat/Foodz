@@ -151,6 +151,7 @@ export const getUserProfile = async (userId) => {
       name: true,
       email: true,
       contact: true,
+      addresses: true,
       orders: {
         select: {
           address: true,
