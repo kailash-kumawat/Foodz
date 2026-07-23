@@ -9,6 +9,35 @@ import toast from "react-hot-toast";
 
 function Checkout() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  const cartItems = useCartStore((state) => state.cartItems);
+  const totalAmount = useCartStore((state) => state.totalAmount);
+  const restaurantId = useCartStore((store) => store.restaurant_id);
+
+  async function handleCheckout() {
+    try {
+      const response = await api.post(
+        "/orders/",
+        {
+          addressId: user.addresses[0].id,
+          restaurantId: restaurantId,
+          payment_method: "card",
+        },
+        { withCredentials: true },
+      );
+      // console.log(response);
+      navigate("/payment", {
+        // state: {
+        //   orderId: order.id,
+        // },
+      });
+    } catch (error) {
+      // console.log(error);
+      // console.log(error.response);
+      toast.error(error.response.data.message);
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -24,14 +53,9 @@ function Checkout() {
     fetchData();
   }, []);
 
-  const cartItems = useCartStore((state) => state.cartItems);
-  const totalAmount = useCartStore((state) => state.totalAmount);
-
   const deliveryFee = 40;
   const Gst = totalAmount * 0.18;
   const total = totalAmount + deliveryFee + Gst;
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -49,6 +73,7 @@ function Checkout() {
         <div className="w-5/6 mx-auto lg:w-1/2">
           <div className="flex justify-between w-full">
             <p className="text-lg font-semibold">Address details</p>
+            {/* TODO: Create address update page and add path here */}
             <Link
               to={"/address"}
               className="text-lg text-[#F47B0A] cursor-pointer"
@@ -131,7 +156,9 @@ function Checkout() {
 
         {cartItems.length > 0 ? (
           <div className="max-w-lg mx-auto my-6">
-            <Button className="cursor-pointer">Proceed to payment</Button>
+            <Button onClick={() => handleCheckout()} className="cursor-pointer">
+              Proceed to payment
+            </Button>
           </div>
         ) : (
           <div className="max-w-lg mx-auto my-6">

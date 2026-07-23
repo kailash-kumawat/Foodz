@@ -11,13 +11,16 @@ export const createOrder = asyncHandler(async (req, res) => {
   // items from body
   const { addressId, restaurantId, payment_method } = req.body;
   // validate addressId, restraId and items length
+
   if (!addressId || !restaurantId) {
     throw new ApiError(400, "Missing fields required");
   }
+
   // validate payment method
   if (!Object.values(PaymentType).includes(payment_method)) {
     throw new ApiError(400, "Invalid payment method");
   }
+
   // sent to service
   const createdOrder = await orderServices.createOrder(userId, {
     addressId,

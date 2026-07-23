@@ -1,3 +1,3 @@
-import { Prisma } from "@prisma/client";
+import { PaymentType } from "../../generated/prisma/index.js";
 
-export const { PaymentType } = Prisma;
+export { PaymentType };

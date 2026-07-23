@@ -77,12 +77,12 @@ export const createOrder = async (
         restaurant_id: restaurantId,
         address_id: addressId,
         total_amount: total,
-        orderItems: {
+        items: {
           create: orderItemsData,
         },
       },
       include: {
-        orderItems: true,
+        items: true,
       },
     });
 
@@ -116,7 +116,7 @@ export const getAllOrders = async (userId, page = 1, limit = 10) => {
         created_at: "desc",
       },
       include: {
-        orderItems: {
+        items: {
           select: {
             name: true,
             price: true,
@@ -163,7 +163,7 @@ export const getOrder = async (userId, orderId) => {
       total_amount: true,
       created_at: true,
 
-      orderItems: {
+      items: {
         select: {
           name: true,
           price: true,
