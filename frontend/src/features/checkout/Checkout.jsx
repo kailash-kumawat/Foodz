@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../utils/axiosInstance.js";
 import { BackButton, Button } from "../../components/index.js";
 import { useCartStore } from "../../store/cart.store.js";
+import { useCheckoutStore } from "../../store/checkout.store.js";
 import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PriceRow from "./PriceRow";
@@ -15,6 +16,9 @@ function Checkout() {
   const totalAmount = useCartStore((state) => state.totalAmount);
   const restaurantId = useCartStore((store) => store.restaurant_id);
 
+  const paymentMethod = useCheckoutStore((state) => state.paymentMethod);
+
+  // TODO: Build Payment page and send order id from different way. after refreshing the page state will become null.
   async function handleCheckout() {
     try {
       const response = await api.post(
@@ -22,19 +26,16 @@ function Checkout() {
         {
           addressId: user.addresses[0].id,
           restaurantId: restaurantId,
-          payment_method: "card",
+          payment_method: paymentMethod,
         },
         { withCredentials: true },
       );
-      // console.log(response);
-      navigate("/payment", {
-        // state: {
-        //   orderId: order.id,
-        // },
-      });
+      const orderId = response.data.data.items[0].order_id;
+      console.log("order id", orderId);
+      navigate(`/payment/${orderId}`);
     } catch (error) {
-      // console.log(error);
-      // console.log(error.response);
+      console.log(error);
+      console.log(error.response);
       toast.error(error.response.data.message);
     }
   }
