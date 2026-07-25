@@ -18,28 +18,6 @@ function Checkout() {
 
   const paymentMethod = useCheckoutStore((state) => state.paymentMethod);
 
-  // TODO: Build Payment page and send order id from different way. after refreshing the page state will become null.
-  async function handleCheckout() {
-    try {
-      const response = await api.post(
-        "/orders/",
-        {
-          addressId: user.addresses[0].id,
-          restaurantId: restaurantId,
-          payment_method: paymentMethod,
-        },
-        { withCredentials: true },
-      );
-      const orderId = response.data.data.items[0].order_id;
-      console.log("order id", orderId);
-      navigate(`/payment/${orderId}`);
-    } catch (error) {
-      console.log(error);
-      console.log(error.response);
-      toast.error(error.response.data.message);
-    }
-  }
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -53,6 +31,28 @@ function Checkout() {
     }
     fetchData();
   }, []);
+
+  async function handleCheckout() {
+    try {
+      const response = await api.post(
+        "/orders/",
+        {
+          addressId: user.addresses[0].id,
+          restaurantId: restaurantId,
+          payment_method: paymentMethod,
+        },
+        { withCredentials: true },
+      );
+      const orderId = response.data.data.items[0].order_id;
+      console.log("order id", orderId);
+      // TODO: Create payment here with an order id.
+      // navigate(`/payment/${orderId}`);
+    } catch (error) {
+      console.log(error);
+      console.log(error.response);
+      toast.error(error.response.data.message);
+    }
+  }
 
   const deliveryFee = 40;
   const Gst = totalAmount * 0.18;

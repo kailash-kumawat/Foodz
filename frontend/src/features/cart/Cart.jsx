@@ -51,7 +51,7 @@ function Cart() {
         {cartItems.length > 0 ? (
           <div className="w-78.5 h-17.5 mb-5">
             <Button
-              onClick={() => navigate("/checkout")}
+              onClick={() => navigate("/payment")}
               className="w-full cursor-pointer"
             >
               Complete Order

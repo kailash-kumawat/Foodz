@@ -31,7 +31,7 @@ function App() {
       </Route>
 
       <Route path="/address" element={<Address />} />
-      <Route path="/payment/:orderId" element={<Payment />} />
+      <Route path="/payment" element={<Payment />} />
     </Routes>
   );
 }
