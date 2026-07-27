@@ -7,6 +7,7 @@ import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PriceRow from "./PriceRow";
 import toast from "react-hot-toast";
+import { createPayment } from "../payment/createPayment.js";
 
 function Checkout() {
   const [user, setUser] = useState(null);
@@ -44,12 +45,8 @@ function Checkout() {
         { withCredentials: true },
       );
       const orderId = response.data.data.items[0].order_id;
-      console.log("order id", orderId);
-      // TODO: Create payment here with an order id.
-      // navigate(`/payment/${orderId}`);
+      createPayment(orderId, navigate);
     } catch (error) {
-      console.log(error);
-      console.log(error.response);
       toast.error(error.response.data.message);
     }
   }

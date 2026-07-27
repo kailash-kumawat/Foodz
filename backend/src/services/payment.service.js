@@ -1,6 +1,7 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 import { razorpay } from "../config/razorpay.config.js";
+import crypto from "node:crypto";
 
 export const createOnlinePayment = async (userId, orderId) => {
   // find payment from userid, orderid, pending status and online pay
@@ -35,8 +36,9 @@ export const createOnlinePayment = async (userId, orderId) => {
     currency: "INR",
     receipt: `foodz_${payment.order_id}`,
   });
+
   // update payment model --> gatwayid and gateway
-  return await prisma.payment.update({
+  await prisma.payment.update({
     where: {
       id: payment.id,
     },
@@ -45,6 +47,15 @@ export const createOnlinePayment = async (userId, orderId) => {
       gateway_order_id: razorpayOrder.id,
     },
   });
+
+  return {
+    key: process.env.RAZORPAY_KEY_ID,
+    razorpayOrderId: razorpayOrder.id,
+    orderId: payment.order_id,
+    amount: razorpayOrder.amount,
+    currency: razorpayOrder.currency,
+    paymentId: payment.id,
+  };
 };
 
 export const finalizeOnlinePayment = async ({
@@ -72,7 +83,7 @@ export const finalizeOnlinePayment = async ({
   // order find of that payment
   const order = await prisma.order.findFirst({
     where: {
-      gateway_payment_id,
+      id: payment.order_id,
     },
     select: { status: true },
   });

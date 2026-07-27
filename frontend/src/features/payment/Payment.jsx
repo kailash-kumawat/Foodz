@@ -5,6 +5,7 @@ import { useCheckoutStore } from "../../store/checkout.store.js";
 import { paymentTypes } from "./paymentType.js";
 import { useCartStore } from "../../store/cart.store.js";
 import { IndianRupee } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // TODO: next step after selecting payment method
 
@@ -16,6 +17,8 @@ function Payment() {
   const deliveryFee = 40;
   const Gst = totalAmount * 0.18;
   const total = totalAmount + deliveryFee + Gst;
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -54,7 +57,12 @@ function Payment() {
         </div>
       </div>
       <div className="w-fit mx-auto my-10">
-        <Button className="cursor-pointer">Proceed to payment</Button>
+        <Button
+          onClick={() => navigate("/checkout")}
+          className="cursor-pointer"
+        >
+          Checkout
+        </Button>
       </div>
     </>
   );
