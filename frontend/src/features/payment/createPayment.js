@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 
-const verifyPayment = async (response, navigate) => {
+const verifyPayment = async (response, navigate, orderId) => {
   try {
     const verifiedPayment = await axios.post(
       "http://192.168.29.172:5000/payments/verifypayment",
@@ -9,7 +9,7 @@ const verifyPayment = async (response, navigate) => {
       { withCredentials: true },
     );
     toast.success(verifiedPayment.data.message);
-    navigate("/home");
+    navigate(`/order/${orderId}`);
   } catch (error) {
     toast.error(error.response.data.message);
   }
@@ -30,7 +30,7 @@ export const createPayment = async (orderId, navigate) => {
       order_id: payment.data.data.razorpayOrderId,
 
       handler: async function (response) {
-        await verifyPayment(response, navigate);
+        await verifyPayment(response, navigate, orderId);
       },
     };
 

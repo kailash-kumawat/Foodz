@@ -11,6 +11,7 @@ import Profile from "./features/profile/Profile";
 import Start from "./features/start/Start";
 import Address from "./features/address/Address";
 import Payment from "./features/payment/Payment.jsx";
+import OrderStatus from "./features/order/OrderStatus.jsx";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
 
       <Route path="/address" element={<Address />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/order/:orderId" element={<OrderStatus />} />
     </Routes>
   );
 }

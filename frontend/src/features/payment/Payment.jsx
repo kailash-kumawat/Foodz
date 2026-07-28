@@ -14,9 +14,7 @@ function Payment() {
   const setPaymentMethod = useCheckoutStore((state) => state.setPaymentMethod);
   const totalAmount = useCartStore((state) => state.totalAmount);
 
-  const deliveryFee = 40;
-  const Gst = totalAmount * 0.18;
-  const total = totalAmount + deliveryFee + Gst;
+  const total = totalAmount;
 
   const navigate = useNavigate();
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/axiosInstance.js";
 import { BackButton, Button } from "../../components/index.js";
-import { useCartStore } from "../../store/cart.store.js";
 import { useCheckoutStore } from "../../store/checkout.store.js";
+import { useCartStore } from "../../store/cart.store.js";
 import { UtensilsCrossed, IndianRupee } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
 import PriceRow from "./PriceRow";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { createPayment } from "../payment/createPayment.js";
 
@@ -51,8 +51,8 @@ function Checkout() {
     }
   }
 
-  const deliveryFee = 40;
-  const Gst = totalAmount * 0.18;
+  const deliveryFee = 0;
+  const Gst = totalAmount * 0;
   const total = totalAmount + deliveryFee + Gst;
 
   return (
