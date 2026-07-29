@@ -5621,6 +5621,8 @@ export namespace Prisma {
     updated_at: Date | null
     accepted_at: Date | null
     prepared_at: Date | null
+    ready_at: Date | null
+    picked_up_at: Date | null
     on_the_way_at: Date | null
     delivered_at: Date | null
     cancelled_at: Date | null
@@ -5637,6 +5639,8 @@ export namespace Prisma {
     updated_at: Date | null
     accepted_at: Date | null
     prepared_at: Date | null
+    ready_at: Date | null
+    picked_up_at: Date | null
     on_the_way_at: Date | null
     delivered_at: Date | null
     cancelled_at: Date | null
@@ -5653,6 +5657,8 @@ export namespace Prisma {
     updated_at: number
     accepted_at: number
     prepared_at: number
+    ready_at: number
+    picked_up_at: number
     on_the_way_at: number
     delivered_at: number
     cancelled_at: number
@@ -5687,6 +5693,8 @@ export namespace Prisma {
     updated_at?: true
     accepted_at?: true
     prepared_at?: true
+    ready_at?: true
+    picked_up_at?: true
     on_the_way_at?: true
     delivered_at?: true
     cancelled_at?: true
@@ -5703,6 +5711,8 @@ export namespace Prisma {
     updated_at?: true
     accepted_at?: true
     prepared_at?: true
+    ready_at?: true
+    picked_up_at?: true
     on_the_way_at?: true
     delivered_at?: true
     cancelled_at?: true
@@ -5719,6 +5729,8 @@ export namespace Prisma {
     updated_at?: true
     accepted_at?: true
     prepared_at?: true
+    ready_at?: true
+    picked_up_at?: true
     on_the_way_at?: true
     delivered_at?: true
     cancelled_at?: true
@@ -5822,6 +5834,8 @@ export namespace Prisma {
     updated_at: Date
     accepted_at: Date | null
     prepared_at: Date | null
+    ready_at: Date | null
+    picked_up_at: Date | null
     on_the_way_at: Date | null
     delivered_at: Date | null
     cancelled_at: Date | null
@@ -5857,6 +5871,8 @@ export namespace Prisma {
     updated_at?: boolean
     accepted_at?: boolean
     prepared_at?: boolean
+    ready_at?: boolean
+    picked_up_at?: boolean
     on_the_way_at?: boolean
     delivered_at?: boolean
     cancelled_at?: boolean
@@ -5880,6 +5896,8 @@ export namespace Prisma {
     updated_at?: boolean
     accepted_at?: boolean
     prepared_at?: boolean
+    ready_at?: boolean
+    picked_up_at?: boolean
     on_the_way_at?: boolean
     delivered_at?: boolean
     cancelled_at?: boolean
@@ -5899,6 +5917,8 @@ export namespace Prisma {
     updated_at?: boolean
     accepted_at?: boolean
     prepared_at?: boolean
+    ready_at?: boolean
+    picked_up_at?: boolean
     on_the_way_at?: boolean
     delivered_at?: boolean
     cancelled_at?: boolean
@@ -5918,12 +5938,14 @@ export namespace Prisma {
     updated_at?: boolean
     accepted_at?: boolean
     prepared_at?: boolean
+    ready_at?: boolean
+    picked_up_at?: boolean
     on_the_way_at?: boolean
     delivered_at?: boolean
     cancelled_at?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "restaurant_id" | "address_id" | "status" | "total_amount" | "created_at" | "updated_at" | "accepted_at" | "prepared_at" | "on_the_way_at" | "delivered_at" | "cancelled_at", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "restaurant_id" | "address_id" | "status" | "total_amount" | "created_at" | "updated_at" | "accepted_at" | "prepared_at" | "ready_at" | "picked_up_at" | "on_the_way_at" | "delivered_at" | "cancelled_at", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
@@ -5965,6 +5987,8 @@ export namespace Prisma {
       updated_at: Date
       accepted_at: Date | null
       prepared_at: Date | null
+      ready_at: Date | null
+      picked_up_at: Date | null
       on_the_way_at: Date | null
       delivered_at: Date | null
       cancelled_at: Date | null
@@ -6407,6 +6431,8 @@ export namespace Prisma {
     readonly updated_at: FieldRef<"Order", 'DateTime'>
     readonly accepted_at: FieldRef<"Order", 'DateTime'>
     readonly prepared_at: FieldRef<"Order", 'DateTime'>
+    readonly ready_at: FieldRef<"Order", 'DateTime'>
+    readonly picked_up_at: FieldRef<"Order", 'DateTime'>
     readonly on_the_way_at: FieldRef<"Order", 'DateTime'>
     readonly delivered_at: FieldRef<"Order", 'DateTime'>
     readonly cancelled_at: FieldRef<"Order", 'DateTime'>
@@ -13901,6 +13927,8 @@ export namespace Prisma {
     updated_at: 'updated_at',
     accepted_at: 'accepted_at',
     prepared_at: 'prepared_at',
+    ready_at: 'ready_at',
+    picked_up_at: 'picked_up_at',
     on_the_way_at: 'on_the_way_at',
     delivered_at: 'delivered_at',
     cancelled_at: 'cancelled_at'
@@ -14412,6 +14440,8 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Order"> | Date | string
     accepted_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     prepared_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    ready_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    picked_up_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     on_the_way_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     delivered_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     cancelled_at?: DateTimeNullableFilter<"Order"> | Date | string | null
@@ -14434,6 +14464,8 @@ export namespace Prisma {
     updated_at?: SortOrder
     accepted_at?: SortOrderInput | SortOrder
     prepared_at?: SortOrderInput | SortOrder
+    ready_at?: SortOrderInput | SortOrder
+    picked_up_at?: SortOrderInput | SortOrder
     on_the_way_at?: SortOrderInput | SortOrder
     delivered_at?: SortOrderInput | SortOrder
     cancelled_at?: SortOrderInput | SortOrder
@@ -14459,6 +14491,8 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Order"> | Date | string
     accepted_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     prepared_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    ready_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    picked_up_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     on_the_way_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     delivered_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     cancelled_at?: DateTimeNullableFilter<"Order"> | Date | string | null
@@ -14481,6 +14515,8 @@ export namespace Prisma {
     updated_at?: SortOrder
     accepted_at?: SortOrderInput | SortOrder
     prepared_at?: SortOrderInput | SortOrder
+    ready_at?: SortOrderInput | SortOrder
+    picked_up_at?: SortOrderInput | SortOrder
     on_the_way_at?: SortOrderInput | SortOrder
     delivered_at?: SortOrderInput | SortOrder
     cancelled_at?: SortOrderInput | SortOrder
@@ -14505,6 +14541,8 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     accepted_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     prepared_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+    ready_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+    picked_up_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     on_the_way_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     delivered_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
@@ -15221,6 +15259,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -15243,6 +15283,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -15258,6 +15300,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15280,6 +15324,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15299,6 +15345,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -15311,6 +15359,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15327,6 +15377,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16180,6 +16232,8 @@ export namespace Prisma {
     updated_at?: SortOrder
     accepted_at?: SortOrder
     prepared_at?: SortOrder
+    ready_at?: SortOrder
+    picked_up_at?: SortOrder
     on_the_way_at?: SortOrder
     delivered_at?: SortOrder
     cancelled_at?: SortOrder
@@ -16204,6 +16258,8 @@ export namespace Prisma {
     updated_at?: SortOrder
     accepted_at?: SortOrder
     prepared_at?: SortOrder
+    ready_at?: SortOrder
+    picked_up_at?: SortOrder
     on_the_way_at?: SortOrder
     delivered_at?: SortOrder
     cancelled_at?: SortOrder
@@ -16220,6 +16276,8 @@ export namespace Prisma {
     updated_at?: SortOrder
     accepted_at?: SortOrder
     prepared_at?: SortOrder
+    ready_at?: SortOrder
+    picked_up_at?: SortOrder
     on_the_way_at?: SortOrder
     delivered_at?: SortOrder
     cancelled_at?: SortOrder
@@ -17756,6 +17814,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -17776,6 +17836,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -17911,6 +17973,8 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Order"> | Date | string
     accepted_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     prepared_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    ready_at?: DateTimeNullableFilter<"Order"> | Date | string | null
+    picked_up_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     on_the_way_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     delivered_at?: DateTimeNullableFilter<"Order"> | Date | string | null
     cancelled_at?: DateTimeNullableFilter<"Order"> | Date | string | null
@@ -18013,6 +18077,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18033,6 +18099,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18112,6 +18180,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18132,6 +18202,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18605,6 +18677,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18626,6 +18700,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -18688,6 +18764,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18709,6 +18787,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19142,6 +19222,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19163,6 +19245,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19193,6 +19277,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19214,6 +19300,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19260,6 +19348,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19281,6 +19371,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19349,6 +19441,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19370,6 +19464,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19399,6 +19495,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19462,6 +19560,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19482,6 +19582,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19500,6 +19602,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19556,6 +19660,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19568,6 +19674,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19588,6 +19696,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19606,6 +19716,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19621,6 +19733,8 @@ export namespace Prisma {
     updated_at?: Date | string
     accepted_at?: Date | string | null
     prepared_at?: Date | string | null
+    ready_at?: Date | string | null
+    picked_up_at?: Date | string | null
     on_the_way_at?: Date | string | null
     delivered_at?: Date | string | null
     cancelled_at?: Date | string | null
@@ -19645,6 +19759,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19665,6 +19781,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19683,6 +19801,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     accepted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     prepared_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ready_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    picked_up_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     on_the_way_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     delivered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

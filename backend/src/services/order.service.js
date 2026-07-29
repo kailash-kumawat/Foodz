@@ -165,6 +165,7 @@ export const getOrder = async (userId, orderId) => {
 
       items: {
         select: {
+          id: true,
           name: true,
           price: true,
           quantity: true,
@@ -180,6 +181,13 @@ export const getOrder = async (userId, orderId) => {
 
       address: {
         select: { address_line: true },
+      },
+
+      payments: {
+        select: {
+          payment_method: true,
+          payment_status: true,
+        },
       },
     },
   });

@@ -10,6 +10,7 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
+    reset,
   } = useForm({ mode: "onChange" });
 
   const navigate = useNavigate();
@@ -17,8 +18,9 @@ function Signup() {
   const onSubmit = async (data) => {
     try {
       const response = await api.post("/users/register", data);
-      toast.success(response?.data?.message);
-      navigate("/home");
+      toast.success(`${response?.data?.message} and Log-in to continue`);
+      reset();
+      navigate("/auth");
     } catch (error) {
       toast.error(error.response.data.message);
     }

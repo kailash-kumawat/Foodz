@@ -167,6 +167,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   updated_at: 'updated_at',
   accepted_at: 'accepted_at',
   prepared_at: 'prepared_at',
+  ready_at: 'ready_at',
+  picked_up_at: 'picked_up_at',
   on_the_way_at: 'on_the_way_at',
   delivered_at: 'delivered_at',
   cancelled_at: 'cancelled_at'

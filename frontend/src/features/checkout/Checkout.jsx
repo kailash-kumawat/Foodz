@@ -45,7 +45,9 @@ function Checkout() {
         { withCredentials: true },
       );
       const orderId = response.data.data.items[0].order_id;
-      createPayment(orderId, navigate);
+      paymentMethod === "cash_on_delivery"
+        ? navigate(`/order/${orderId}`, { withCredentials: true })
+        : createPayment(orderId, navigate);
     } catch (error) {
       toast.error(error.response.data.message);
     }

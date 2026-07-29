@@ -19,6 +19,8 @@ function Profile() {
           withCredentials: true,
         });
         toast.success(response?.data?.message);
+        console.log(response.data.data);
+
         setUser(response.data.data);
       } catch (error) {
         toast.error(error.response.data.message);
@@ -71,7 +73,7 @@ function Profile() {
             <hr className="border-t border-black/30" />
             <p className="text-black/50">{user?.contact}</p>
             <hr className="border-t border-black/30" />
-            <p className="text-black/50">{user?.addresses[0].address_line}</p>
+            <p className="text-black/50">{user?.addresses[0]?.address_line}</p>
           </div>
         </div>
       </div>

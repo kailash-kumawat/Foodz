@@ -65,7 +65,7 @@ function Sidebar({ isOpen, onClose }) {
             <SidebarItem path={"/orders"} name={"Orders"} icon={ShoppingBag} />
 
             <SidebarItem
-              path={"/adress"}
+              path={"/address"}
               name={"Saved Address"}
               icon={MapPinHouse}
             />
