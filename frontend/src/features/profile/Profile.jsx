@@ -78,10 +78,10 @@ function Profile() {
         </div>
       </div>
 
-      <ProfileItem title={"Orders"} path={"/orders"} />
-      <ProfileItem title={"Pending reviews"} path={"/reviews"} />
-      <ProfileItem title={"Faq"} path={"/faq"} />
-      <ProfileItem title={"Help"} path={"/help"} />
+      <ProfileItem title={"Orders"} path={"#"} />
+      <ProfileItem title={"Pending reviews"} path={"#"} />
+      <ProfileItem title={"Faq"} path={"#"} />
+      <ProfileItem title={"Help"} path={"#"} />
 
       <div className="w-fit mx-auto my-6">
         <Button onClick={() => logOut()} className="cursor-pointer">

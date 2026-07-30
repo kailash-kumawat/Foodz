@@ -62,16 +62,16 @@ function Sidebar({ isOpen, onClose }) {
               icon={UserCircle2}
             />
 
-            <SidebarItem path={"/orders"} name={"Orders"} icon={ShoppingBag} />
+            <SidebarItem path={"#"} name={"Orders"} icon={ShoppingBag} />
 
             <SidebarItem
               path={"/address"}
-              name={"Saved Address"}
+              name={"Add Address"}
               icon={MapPinHouse}
             />
 
             <SidebarItem
-              path={"/payment"}
+              path={"#"}
               name={"Payment Mode"}
               icon={Wallet2}
             />

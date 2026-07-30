@@ -25,10 +25,10 @@ function Payment() {
         <p className="text-2xl font-semibold mx-auto">Payment</p>
       </div>
 
-      <div className="flex flex-col items-center mt-16 w-5/6 mx-auto">
+      <div className="flex flex-col items-center mt-5 lg:mt-16 w-5/6 mx-auto">
         <div className="w-full lg:w-1/2">
           <p className="text-xl font-semibold">Payment method</p>
-          <div className="bg-white rounded-[20px] flex flex-col justify-between w-5/6 p-6 mt-3">
+          <div className="bg-white rounded-[20px] flex flex-col justify-between w-full p-6 mt-3">
             {paymentTypes.map((type, index) => (
               <React.Fragment key={type.value}>
                 <PaymentOption
@@ -46,7 +46,7 @@ function Payment() {
             ))}
           </div>
         </div>
-        <div className="flex justify-between items-center mt-10 w-1/2 mr-24">
+        <div className="flex justify-between items-center mt-10 lg:w-1/2 w-5/6">
           <p className="text-xl font-semibold">Total</p>
           <span className="flex items-center">
             <IndianRupee size={17} />

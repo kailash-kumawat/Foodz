@@ -31,7 +31,7 @@ function Footer({ isOpen }) {
           <Home className="w-[31px] h-[31px]" />
         </NavLink>
 
-        <NavLink to="/favorites" className={linkClass}>
+        <NavLink to="#" className="text-[#ADADAF]">
           <Heart className="w-[24px] h-[24px]" />
         </NavLink>
 
@@ -39,7 +39,7 @@ function Footer({ isOpen }) {
           <User className="w-[24px] h-[24px]" />
         </NavLink>
 
-        <NavLink to="/orders" className={linkClass}>
+        <NavLink to="#" className="text-[#ADADAF]">
           <Clock className="w-[24px] h-[24px]" />
         </NavLink>
       </div>

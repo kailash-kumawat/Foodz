@@ -9,6 +9,7 @@ import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import PriceRow from "../checkout/PriceRow";
 import Lottie from "lottie-react";
 
+// TODO: Check for COD and make some animation transparent.
 function OrderStatus() {
   const [order, setOrder] = useState(null);
   const { orderId } = useParams();
@@ -50,7 +51,7 @@ function OrderStatus() {
       <div className="w-full mx-auto">
         {currentStep && (
           <Lottie
-            className="size-1/6 mx-auto"
+            className="lg:size-1/6 w-1/2 mx-auto"
             animationData={currentStep.animation}
             loop
           />
@@ -62,7 +63,7 @@ function OrderStatus() {
         </p>
       </div>
 
-      <hr className="border-t border-solid border-black/10 w-1/2 mx-auto mt-2" />
+      <hr className="border-t border-solid border-black/10 lg:w-1/2 w-4/5 mx-auto mt-2" />
 
       <div className="flex flex-col items-center">
         <div className="w-5/6 mx-auto mt-12 lg:w-1/2">

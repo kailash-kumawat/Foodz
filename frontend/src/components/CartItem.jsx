@@ -8,17 +8,17 @@ function CartItem({ name, image, price, dishId, quantity, cartItemId }) {
 
   return (
     <>
-      <div className="flex items-center h-[80px] w-5/6 p-6 rounded-[20px] justify-around bg-white mx-auto lg:w-1/3">
+      <div className="flex items-center h-[80px] p-6 rounded-[20px] justify-around bg-white mx-auto w-[90%] md:w-1/2 lg:w-1/3">
         {/* Dish Img */}
         <img
-          className="rounded-full w-[50px] h-[50px] mr-auto lg:mr-0 shadow-black/15 shadow-xl object-cover"
+          className="rounded-full w-[50px] h-[50px] mr-3 shadow-black/15 shadow-xl object-cover"
           src={image}
           alt={name}
         />
 
         {/* Dish name */}
-        <div className="w-[120px] mr-auto lg:mr-35">
-          <p className="font-semibold text-xl">{name}</p>
+        <div className="mr-auto w-fit">
+          <p className="font-semibold shrink w-full">{name}</p>
 
           {/* Dish price */}
           <span
