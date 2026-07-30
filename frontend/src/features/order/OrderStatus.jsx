@@ -51,7 +51,7 @@ function OrderStatus() {
       <div className="w-full mx-auto">
         {currentStep && (
           <Lottie
-            className="lg:size-1/6 w-1/2 mx-auto"
+            className="lg:size-1/6 size-1/2 mx-auto"
             animationData={currentStep.animation}
             loop
           />
