@@ -13,9 +13,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import api from "../../utils/axiosInstance";
 
-// TODO: start building profile page
-// BUG: horizontal scroll not working in sidebar
-
 function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const logOut = async () => {
@@ -70,11 +67,7 @@ function Sidebar({ isOpen, onClose }) {
               icon={MapPinHouse}
             />
 
-            <SidebarItem
-              path={"#"}
-              name={"Payment Mode"}
-              icon={Wallet2}
-            />
+            <SidebarItem path={"#"} name={"Payment Mode"} icon={Wallet2} />
           </div>
 
           <div className="text-xl text-[#FA4A0C] font-semibold ml-10 my-auto">

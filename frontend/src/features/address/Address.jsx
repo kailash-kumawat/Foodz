@@ -1,11 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Input,
-  BackButton,
-  FavouriteButton,
-} from "../../components/index.js";
+import { Button, Input, BackButton } from "../../components/index.js";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
@@ -38,7 +33,6 @@ function Address() {
         <p className="text-2xl font-semibold mr-auto ml-auto">Address</p>
       </div>
       <div className="w-full flex flex-col items-center lg:w-1/3 lg:h-full lg:mx-auto mt-12">
-        {/* <h1 className="text-2xl font-semibold mb-6">Signup</h1> */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 w-fit mx-auto"

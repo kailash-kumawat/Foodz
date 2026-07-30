@@ -4,7 +4,7 @@ import axios from "axios";
 const verifyPayment = async (response, navigate, orderId) => {
   try {
     const verifiedPayment = await axios.post(
-      "http://192.168.29.172:5000/payments/verifypayment",
+      `${import.meta.env.VITE_PAYMENT_URL}/verifypayment`,
       response,
       { withCredentials: true },
     );
@@ -18,7 +18,7 @@ const verifyPayment = async (response, navigate, orderId) => {
 export const createPayment = async (orderId, navigate) => {
   try {
     const payment = await axios.post(
-      `http://192.168.29.172:5000/payments/${orderId}`,
+      `${import.meta.env.VITE_PAYMENT_URL}/${orderId}`,
       {},
       { withCredentials: true },
     );

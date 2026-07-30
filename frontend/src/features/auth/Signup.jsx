@@ -28,7 +28,6 @@ function Signup() {
 
   return (
     <div className="w-full flex flex-col items-center lg:w-1/3 lg:h-full lg:mx-auto">
-      {/* <h1 className="text-2xl font-semibold mb-6">Signup</h1> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 w-fit mx-auto"

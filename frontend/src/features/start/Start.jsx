@@ -8,7 +8,6 @@ function Start() {
   return (
     <>
       <div className="relative w-full h-screen flex flex-col bg-[#FF4B3A] overflow-hidden">
-        {/* Top Section */}
         <div className="flex flex-col w-full p-6 gap-6 z-10">
           <img
             src="/chefHat.png"
@@ -20,21 +19,7 @@ function Start() {
           </p>
         </div>
 
-        {/* Characters Section */}
-        {/* <div className="flex w-full items-end mt-auto z-10 lg:hidden">
-          <img src={femaleFace} className="w-[358px] h-[434px] z-50" />
-
-          <img
-            src={maleFace}
-            className="w-[225px] h-[348px] -translate-x-24 mb-4 z-0"
-          />
-        </div> */}
-
         <div className="lg:w-1/2 mx-auto my-auto md:h-1/2">
-          {/* <p className="lg:w-fit lg:mx-auto lg:text-5xl lg:text-white lg:font-nunito lg:font-[900]">
-            Welcome to Foodz!
-          </p> */}
-
           <DotLottieReact
             className="size-full"
             src="https://lottie.host/13926887-be72-43e9-b066-871f395d4552/E6aH9np0FA.lottie"
@@ -43,7 +28,6 @@ function Start() {
           />
         </div>
 
-        {/* Bottom Button */}
         <Button
           onClick={() => navigate("/auth")}
           className="bg-[#fff] mx-auto my-auto mb-12 z-20"
@@ -53,16 +37,6 @@ function Start() {
         >
           Get Started
         </Button>
-
-        {/* Bottom Blur Gradient (Method 1) */}
-        {/* <div
-          className="absolute bottom-0 left-0 w-full h-60 backdrop-blur-md z-10 pointer-events-none lg:hidden"
-          style={{
-            maskImage: "linear-gradient(to top, black 90%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to top, black 90%, transparent 100%)",
-          }}
-        /> */}
       </div>
     </>
   );

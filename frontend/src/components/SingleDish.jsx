@@ -15,12 +15,10 @@ function SingleDish() {
     async function fetchDishes() {
       try {
         const response = await api.get("/dishes/");
-        // console.log(response);
 
         const data = response.data.data;
 
         const item = data.filter((dish) => dish.id === Number(id));
-        // console.log(item);
 
         setDishes(item[0]);
       } catch (error) {
@@ -33,8 +31,6 @@ function SingleDish() {
   const addItem = useCartStore((state) => state.addItem);
   const navigate = useNavigate();
 
-  // console.log(dishes.restaurant?.id);
-
   return (
     <>
       <div className="w-full flex justify-between text-center p-6">
@@ -42,9 +38,6 @@ function SingleDish() {
         <FavouriteButton />
       </div>
       <div className="flex flex-col items-center justify-items-center h-auto p-8">
-        {/* Back and Fvrt button */}
-
-        {/* Dish Image */}
         <img
           src={dishes.img}
           alt="Food Image"
@@ -58,7 +51,6 @@ function SingleDish() {
         "
         />
 
-        {/* Dish Name */}
         <h6
           className="
         text-2xl
@@ -72,7 +64,6 @@ function SingleDish() {
           {dishes.name}
         </h6>
 
-        {/* Dish Price */}
         <span
           className="
           text-xl
@@ -87,15 +78,12 @@ function SingleDish() {
           {dishes.price}
         </span>
 
-        {/* Description */}
         <div className="p-6 lg:w-1/2 lg:mx-auto md:w-1/2 md:mx-auto">
           <h4 className="font-bold">Description</h4>
           <p className="text-black opacity-50 text-pretty">
             {dishes.description}
           </p>
         </div>
-
-        {/* Add to cart button component */}
       </div>
       <Button
         onClick={() => {
@@ -111,5 +99,3 @@ function SingleDish() {
 }
 
 export default SingleDish;
-
-

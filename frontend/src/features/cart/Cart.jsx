@@ -15,13 +15,11 @@ function Cart() {
 
   return (
     <>
-      {/* Header */}
       <div className="flex justify-between p-6">
         <BackButton />
         <p className="text-2xl font-semibold mr-auto ml-auto">Cart</p>
       </div>
 
-      {/* Cart Item */}
       <div className="flex flex-col justify-between items-center h-[90vh]">
         <div className="container flex flex-col gap-5">
           {cartItems.length > 0 ? (
@@ -47,7 +45,6 @@ function Cart() {
           )}
         </div>
 
-        {/* Buttons */}
         {cartItems.length > 0 ? (
           <div className="w-78.5 h-17.5 mb-5">
             <Button

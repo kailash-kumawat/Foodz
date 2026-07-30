@@ -3,7 +3,7 @@ import csv from "csv-parser";
 import prisma from "../../src/db/index.js";
 import path from "path";
 
-async function seedRestaurants() {
+export async function seedRestaurants() {
   const filePath = path.resolve("data", "restaurants.csv");
   const restaurants = [];
 

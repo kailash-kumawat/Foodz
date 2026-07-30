@@ -9,14 +9,11 @@ import { UtensilsCrossed, IndianRupee } from "lucide-react";
 import PriceRow from "../checkout/PriceRow";
 import Lottie from "lottie-react";
 
-// TODO: Check for COD and make some animation transparent.
 function OrderStatus() {
   const [order, setOrder] = useState(null);
   const { orderId } = useParams();
 
   const navigate = useNavigate();
-
-  // console.log("state order status: ", order?.items);
 
   useEffect(() => {
     async function getOrder() {
@@ -24,7 +21,6 @@ function OrderStatus() {
         const response = await api.get(`/orders/${orderId}`, {
           withCredentials: true,
         });
-        // console.log("api order status: ", response?.data.data);
         setOrder(response.data.data);
       } catch (error) {
         toast.error(error.response.data.message);

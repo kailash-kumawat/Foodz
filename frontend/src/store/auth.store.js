@@ -1,23 +1,11 @@
 import { create } from "zustand";
 import { useCartStore } from "./cart.store";
 
-/*
-  Auth Store Responsibility:
-  - store user identity
-  - store access token
-  - manage session state
-*/
-
-// TODO: Connect through login/signup page
 export const useAuthStore = create((set) => ({
-  // ---------- state ----------
-  user: null, // { id, name, email }
-  accessToken: null, // string
+  user: null,
+  accessToken: null,
   isAuthenticated: false,
 
-  // ---------- actions ----------
-
-  // called AFTER successful login/signup API
   login: ({ user, accessToken }) => {
     set({
       user: {
@@ -30,7 +18,6 @@ export const useAuthStore = create((set) => ({
     });
   },
 
-  // used for auto-login / refresh flow
   setUser: ({ user, accessToken }) => {
     set({
       user: {
@@ -43,9 +30,7 @@ export const useAuthStore = create((set) => ({
     });
   },
 
-  // logout must clean everything
   logout: () => {
-    // very important: clear cart on logout
     useCartStore.getState().clearCart();
 
     set({

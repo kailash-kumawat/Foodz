@@ -5,16 +5,9 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../../utils/axiosInstance.js";
 
-// TODO: next integrate frontend and backend to show dishes
 function Home() {
   const [search, setSearch] = useState("");
   const [dishes, setDishes] = useState([]);
-
-  // const removeWhiteSpace = (str) => str.toLowerCase().replace(/\s/g, "");
-
-  // const filteredFoods = dishes.filter((dish) =>
-  //   removeWhiteSpace(dish.name).includes(removeWhiteSpace(search)),
-  // );
 
   useEffect(() => {
     async function fetchDishes() {
@@ -61,7 +54,6 @@ function Home() {
           />
         </div>
 
-        {/* Categories  improve styling here*/}
         <div className="flex gap-4 mb-6 lg:overflow-x-auto">
           <CategoryTab />
         </div>

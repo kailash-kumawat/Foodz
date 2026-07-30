@@ -50,18 +50,19 @@ export const logInUser = asyncHandler(async (req, res) => {
     data: { refreshToken },
   });
 
+  const isProduction = process.env.NODE_ENV === "production";
   const accessTokenOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
     maxAge: 1000 * 60 * 15, // 15 minutes
   };
 
   const refreshTokenOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   };
@@ -78,10 +79,11 @@ export const logOutUser = asyncHandler(async (req, res) => {
 
   await userService.logOutUser(userId);
 
+  const isProduction = process.env.NODE_ENV === "production";
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   };
 

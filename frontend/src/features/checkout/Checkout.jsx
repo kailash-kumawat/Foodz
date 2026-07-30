@@ -69,7 +69,6 @@ function Checkout() {
       </div>
 
       <div className="flex flex-col items-center">
-        {/* Address Details */}
         <div className="w-5/6 mx-auto lg:w-1/2">
           <div className="flex justify-between w-full">
             <p className="text-lg font-semibold">Address details</p>
@@ -91,7 +90,6 @@ function Checkout() {
           </div>
         </div>
 
-        {/* Billing Detail */}
         <div className="w-5/6 mx-auto mt-12 lg:w-1/2">
           <div className="flex justify-between w-full">
             <p className="text-lg font-semibold">Order details</p>

@@ -1,13 +1,7 @@
-// cartItems      → items user added
-// restaurantId   → cart belongs to one restaurant
-// totalQuantity  → number for badge
-// totalAmount    → price for checkout
-
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import api from "../utils/axiosInstance.js";
 
-// calculate total amount
 const calculateTotals = (cartItems) => {
   let totalAmount = 0;
   let totalQuantity = 0;
@@ -56,7 +50,7 @@ export const useCartStore = create((set, get) => ({
           withCredentials: true,
         },
       );
-      // console.log(response);
+
       const cartItems = response.data.data.cartItems;
 
       const totals = calculateTotals(cartItems);
@@ -71,7 +65,6 @@ export const useCartStore = create((set, get) => ({
     }
   },
 
-  // incr or decr quant
   increaseItem: async (cartItemId, quantity) => {
     const response = await api.patch(
       `/carts/items/${cartItemId}`,
@@ -104,8 +97,6 @@ export const useCartStore = create((set, get) => ({
       },
     );
 
-    // console.log(response.data.data.cartItems);
-
     const cartItems = response.data.data.cartItems;
 
     const totals = calculateTotals(cartItems);
@@ -116,7 +107,6 @@ export const useCartStore = create((set, get) => ({
     });
   },
 
-  // remove item
   removeItem: (dishId) => {
     const updatedCartItems = get().cartItems.filter(
       (item) => item.dishId !== dishId,
@@ -129,7 +119,6 @@ export const useCartStore = create((set, get) => ({
     });
   },
 
-  // clear
   clearCart: () => {
     set({
       cartItems: [],
@@ -139,7 +128,6 @@ export const useCartStore = create((set, get) => ({
     });
   },
 
-  //setCart after login
   setCart: (serverCart) => {
     const items = serverCart.cartItems.map((item) => ({
       dishId: item.dishId,

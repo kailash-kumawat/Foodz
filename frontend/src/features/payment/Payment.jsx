@@ -7,8 +7,6 @@ import { useCartStore } from "../../store/cart.store.js";
 import { IndianRupee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// TODO: next step after selecting payment method
-
 function Payment() {
   const paymentMethod = useCheckoutStore((state) => state.paymentMethod);
   const setPaymentMethod = useCheckoutStore((state) => state.setPaymentMethod);

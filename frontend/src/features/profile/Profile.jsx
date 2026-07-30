@@ -7,7 +7,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-// TODO: "shows error without login fix it"
 function Profile() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ function Profile() {
           withCredentials: true,
         });
         toast.success(response?.data?.message);
-        console.log(response.data.data);
 
         setUser(response.data.data);
       } catch (error) {
