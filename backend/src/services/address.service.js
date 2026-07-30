@@ -1,13 +1,7 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
-//create address
-export const addAddress = async (
-  // get info from user
-  data,
-  userId,
-) => {
-  //check existing address for user
+export const addAddress = async (data, userId) => {
   const existingAddress = await prisma.address.findFirst({
     where: { user_id: userId },
   });
@@ -16,7 +10,6 @@ export const addAddress = async (
     throw new ApiError(409, "Address already exists for this user");
   }
 
-  // create address
   return await prisma.address.create({
     data: {
       ...data,
@@ -33,12 +26,8 @@ export const addAddress = async (
   });
 };
 
-// update address
-// only when login use middleware
 export const updateAddress = async (data, userId) => {
-  // get info from user
   const { state, city, address_line, pincode, latitude, longitude } = data;
-  // update address
   return await prisma.address.update({
     where: {
       user_id: userId,
@@ -63,7 +52,6 @@ export const updateAddress = async (data, userId) => {
   });
 };
 
-// get address
 export const getAddress = async (userId) => {
   return await prisma.address.findFirst({
     where: {
@@ -82,7 +70,6 @@ export const getAddress = async (userId) => {
   });
 };
 
-//delete address
 export const deleteAddress = async (userId, addressId) => {
   const address = await prisma.address.findFirst({
     where: {
@@ -101,4 +88,3 @@ export const deleteAddress = async (userId, addressId) => {
     },
   });
 };
-// create, update, delete, get functions for address management.

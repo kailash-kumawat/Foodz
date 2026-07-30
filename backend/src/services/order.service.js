@@ -62,7 +62,6 @@ export const createOrder = async (
   });
 
   const order = await prisma.$transaction(async (tx) => {
-    // If two requests try to place an same order after successfully one
     const cartItemCount = await tx.cartItem.count({
       where: { cart_id: cart.id },
     });
@@ -194,8 +193,6 @@ export const getOrder = async (userId, orderId) => {
 };
 
 export const cancelOrder = async (userId, orderId) => {
-  // update status to cancel not delete
-  // If the user taps the Cancel button two times, it handles it safely.
   const updated = await prisma.order.updateMany({
     where: {
       id: orderId,

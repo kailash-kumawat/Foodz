@@ -40,17 +40,9 @@ export const addAddress = asyncHandler(async (req, res) => {
 });
 
 export const updateAddress = asyncHandler(async (req, res) => {
-  // get info from user
   const userId = req.user.id;
   const { state, city, address_line, pincode, latitude, longitude } = req.body;
-  // If user sends coordinates, both must be present
-  // check fields are missing or not, have atleast one field to update.
-  // if (
-  //   (latitude !== undefined && longitude === undefined) ||
-  //   (longitude !== undefined && latitude === undefined)
-  // ) {
-  //   throw new ApiError(400, "Both latitude and longitude are required");
-  // }
+
   if (
     (!state &&
       !city &&
@@ -65,7 +57,7 @@ export const updateAddress = asyncHandler(async (req, res) => {
       "At least one field is required to update or Both latitude and longitude are required",
     );
   }
-  // pass info to service
+
   const updatedAddress = await addressServices.updateAddress(
     {
       state,
@@ -77,7 +69,7 @@ export const updateAddress = asyncHandler(async (req, res) => {
     },
     userId,
   );
-  // return response
+
   return res
     .status(200)
     .json(

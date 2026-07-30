@@ -1,7 +1,6 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
 
-// create restaurant
 export const createRestaurant = async ({
   name,
   city,
@@ -9,8 +8,6 @@ export const createRestaurant = async ({
   pincode,
   contact,
 }) => {
-  // check restra existed or not
-  // check using all of info see gpt
   const existedRestaurant = await prisma.restaurant.findFirst({
     where: {
       name,
@@ -27,7 +24,7 @@ export const createRestaurant = async ({
   if (existedRestaurant) {
     throw new ApiError(409, "Restaurant already exists");
   }
-  // return create why try catch -> handling 2 same restaurant creation at same time.
+
   try {
     return await prisma.restaurant.create({
       data: {
@@ -54,7 +51,6 @@ export const createRestaurant = async ({
   }
 };
 
-// get
 export const getRestaurant = async (restaurantId) => {
   const restaurantDetails = await prisma.restaurant.findUnique({
     where: {
@@ -69,7 +65,6 @@ export const getRestaurant = async (restaurantId) => {
   return restaurantDetails;
 };
 
-// update
 export const updateRestaurant = async (
   { name, city, address_line, pincode, contact },
   restaurantId,
@@ -108,7 +103,6 @@ export const updateRestaurant = async (
   });
 };
 
-// delete
 export const deleteRestaurant = async (restaurantId) => {
   const isRestaurantExist = await prisma.restaurant.findUnique({
     where: {

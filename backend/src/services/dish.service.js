@@ -72,7 +72,6 @@ export const getDish = async (dishId, restaurantId) => {
 };
 
 export const getAllDishes = async () => {
-  // fetch data from backend
   return await prisma.dish.findMany({
     where: {
       isDeleted: false,
@@ -85,7 +84,6 @@ export const getAllDishes = async () => {
 };
 
 export const searchDish = async (q) => {
-  // find many dishes by q
   return await prisma.dish.findMany({
     where: {
       isDeleted: false,

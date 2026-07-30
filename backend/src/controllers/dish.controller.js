@@ -4,13 +4,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import * as dishServices from "../services/dish.service.js";
 import { uploadOnCoudinary } from "../utils/cloudinary.js";
 
-//CREATE DISH
 export const createDish = asyncHandler(async (req, res) => {
-  // dish info from owner
-  // (name, description, price, isAvailable=true(default))
   const restaurant_id = Number(req.params.id);
   const { name, description, price } = req.body;
-  // check name and price
+
   if (!name || !name.trim() || price === undefined) {
     throw new ApiError(400, "Both name and price are required");
   }
@@ -23,21 +20,19 @@ export const createDish = asyncHandler(async (req, res) => {
     throw new ApiError(400, "RestaurantId is required");
   }
 
-  //img handling
   let dishImgUrl = null;
   if (req.files?.img?.length) {
-    // get image local path from req.files
     const dishImgLocalPath = req.files.img[0].path;
-    // get image url from cloudinary util method
+
     const uploadedImg = await uploadOnCoudinary(dishImgLocalPath);
-    // check !url
+
     if (!uploadedImg) {
       throw new ApiError(500, "Dish image upload failed");
     }
 
     dishImgUrl = uploadedImg;
   }
-  // send data to service
+
   const createdDish = await dishServices.createDish(
     {
       name,
@@ -47,17 +42,16 @@ export const createDish = asyncHandler(async (req, res) => {
     },
     dishImgUrl,
   );
-  // return res
+
   return res
     .status(200)
     .json(new ApiResponse(200, createdDish, "Dish created successfully"));
 });
 
-//GET DISH
 export const getDish = asyncHandler(async (req, res) => {
   const dishId = Number(req.params.dishId);
   const restaurantId = Number(req.params.restaurantId);
-  // check
+
   if (
     !Number.isInteger(restaurantId) ||
     restaurantId <= 0 ||
@@ -74,17 +68,14 @@ export const getDish = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, dish, "Dish fetched successfully"));
 });
 
-// GET ALL DISHES
 export const getAllDishes = asyncHandler(async (_, res) => {
-  // send req to services
   const allDishes = await dishServices.getAllDishes();
-  // send res
+
   return res
     .status(200)
     .json(new ApiResponse(200, allDishes, "Dish fetched successfully"));
 });
 
-// SEARCH DISHES
 export const searchDish = asyncHandler(async (req, res) => {
   const { q } = req.query;
 
@@ -99,14 +90,11 @@ export const searchDish = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, searchedDish, "Dish search completed"));
 });
 
-//UPDATE DISH (NAME, DESCRIPTION, IMAGE, PRICE)
 export const updateDish = asyncHandler(async (req, res) => {
-  // get info from user
-  // get dish id from params
   const { name, description, price } = req.body;
   const dishId = Number(req.params.dishId);
   const restaurantId = Number(req.params.restaurantId);
-  // check
+
   if (
     !Number.isInteger(restaurantId) ||
     restaurantId <= 0 ||
@@ -131,32 +119,27 @@ export const updateDish = asyncHandler(async (req, res) => {
     }
   }
 
-  // for img upload cloud
   let dishImgUrl;
   if (req.files?.img?.length) {
-    // get image local path from req.files
     const dishImgLocalPath = req.files.img[0].path;
-    // get image url from cloudinary util method
     const uploadedImg = await uploadOnCoudinary(dishImgLocalPath);
-    // check !url
     if (!uploadedImg) {
       throw new ApiError(500, "Dish image upload failed");
     }
 
     dishImgUrl = uploadedImg;
   }
-  // send to services
+
   const updatedDish = await dishServices.updateDish(
     { name, description, price, dishId, restaurantId },
     dishImgUrl,
   );
-  // return
+
   return res
     .status(200)
     .json(new ApiResponse(200, updatedDish, "Dish updated successfully"));
 });
 
-//UPDATE DISH AVAILABLITY
 export const updateAvailability = asyncHandler(async (req, res) => {
   const { isAvailable } = req.body;
   const dishId = Number(req.params.dishId);
@@ -192,11 +175,10 @@ export const updateAvailability = asyncHandler(async (req, res) => {
     );
 });
 
-//DELETE DISH
 export const deleteDish = asyncHandler(async (req, res) => {
   const dishId = Number(req.params.dishId);
   const restaurantId = Number(req.params.restaurantId);
-  // check
+
   if (
     !Number.isInteger(restaurantId) ||
     restaurantId <= 0 ||

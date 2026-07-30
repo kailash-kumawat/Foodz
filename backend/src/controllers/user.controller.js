@@ -13,7 +13,6 @@ import prisma from "../db/index.js";
 export const createUser = asyncHandler(async (req, res) => {
   const { name, email, contact, password } = req.body;
 
-  // check info validity
   if (
     [name, email, contact, password].some(
       (field) => !field || field.trim === "",
@@ -36,7 +35,7 @@ export const createUser = asyncHandler(async (req, res) => {
 
 export const logInUser = asyncHandler(async (req, res) => {
   const { contact, password } = req.body;
-  // check info validity
+
   if (!contact || !password) {
     throw new ApiError(400, "All fields are required");
   }
@@ -96,7 +95,7 @@ export const logOutUser = asyncHandler(async (req, res) => {
 export const updateUser = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const { name, email, contact } = req.body;
-  // check fields are provided
+
   if (!name && !email && !contact) {
     throw new ApiError(400, "At least one field is required to update");
   }

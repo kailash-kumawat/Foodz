@@ -11,17 +11,14 @@ const uploadOnCoudinary = async function (localFilePath) {
   try {
     if (!localFilePath) return null;
 
-    //UPLOAD THE FILE ON CLOUDINARY
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
 
-    //FILE SUCCESFULLY UPLOADED
     fs.unlinkSync(localFilePath);
     return response;
   } catch (error) {
-    fs.unlinkSync(localFilePath); // REMOVE THE LOCALLY SAVED TEMP. FILE AS THE
-    // UPLOAD OPERATION GOT FAILED.
+    fs.unlinkSync(localFilePath);
     return null;
   }
 };

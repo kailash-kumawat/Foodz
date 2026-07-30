@@ -4,7 +4,6 @@ import { razorpay } from "../config/razorpay.config.js";
 import crypto from "node:crypto";
 
 export const createOnlinePayment = async (userId, orderId) => {
-  // find payment from userid, orderid, pending status and online pay
   const payment = await prisma.payment.findFirst({
     where: {
       user_id: userId,
@@ -14,7 +13,6 @@ export const createOnlinePayment = async (userId, orderId) => {
     },
     include: { order: { select: { user_id: true } } },
   });
-  // check
   if (!payment) {
     throw new ApiError(404, "Payment not found");
   }
@@ -26,18 +24,17 @@ export const createOnlinePayment = async (userId, orderId) => {
   if (payment.order.status === "cancelled") {
     throw new ApiError(400, "Cannot pay for cancelled order");
   }
-  // check duplicancy...by gatewayid
+
   if (payment.gateway_order_id) {
     return payment;
   }
-  // create razorpay order by amount currency and recipt
+
   const razorpayOrder = await razorpay.orders.create({
     amount: payment.amount.mul(100).toNumber(),
     currency: "INR",
     receipt: `foodz_${payment.order_id}`,
   });
 
-  // update payment model --> gatwayid and gateway
   await prisma.payment.update({
     where: {
       id: payment.id,
@@ -63,13 +60,12 @@ export const finalizeOnlinePayment = async ({
   gateway_payment_id,
   gateway_signature = null,
 }) => {
-  // payment find
   const payment = await prisma.payment.findFirst({
     where: {
       gateway_order_id,
     },
   });
-  // check completed and cod
+
   if (!payment) {
     return;
   }
@@ -80,18 +76,18 @@ export const finalizeOnlinePayment = async ({
   ) {
     return;
   }
-  // order find of that payment
+
   const order = await prisma.order.findFirst({
     where: {
       id: payment.order_id,
     },
     select: { status: true },
   });
-  // check cancell
+
   if (!order || order.status === "cancelled") {
     return;
   }
-  // update
+
   await prisma.$transaction([
     prisma.payment.update({
       where: { id: payment.id },
@@ -153,7 +149,6 @@ export const verifyOnlinePayment = async ({
     throw new ApiError(400, "Order is cancelled");
   }
 
-  // send back to finalize the payment
   await finalizeOnlinePayment({
     gateway_order_id: razorpay_order_id,
     gateway_payment_id: razorpay_payment_id,

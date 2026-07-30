@@ -4,9 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import * as restaurantServices from "../services/restaurant.service.js";
 
 export const createRestaurant = asyncHandler(async (req, res) => {
-  //get restra info from owner
   const { name, city, address_line, pincode, contact } = req.body;
-  //check field not empty
   if (
     [name, city, address_line, pincode, contact].some(
       (field) => !field || field.trim() == "",
@@ -14,7 +12,6 @@ export const createRestaurant = asyncHandler(async (req, res) => {
   ) {
     throw new ApiError(400, "All fields are required");
   }
-  //send info to service
   const createdRestaurant = await restaurantServices.createRestaurant({
     name,
     city,
@@ -22,7 +19,6 @@ export const createRestaurant = asyncHandler(async (req, res) => {
     pincode,
     contact,
   });
-  //res
   return res
     .status(200)
     .json(
@@ -52,10 +48,8 @@ export const getRestaurant = asyncHandler(async (req, res) => {
 });
 
 export const updateRestaurant = asyncHandler(async (req, res) => {
-  // get info from user to update
   const { name, city, address_line, pincode, contact } = req.body;
   const restaurantId = Number(req.params.id);
-  // check atleast have one field
   if (
     [name, city, address_line, pincode, contact].every(
       (field) => !field || field.trim() === "",
@@ -63,7 +57,6 @@ export const updateRestaurant = asyncHandler(async (req, res) => {
   ) {
     throw new ApiError(400, "At least one field is required");
   }
-  // send to controller
   const updatedRestaurant = await restaurantServices.updateRestaurant(
     {
       name,
@@ -74,7 +67,6 @@ export const updateRestaurant = asyncHandler(async (req, res) => {
     },
     restaurantId,
   );
-  // return res
   return res
     .status(200)
     .json(

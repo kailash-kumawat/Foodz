@@ -1,10 +1,7 @@
 import prisma from "../db/index.js";
 import { ApiError } from "../utils/ApiError.js";
-// import { createCartWithItem } from "../controllers/cart.controller.js";
 
 export const createCartWithItem = async (tx, userId, dishId) => {
-  // create cart for userId
-  // return await prisma.$transaction(async (tx) => {
   const dishExists = await tx.dish.findUnique({
     where: { id: dishId },
   });
@@ -34,12 +31,10 @@ export const createCartWithItem = async (tx, userId, dishId) => {
       },
     },
   });
-  // });
 };
 
 export const addItemToCart = async (userId, dishId) => {
   return await prisma.$transaction(async (tx) => {
-    // find restra id from dish model using dishid
     const dish = await tx.dish.findUnique({
       where: {
         id: dishId,
@@ -53,7 +48,6 @@ export const addItemToCart = async (userId, dishId) => {
       throw new ApiError(404, "Dish not found");
     }
 
-    // check cart is not empty and belong to that user
     const existingCart = await tx.cart.findUnique({
       where: {
         user_id: userId,
@@ -74,7 +68,6 @@ export const addItemToCart = async (userId, dishId) => {
       },
     });
 
-    // empty --> create
     if (!existingCart) {
       return await createCartWithItem(tx, userId, dishId);
     }
@@ -89,13 +82,10 @@ export const addItemToCart = async (userId, dishId) => {
       }
     }
 
-    // !empty --> check cart dish  === dishId
     const existingCartItem = existingCart.cartItems.find(
       (item) => item.dish_id === dishId,
     );
 
-    // update existing cart --> add new dish in cartitems
-    // quantity +1
     if (!existingCartItem) {
       await tx.cartItem.create({
         data: {
@@ -105,7 +95,6 @@ export const addItemToCart = async (userId, dishId) => {
         },
       });
     } else {
-      // update existing cart --> increment in dish quantity
       await tx.cartItem.update({
         where: {
           id: existingCartItem.id,
@@ -153,7 +142,6 @@ export const getCart = async (userId) => {
     },
   });
 
-  // If no cart, return empty cart structure
   if (!cart) {
     return { cartItems: [] };
   } else {
@@ -163,7 +151,6 @@ export const getCart = async (userId) => {
 
 export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
   return await prisma.$transaction(async (tx) => {
-    // find cartitem
     const cartItem = await tx.cartItem.findUnique({
       where: {
         id: cartItemId,
@@ -172,11 +159,9 @@ export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
         cart: true,
       },
     });
-    // verify cartitem belong to the userId
     if (!cartItem || cartItem.cart.user_id !== userId) {
       throw new ApiError(404, "Cart item not found");
     }
-    // check quant==0 delete item return cart
     if (quantity === 0) {
       await tx.cartItem.delete({
         where: {
@@ -193,7 +178,6 @@ export const updateCartItemQuantity = async (userId, cartItemId, quantity) => {
         },
       });
     }
-    // update quant return cart
     await tx.cartItem.update({
       where: {
         id: cartItemId,
@@ -227,11 +211,9 @@ export const deleteCartItem = async (userId, cartItemId) => {
         cart: true,
       },
     });
-    // verify cartitem belong to the userId
     if (!cartItem || cartItem.cart.user_id !== userId) {
       throw new ApiError(404, "Cart item not found");
     }
-    // delete
     await tx.cartItem.delete({
       where: {
         id: cartItemId,
@@ -258,24 +240,20 @@ export const deleteCartItem = async (userId, cartItemId) => {
 
 export const clearCart = async (userId) => {
   return await prisma.$transaction(async (tx) => {
-    //find cart
     const cart = await tx.cart.findUnique({
       where: {
         user_id: userId,
       },
     });
-    //check empty
     if (!cart) {
       return { cartItems: [] };
     }
-    //delete cartitems
     await tx.cartItem.deleteMany({
       where: {
         cart_id: cart.id,
       },
     });
 
-    //empty cart
     return await tx.cart.findUnique({
       where: {
         user_id: userId,
