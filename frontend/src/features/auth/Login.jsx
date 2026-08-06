@@ -4,22 +4,28 @@ import { Button, Input } from "../../components/index.js";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
+import { useAuthStore } from "../../store/auth.store.js";
 
 function Login() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm({ mode: "onChange" });
 
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+
   const onSubmit = async (data) => {
     try {
       const response = await api.post("/users/login", data, {
         withCredentials: true,
       });
-
       toast.success(response?.data?.message);
+
+      const user = response.data.data;
+      login(user);
+
       navigate("/home");
     } catch (error) {
       toast.error(error.response.data.message);

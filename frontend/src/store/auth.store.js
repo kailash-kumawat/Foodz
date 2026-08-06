@@ -3,29 +3,26 @@ import { useCartStore } from "./cart.store";
 
 export const useAuthStore = create((set) => ({
   user: null,
-  accessToken: null,
   isAuthenticated: false,
 
-  login: ({ user, accessToken }) => {
+  login: (user) => {
     set({
       user: {
         id: user.id,
-        name: user.name,
+        contact: user.contact,
         email: user.email,
       },
-      accessToken,
       isAuthenticated: true,
     });
   },
 
-  setUser: ({ user, accessToken }) => {
+  setUser: ({ user }) => {
     set({
       user: {
         id: user.id,
-        name: user.name,
+        contact: user.contact,
         email: user.email,
       },
-      accessToken,
       isAuthenticated: true,
     });
   },
@@ -35,7 +32,6 @@ export const useAuthStore = create((set) => ({
 
     set({
       user: null,
-      accessToken: null,
       isAuthenticated: false,
     });
   },

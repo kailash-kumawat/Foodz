@@ -11,6 +11,7 @@ import { createPayment } from "../payment/createPayment.js";
 
 function Checkout() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const cartItems = useCartStore((state) => state.cartItems);
@@ -35,6 +36,7 @@ function Checkout() {
 
   async function handleCheckout() {
     try {
+      setIsLoading(true);
       const response = await api.post(
         "/orders/",
         {
@@ -50,6 +52,8 @@ function Checkout() {
         : createPayment(orderId, navigate);
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -154,7 +158,12 @@ function Checkout() {
 
         {cartItems.length > 0 ? (
           <div className="max-w-lg mx-auto my-6">
-            <Button onClick={() => handleCheckout()} className="cursor-pointer">
+            <Button
+              onClick={() => handleCheckout()}
+              loading={isLoading}
+              disabled={isLoading}
+              className="cursor-pointer"
+            >
               Proceed to payment
             </Button>
           </div>

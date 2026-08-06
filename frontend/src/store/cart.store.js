@@ -23,9 +23,7 @@ export const useCartStore = create((set, get) => ({
   fetchCart: async () => {
     try {
       const response = await api.get("/carts/", { withCredentials: true });
-
       const cartItems = response.data.data.cartItems;
-
       const totals = calculateTotals(cartItems);
 
       set({
@@ -35,7 +33,11 @@ export const useCartStore = create((set, get) => ({
         ...totals,
       });
     } catch (error) {
-      console.log(error?.message);
+      {
+        error.response.status === 401
+          ? toast.error("Please sign in to continue.")
+          : toast.error(error.response.data.message);
+      }
     }
   },
 
@@ -61,7 +63,11 @@ export const useCartStore = create((set, get) => ({
         ...totals,
       });
     } catch (error) {
-      toast.error(error.response.data.message);
+      {
+        error.response.status === 401
+          ? toast.error("Please sign in to continue.")
+          : toast.error(error.response.data.message);
+      }
     }
   },
 

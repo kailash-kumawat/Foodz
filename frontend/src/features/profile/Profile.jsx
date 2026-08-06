@@ -3,7 +3,6 @@ import api from "../../utils/axiosInstance.js";
 import { BackButton } from "../../components/index.js";
 import ProfileItem from "./ProfileItem";
 import { Button } from "../../components/index.js";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -18,10 +17,13 @@ function Profile() {
           withCredentials: true,
         });
         toast.success(response?.data?.message);
-
         setUser(response.data.data);
       } catch (error) {
-        toast.error(error.response.data.message);
+        {
+          error.response.status === 401
+            ? toast.error("Please sign in to continue.")
+            : toast.error(error.response.data.message);
+        }
       }
     }
     fetchData();
@@ -82,9 +84,15 @@ function Profile() {
       <ProfileItem title={"Help"} path={"#"} />
 
       <div className="w-fit mx-auto my-6">
-        <Button onClick={() => logOut()} className="cursor-pointer">
-          Logout
-        </Button>
+        {user ? (
+          <Button onClick={() => logOut()} className="cursor-pointer">
+            Logout
+          </Button>
+        ) : (
+          <Button onClick={() => navigate("/auth")} className="cursor-pointer">
+            Sign in / Sign up
+          </Button>
+        )}
       </div>
     </>
   );

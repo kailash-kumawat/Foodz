@@ -9,12 +9,14 @@ import {
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
 import api from "../../utils/axiosInstance";
+import { useAuthStore } from "../../store/auth.store.js";
 
 function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+
   const logOut = async () => {
     try {
       const response = await api.post(
@@ -71,13 +73,23 @@ function Sidebar({ isOpen, onClose }) {
           </div>
 
           <div className="text-xl text-[#FA4A0C] font-semibold ml-10 my-auto">
-            <button
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => logOut()}
-            >
-              Sign-out
-              <ArrowRight size={25} strokeWidth={2.5} />
-            </button>
+            {user ? (
+              <button
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => logOut()}
+              >
+                Sign out
+                <ArrowRight size={25} strokeWidth={2.5} />
+              </button>
+            ) : (
+              <button
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => navigate("/auth")}
+              >
+                Sign in
+                <ArrowRight size={25} strokeWidth={2.5} />
+              </button>
+            )}
           </div>
         </div>
       }
